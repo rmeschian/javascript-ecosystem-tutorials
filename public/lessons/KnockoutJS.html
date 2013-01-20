@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+
+    <title>KnockoutJS</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="deck-container">
+
+
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+            <img src='/img/knockoutjs.png' alt="Knockout JS">
+		</div>
+	</section>
+
+	<section class="slide">
+		<ul class='js_fact'>
+			<li>Rich client-side interactivity without messy event handlers</li>
+			<li>MVVM pattern - object-oriented JS and declarative bindings</li>
+			<li>IE6+ FF2+ Chrome Safari Opera ...</li>
+			<li>MIT License</li>
+		</ul>
+	</section>
+	
+	
+	<section class="slide">
+		<h2>Basic binding</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<p>First Name: <span data-bind="text: firstName"></span></p>
+<p>First Name: <input data-bind="value: firstName"/></p>
+
+
+<script src="/js/lib/knockout.js"></script>
+<script>
+	var viewModel = {
+		firstName: "Serj"
+	}
+	ko.applyBindings(viewModel);
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	
+	
+	<section class="slide">
+		<h2>Observables</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<p>First Name: <span data-bind="text: firstName"></span></p>
+<p>First Name: <input data-bind="value: firstName"/></p>
+
+
+<script src="/js/lib/knockout.js"></script>
+<script>
+	var viewModel = function() {
+		this.firstName = ko.observable("Serj");
+	}
+	ko.applyBindings(new viewModel());
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	<section class="slide">
+		<h2>More binding</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<p>First Name: <span data-bind="text: firstName"></span></p>
+<p>First Name: <input data-bind="value: firstName"/></p>
+
+<p>Last Name: <span data-bind="text: lastName"></span></p>
+<p>Last Name: <input data-bind="value: lastName"/></p>
+
+
+<script src="/js/lib/knockout.js"></script>
+<script>
+	var viewModel = function() {
+		this.firstName = ko.observable("Serj");
+		this.lastName = ko.observable("Tankian");
+	}
+	ko.applyBindings(new viewModel());
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	
+	<section class="slide">
+		<h2>Computed values</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<p>First Name: <span data-bind="text: firstName"></span></p>
+<p>First Name: <input data-bind="value: firstName"/></p>
+
+<p>Last Name: <span data-bind="text: lastName"></span></p>
+<p>Last Name: <input data-bind="value: lastName"/></p>
+
+<p data-bind="text: fullName"></p>
+
+<script src="/js/lib/knockout.js"></script>
+<script>
+	var viewModel = function() {
+		var self = this;
+		self.firstName = ko.observable("Serj");
+		self.lastName = ko.observable("Tankian");
+		self.fullName = ko.computed(function() {
+			return self.firstName() + " " + self.lastName();
+		});
+	}
+	
+	ko.applyBindings(new viewModel());
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+
+	
+	<section class="slide">
+		<h2>Lists (Shopping Cart)</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<div data-bind="foreach: items">
+	<article>
+		<span data-bind="text: name"></span>
+  	</article>
+</div>
+
+<script src="/js/lib/knockout.js"></script>
+<script>
+function item(name) {
+	this.name = ko.observable(name);
+}
+
+function shoppingCart() {
+	this.items = ko.observableArray([
+		new item("Pizza"),
+		new item("Burger")
+	]);	
+}
+
+ko.applyBindings(new shoppingCart());
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	
+	
+	<section class="slide">
+		<h2>Price calculations</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<div data-bind="foreach: items">
+	<article> 
+		<input data-bind="value: quantity" /> 
+       	<span data-bind="text: name"></span> - 
+       	<span data-bind="text: usdPrice"></span>
+   	</article>
+</div>
+<h3 data-bind="text: total"></h3>
+
+<script src="/js/lib/knockout.js"></script>
+<script>
+function item(name, price){
+	var self = this;
+	self.name = ko.observable(name);
+    self.price = ko.observable(price);
+    self.quantity = ko.observable(1);
+    self.usdPrice = ko.computed(function() {
+    	return "$" + (self.quantity() * self.price());
+  	});
+}
+
+function shoppingCart(){
+	this.items = ko.observableArray([
+		new item("Pizza", 20),
+		new item("Burger",  10)
+	]);	
+  /*
+  this.total = ko.computed(function() {
+    var t = 0;
+    var items = this.items();
+    for(var i = 0; i < items.length; i++)
+      t += (items[i].price() * items[i].quantity());
+    return "$"+t;
+  }, this);
+  */
+}
+
+ko.applyBindings(new shoppingCart());
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	
+	
+	<section class="slide">
+		<h2>Add/Remove</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<h2>Items in your shopping cart (<span data-bind="text: items().length"></span>)</h2>
+<div data-bind="foreach: items">
+	<article> 
+		<input data-bind="value: quantity" /> 
+       	<span data-bind="text: name"></span> - 
+       	<span data-bind="text: usdPrice"></span>
+        <a href='#' data-bind="click: $root.remove">Remove</a>
+   	</article>
+</div>
+<h3 data-bind="text: total"></h3>
+
+<form id="form" data-bind="submit: add"><input id='name' /> <input id='price' /> <button type="submit">Add</button></form>
+
+<script src="/js/lib/knockout.js"></script>
+<script>
+function item(name, price){
+	var self = this;
+	self.name = ko.observable(name);
+    self.price = ko.observable(price);
+    self.quantity = ko.observable(1);
+    self.usdPrice = ko.computed(function() {
+    	return "$" + (self.quantity() * self.price());
+  	});
+}
+
+function shoppingCart(){
+  	var self = this;
+	self.items = ko.observableArray([
+		new item("Pizza", 20),
+		new item("Burger",  10)
+	]);	
+  
+	self.total = ko.computed(function() {
+   		var t = 0;
+   		var items = self.items();
+   		for(var i = 0; i < items.length; i++)
+     		t += (items[i].price() * items[i].quantity());
+   		return "$"+t;
+ 	});
+  
+	self.remove = function(item) {
+		self.items.remove(item);
+	}
+	
+	self.add = function() {
+      var nameNode  = $('#name');
+      var priceNode = $('#price');
+      self.items.push(new item(nameNode.val(), priceNode.val()));
+      nameNode.val('');
+      priceNode.val('');
+	}
+}
+
+ko.applyBindings(new shoppingCart());
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	
+	
+	<section class="slide">
+		<h2>Load/Save</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<h2>Items in your shopping cart (<span data-bind="text: items().length"></span>)</h2>
+<div data-bind="foreach: items">
+	<article> 
+		<input data-bind="value: quantity" /> 
+       	<span data-bind="text: name"></span> - 
+       	<span data-bind="text: usdPrice"></span>
+        <a href='#' data-bind="click: $root.remove">Remove</a>
+   	</article>
+</div>
+<h3 data-bind="text: total"></h3>
+
+<form id="form" data-bind="submit: add"><input id='name' /> <input id='price' /> <button type="submit">Add</button></form>
+
+<button data-bind="click: save">Save</button>
+
+
+<script src="/js/lib/knockout.js"></script>
+<script>
+$.getJSON = function(addr, callback) {
+	callback([{name: 'Pizza', price: 20}, {name: 'Burger', price: 10}]);
+}
+$.post = function(addr, data) {
+  	console.log("Sending data to the server: "+JSON.stringify(data));
+}
+
+function item(data){
+	var self = this;
+	self.name = ko.observable(data.name);
+    self.price = ko.observable(data.price);
+    self.quantity = ko.observable(1);
+    self.usdPrice = ko.computed(function() {
+    	return "$" + (self.quantity() * self.price());
+  	});
+}
+
+function shoppingCart(){
+    var self = this;
+	self.items = ko.observableArray([]);	
+  
+	self.total = ko.computed(function() {
+   		var t = 0;
+   		var items = self.items();
+   		for(var i = 0; i < items.length; i++)
+     		t += (items[i].price() * items[i].quantity());
+   		return "$"+t;
+ 	});
+  
+	self.remove = function(item) {
+		self.items.remove(item);
+	}
+	
+	self.add = function() {
+      var nameNode  = $('#name');
+      var priceNode = $('#price');
+      self.items.push(new item({name: nameNode.val(), price: priceNode.val()}));
+      nameNode.val('');
+      priceNode.val('');
+	}
+  
+  	self.save = function() {
+    	$.post("/saveItems", ko.toJSON(self));
+	}
+  
+  	// load data
+  	$.getJSON("/items", function(allData) {
+        var mappedTasks = $.map(allData, function(data) { 
+          return new item(data) 
+        });
+        self.items(mappedTasks);
+    });
+}
+
+ko.applyBindings(new shoppingCart());
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+	
+
+
+
+
+
+	<section class="slide">
+		<h2>Custom Bindings</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<input data-bind="value: value"/>
+<span data-bind="customShow: value() > 10">The value is greater than 10!</span>
+
+<script src="/js/lib/knockout.js"></script>
+<script>
+
+  var item = {
+    value: ko.observable(0)
+  }
+  
+  ko.bindingHandlers.customShow = {
+    init: function(element, valueAccessor) {
+        // On update, fade in/out 
+        var shouldDisplay = valueAccessor();
+        shouldDisplay ? $(element).fadeIn() : $(element).fadeOut();
+    },
+    update: function(element, valueAccessor) {
+        // On update, fade in/out 
+        var shouldDisplay = valueAccessor();
+        shouldDisplay ? $(element).fadeIn() : $(element).fadeOut();
+    } 
+};
+
+ko.applyBindings(item); 
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+	<!-- End slides. -->
+
+	
+	
+
+	<script data-main="/js/main" src="/js/lib/require/require.js"></script>
+
+</body>
+</html>

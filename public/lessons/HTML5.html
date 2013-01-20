@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+
+    <title>HTML5</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="deck-container">
+
+
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+			<img src="/img/html5.jpg" alt="HTML5">
+		</div>
+	</section>
+
+	<section class="slide">
+		<ul class='js_fact'>
+			<li>Offline/Storage</li>
+            <li>Semantic Tags</li>
+            <li>HTML5 Elements</li>
+            <li>Canvas</li>
+            <li>CSS3</li>
+        </ul>
+	</section>
+
+
+	
+	
+	<section class="slide">
+		<div class='centerMsg'>
+			<h1>Offline/Storage</h1>
+		</div>
+	</section>
+	
+	
+	<section class="slide">
+		<h2>Local Storage</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+// works on all tabs from domain and after the tab is closed
+window.localStorage.setItem('key', 'local data');
+var v = window.localStorage.getItem('key');
+console.log('key: '+v);
+/*
+window.localStorage.setItem('key2', {name: "Andre Agassi"});
+var v2 = window.localStorage.getItem('key2');
+console.log('key: '+v2);
+*/
+
+// session storage - per tab, cleared when closed
+window.sessionStorage.setItem("thisWindowOnly", "session data");
+console.log(window.sessionStorage.getItem("thisWindowOnly"));
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	
+	<section class="slide">
+		<h2>Local Storage with jStorage</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script src="/js/lib/jStorage.js"></script>
+<script>
+$.jStorage.set('key', {name: "Andre Agassi"});
+var val = $.jStorage.get('key');
+console.log(val.name);
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	<section class="slide">
+		<h2>IndexedDB</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+var idbRequest = window.indexedDB.open('mySampleDB');
+idbRequest.onsuccess = function(event) {
+  var db = event.srcElement.result;
+  var transaction = db.transaction([], IDBTransaction.READ_ONLY);
+  var curRequest = transaction.objectStore('ObjectStore Name').openCursor();
+  // blah blah blah...
+};
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+	
+	<section class="slide">
+		<h2>WebSQL</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+var db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
+db.transaction(function (tx) {
+   tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)');
+   tx.executeSql('INSERT INTO LOGS (id, log) VALUES (1, "foobar")');
+   tx.executeSql('INSERT INTO LOGS (id, log) VALUES (2, "logmsg")');
+});
+db.transaction(function (tx) {
+   tx.executeSql('SELECT * FROM LOGS', [], function (tx, results) {
+   var len = results.rows.length, i;
+   for (i = 0; i < len; i++){
+      console.log(results.rows.item(i).log );
+   }
+ }, null);
+});
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	
+	<section class="slide">
+		<h2>Application Cache</h2>
+		
+<input type='text' value='<html manifest="cache.appcache">' style='width: 300px'/>
+<pre>
+CACHE MANIFEST
+# version 1.0.0
+
+CACHE:
+/img/person.jpg
+/js/main.js
+/js/jquery.js
+
+# Resources that need a network connection
+NETWORK:
+*
+
+# offline.jpg will be served in place of all images in img/large/
+FALLBACK:
+img/large/ img/offline.jpg
+</pre>
+
+<pre>
+window.applicationCache.update(); // force browser to update the cache
+</pre>
+	</section>
+	
+	
+	
+	<section class="slide">
+		<h2>Web Workers</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<button onclick='start();'>Start</button> <button onclick='stop();'>Stop</button>
+<h2 id="result"></h2> 
+
+<script>
+var worker;
+
+function start() {
+	if(typeof(window.Worker)!=="undefined" && !worker) {
+		worker = new Worker("/examples/html5/demo_workers.js");
+		worker.onmessage = function(event){
+			$("#result").text(event.data);
+		};
+        worker.postMessage({
+        	text: " bottles of beer"
+        }); 
+	}
+}
+
+function stop() { 
+	if(!worker)
+		return;
+	worker.terminate();
+	worker = null;
+}
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	
+  	
+  	<section class="slide">
+		<h2>Geolocation</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(function(position) {
+    var lat = position.coords.latitude,
+    	lon = position.coords.longitude;
+    console.log(lat+', '+lon);
+  });
+}
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Semantic Tags</h1>
+        </div>
+    </section>
+
+	<section class="slide">
+		<h2>Semantic Tags</h2>
+		<ul class='js_fact'>
+			<li>Readability</li>
+			<li>Accessibility</li>
+			<li>Less constraint on the network (smaller file sizes)</li>
+			<li>Contribute to the global knowledge base</li>
+		</ul>
+		<a href='http://www.w3schools.com/html/html5_new_elements.asp' target="_blank">http://www.w3schools.com/html/html5_new_elements.asp</a>
+	</section>
+	
+	<section class="slide">
+		<h2>HTML4</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<div id="header">
+    <div class="top_logo">
+        <h1>Logo and Application Title</h1>
+        <h2>Clever Slogan</h2>
+    </div>
+
+    <div class="navigation">
+        <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contact</li>
+        </ul>
+    </div>
+</div>
+<div id="section">
+	<div id="article">
+		Article about Armenia
+	</div>
+</div>
+<div id="footer">
+	&copy; 2013 by Rouben Meschian
+</div>
+		</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	<section class="slide">
+		<h2>HTML5</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<header>
+    <hgroup>
+        <h1>Logo and Application Title</h1>
+        <h2>Clever Slogan</h2>
+    </hgroup>
+
+    <nav>
+        <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contact</li>
+        </ul>
+    </nav>
+</header>
+<section>
+	<article>
+		Article about Armenia
+	</article>
+</section>
+<footer>
+	&copy; 2013 by Rouben Meschian
+</footer>
+		</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	
+	
+	<section class="slide">
+		<h2>HTML4</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<style type="text/css">
+    #header .top_logo {}
+    #header .navigation li {}
+    #section {}
+    #footer {}
+</style>
+		</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	<section class="slide">
+		<h2>HTML5</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<style type="text/css">
+    header hgroup {}
+    header nav li {}
+    section {}
+    footer {}
+</style>
+		</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>Use an HTML5 shim/shiv for backward compatibility</h2>
+            <h3>Modernizr has one built in</h3>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>CSS3 Elements</h1>
+        </div>
+    </section>
+
+
+
+  	<section class="slide">
+		<h2>Typeahead Textbox</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<input list="poets" />
+<datalist id="poets">
+  <option value="Charents"/>
+  <option value="Sevak"/>
+  <option value="Naregatsi"/>
+</datalist>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+  	
+	
+	<section class="slide">
+		<h2>Details Tag</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<details>
+  <summary>Armenia</summary>
+  Armenia is a landlocked, mountainous 
+  country in the South Caucasus.
+</details>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	<section class="slide">
+		<h2>Progress Tag</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<progress value="75" max="100"></progress>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	<section class="slide">
+		<h2>Form Elements</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<style>
+  [required] {
+    border-color: #88a;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 255, .5);
+  }
+  :invalid {
+    border-color: #e88;
+    -webkit-box-shadow: 0 0 5px rgba(255, 0, 0, .8);
+  }
+</style>
+
+<input type="text" required />
+
+<input type="email" value="some@email.com" />
+
+<input type="date" min="2010-08-14" max="2011-08-14" value="2010-08-14"/>
+
+<input type="range" min="0" max="50" value="10" />
+
+<input type="search" results="10" placeholder="Search..." />
+
+<input type="tel"  placeholder="(555) 555-5555"
+         pattern="^\(?\d{3}\)?[-\s]\d{3}[-\s]\d{4}.*?$" />
+
+<input type="color" placeholder="e.g. #bbbbbb" />
+
+<input type="number" step="1" min="-5" max="10" value="0" />
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	
+	
+	<section class="slide">
+		<h2>Video/Audio</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<audio id="audio" src="/audio/horse.mp3" controls>Your browser does not support the audio tag.</audio>
+<video id="video" src="/videos/dizzy.mp4"  controls style="height: 200px">Your browser does not support the video tag.</video>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	<section class="slide">
+		<div class='centerMsg'>
+			<h1>Canvas</h1>
+		</div>
+	</section>
+	
+	
+	<section class="slide">
+		<h2>Canvas 2D - Basics</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<canvas id="canvas" width="500" height="300"></canvas>
+
+<script>
+	var context = document.getElementById("canvas").getContext("2d");
+    
+	context.fillStyle = '#CC5422'; // strokeStyle
+	context.fillRect(0, 0, 100, 100); // fillRect | strokeRect | clearRect
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	<section class="slide">
+		<h2>Canvas 2D - Shapes with paths</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<canvas id="canvas" width="500" height="300"></canvas>
+
+<script>
+	var ctx = document.getElementById("canvas").getContext("2d");
+	
+	ctx.beginPath();
+	ctx.moveTo(25,25);
+	ctx.lineTo(105,25);
+	ctx.lineTo(25,105);
+	ctx.fill();
+	
+	ctx.beginPath();
+	ctx.moveTo(125,125);
+	ctx.lineTo(125,45);
+	ctx.lineTo(45,125);
+	ctx.closePath();
+	ctx.stroke();
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	<section class="slide">
+		<h2>Canvas 2D - Text/Image</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<canvas id="canvas" width="500" height="300"></canvas>
+
+<script>
+	var context = document.getElementById("canvas").getContext("2d");
+    
+    context.font = "18px sans-serif";
+    context.fillStyle = 'blue';
+    context.fillText("Hello Armenia", 10, 20);
+  
+  	var img = new Image();
+  	img.src = "/img/am_flag.jpg";
+	img.onload = function() {
+		context.drawImage(img, 4, 30, 290, 100);
+	};
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	<section class="slide">
+		<h2>Canvas 2D - Animation</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<canvas id="canvas" width="500" height="100"></canvas>
+<button id='playBtn'>Play</button>
+
+<script>
+	var context = document.getElementById("canvas").getContext("2d");
+    
+  	$('#playBtn').click(function() {
+  	  var x = 0;
+      function draw() { 
+        context.clearRect(0, 0, 500, 100);
+        x += 1;
+        context.fillRect(x, 10, 50, 50); 
+        if(x > 500)
+          return;
+        window.setTimeout(function() { 
+          draw();
+        }, 20); 
+      }
+      draw();
+  	});
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>CSS3</h1>
+        </div>
+    </section>
+
+
+
+	<section class="slide">
+		<h2>CSS3 - nth selectors</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<style>
+    tr:nth-child(even) {
+        background: #dde
+    }
+    tr:nth-child(odd) {
+        background: white
+    }
+    tr:nth-child(3) {
+        color: red;
+        font-weight: bold
+    }
+</style>
+
+<table>
+    <tr><td>This is a table with some information</td></tr>
+    <tr><td>This information is not particularly interesting</td></tr>
+    <tr><td>But it's here, so here we are</td></tr>
+    <tr><td>Let's make the best of it</td></tr>
+</table>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+
+    <section class="slide">
+        <h2>CSS3 - not selectors</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<style>
+    p       { color:black }
+    :not(p) { color:red }
+</style>
+
+<p>Title</p>
+<span>Subtitle</span>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>CSS3 - ellipsis</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<style>
+    div {
+        font-size: 160%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+        padding: 10px 20px;ck;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        width: 200px
+    }
+</style>
+
+<div>This is a very long story</div>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>CSS3 - rounded corners/shadow</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<style>
+    div {
+        box-shadow: 3px 3px 10px #333;
+
+        border-radius: 20px;
+        border: solid 1px gray;
+        padding: 1em;
+    }
+</style>
+
+<div>Rounded corners + shadow!!!</div>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>CSS3 - text shadow</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+<style>
+    p {
+        font-size: 250%;
+        text-shadow:3px 3px 3px #555555; /* x, y, blur, color */
+    }
+</style>
+
+<p>Hello Armenia</p>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>CSS3 - background</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<style>
+    textarea {
+        width: 200px;
+        height: 200px;
+        background: url(/img/am_flag.jpg) center no-repeat;
+        background-size: contain /* auto, contain, cover, 100% */
+    }
+</style>
+<script>
+  $("body").append("<textarea>");
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>CSS3 - opacity</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<style>
+    .c1 {
+        opacity:  0.5;
+    }
+    .c2 {
+        background: rgba(255, 212, 45, 0.2);
+    }
+</style>
+<div class='c1'>Some text with low opacity</div>
+<div class='c2'>Background color with low opacity</div>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>Graceful Degradation<br>and<br>Progressive Enhancement</h2>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>Modernizr</h2>
+            <h4>A JavaScript library that detects HTML5 and CSS3 features in the user’s browser</h4>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>HTML5 Boilerplate</h2>
+            <h3>learn it | use it</h3>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>HTML5 Boilerplate</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+    <!-- Always force the latest IE rendering engine AND enable Chrome Frame -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+
+    <!-- Mobile viewport optimized -->
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/lib/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Website content -->
+<header>
+    HTML5 Boilerplate
+</header>
+<section>
+    <article id="content">Hello boilerplate</article>
+</section>
+<footer>
+    I am a footer
+</footer>
+
+<!-- Get jquery from Google CDN, fallback on local copy -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/js/lib/jquery.js"><\/script>')</script>
+
+<!-- Load main JS files -->
+<script data-main="/examples/requirejs/basic/main" src="/examples/requirejs/basic/require.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
+</html>
+
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>Responsive Design</h2>
+        </div>
+    </section>
+
+
+
+
+
+    <section class="slide">
+        <h2>CSS3 Media - Basic</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<style>
+    @media (min-width: 600px)  {
+        div { font-size: 250%; color: red
+        }
+    }
+    @media (min-width: 400px) and (max-width: 600px) {
+        div { font-size: 150%; color: lightblue
+        }
+    }
+    @media (max-width: 400px)  {
+        div { font-size: 80%; color: lightgray
+        }
+    }
+</style>
+
+<div>
+    <h2>Hello Armenia</h2>
+</div>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+    <section class="slide">
+        <h2>CSS3 Media - Layout</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<style>
+    .span4 {
+        margin: 4px;
+        padding: 4px
+    }
+    @media (min-width: 600px)  {
+        .span4 {
+            float: left;
+            width: 26%
+        }
+    }
+
+    @media (max-width: 600px)  {
+        .span4 {
+            float: none
+        }
+    }
+</style>
+
+<div class="row">
+    <div class="span4">
+        <h2>Heading</h2>
+        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <p><a class="btn" href="#">View details &raquo;</a></p>
+    </div>
+    <div class="span4">
+        <h2>Heading</h2>
+        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <p><a class="btn" href="#">View details &raquo;</a></p>
+    </div>
+    <div class="span4">
+        <h2>Heading</h2>
+        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn" href="#">View details &raquo;</a></p>
+    </div>
+</div>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>
+                Try Twitter Bootstrap
+            </h2>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h1>Credits</h1>
+        <ul>
+            <li>Some examples inspired by: http://slides.html5rocks.com</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+	<!-- End slides. -->
+
+	
+	
+
+	<script data-main="/js/main" src="/js/lib/require/require.js"></script>
+
+</body>
+</html>

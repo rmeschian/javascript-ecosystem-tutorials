@@ -1,0 +1,41 @@
+{
+    "name"            : "Lessons",
+    "description"     : "Javascript courseware.",
+    "version"         : "0.1.0",
+    "homepage"        : "https://github.com/Rouben Meschian/Lessons",
+    "author"          : {
+        "name"  : "Rouben Meschian",
+        "email" : "rmeschian@gmail.com"
+    },
+    "repository"      : {
+        "type" : "git",
+        "url"  : "git://github.com/Rouben Meschian/Lessons.git"
+    },
+    "bugs"            : {
+        "url" : "https://github.com/Rouben Meschian/Lessons/issues"
+    },
+    "licenses"        : [
+        {
+            "type" : "MIT",
+            "url"  : "https://github.com/Rouben Meschian/Lessons/blob/master/LICENSE-MIT"
+        }
+    ],
+    "main"            : "lib/Lessons",
+    "engines"         : {
+        "node" : ">= 0.6.0"
+    },
+    "scripts"         : {
+        "test"  : "grunt.cmd test",
+        "start" : "nodemon --debug --watch ./ --watch lib --watch config app.js"
+    },
+    "devDependencies" : {
+        "grunt"   : "~0.3.17",
+        "nodemon" : "*"
+    },
+    "keywords"        : [],
+    "dependencies"    : {
+        "express" : "*",
+        "ejs"     : "*",
+        "mongodb" : "*"
+    }
+}

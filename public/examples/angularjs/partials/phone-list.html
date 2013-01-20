@@ -1,0 +1,30 @@
+<h1>Phone List</h1>
+
+<ul class="unstyled">
+
+    <li data-ng-repeat="number in numbers">
+        <i class="icon-user"></i> {{number.value}} <a href="#/phones/{{number.id}}">more...</a>
+    </li>
+</ul>
+
+
+<form name="myForm" data-ng-submit="add(newPhone)">
+
+    <fieldset>
+        <legend>Add Phone</legend>
+        <input type="phone"
+               data-ng-model="newPhone.value"
+               data-ng-required="true"
+               placeholder="Phone number"
+                />
+        <select data-ng-model="newPhone.type" data-ng-required="true">
+            <option value="">Type</option>
+            <option value="mobile">Mobile</option>
+            <option value="home">Home</option>
+        </select>
+
+        <button type='submit' data-ng-disabled="myForm.$invalid" class="btn btn-primary btn-large">Add</button>
+    </fieldset>
+
+
+</form>
