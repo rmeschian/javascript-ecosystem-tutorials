@@ -1,7 +1,7 @@
-define(["text!template.html", "/js/lib/jquery.js"], function(template) {
-	return {
-		hello: function() {
-			$('#content').html(template);
-		}
-	}
+define(["text!template.html", "jquery"], function (template, $) {
+    return {
+        hello : function () {
+            $('#content').html(template);
+        }
+    }
 });

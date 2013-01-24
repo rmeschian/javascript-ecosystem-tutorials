@@ -1,3 +1,3 @@
-require(["helloModule"], function(helloObj) {
-	helloObj.hello();
+require(["helloModule"], function (helloObj) {
+    helloObj.hello();
 });
