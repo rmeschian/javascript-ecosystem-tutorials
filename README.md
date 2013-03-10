@@ -14,7 +14,7 @@ Courseware for javascript and related technologies.
 ## Getting Started
 Download the code and run 'node app.js' to start the server.
 
-Then go to localhost:3000 to see the various courses.
+Then go to localhost:3000/tuts to see the various courses.
 
 ## License
 Copyright (c) 2013 Rouben Meschian
