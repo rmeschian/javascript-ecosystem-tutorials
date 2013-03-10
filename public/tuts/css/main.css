@@ -1,0 +1,89 @@
+@import url("bootstrap.css");
+@import url("bootstrap-responsive.css");
+@import url("/tuts/js/lib/codemirror/theme/vibrant-ink.css");
+@import url("/tuts/js/lib/codemirror/lib/codemirror.css");
+
+.navButtonBar {
+    position: absolute;
+    right: 1em;
+    top: 1em
+}
+
+.centerMsg {
+    position: absolute;
+    bottom: 3em;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 22%
+}
+
+.slide {
+    display: none
+}
+
+body {
+    padding: 1em 2em;
+    height: 100%;
+    /*font-size: 150%;*/
+}
+
+ul li {
+    padding: .5em
+}
+
+iframe {
+    border: none;
+    padding: 0;
+    margin: 0
+}
+
+.presTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.presTable td {
+    padding: 4px 8px;
+    border-bottom: dotted lightgray 1px;
+    vertical-align: middle;
+}
+
+.presTable td:first-child {
+    width: 8em
+}
+
+/* Custom container */
+.container-narrow {
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+    margin: 60px 0;
+    text-align: center;
+}
+
+.jumbotron h1 {
+    font-size: 72px;
+    line-height: 1;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+    margin: 60px 0;
+}
+
+.marketing p + h4 {
+    margin-top: 28px;
+}

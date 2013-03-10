@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+    <title>D3</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+    <div class='navButtonBar'>
+        <a href='javascript:void(0)' class='backBtn' title="Back"><img src='../img/left.png' /></a>
+        <a href="javascript:void(0)" class='forwardBtn' title="Forward"><img src='../img/right.png' /></a>
+        <a href="../index.html" title="Home"><img src='../img/home.gif' /></a>
+    </div>
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+			<h1>D3</h1>
+            <h3>Data-Driven Documents</h3>
+		</div>
+	</section>
+
+
+    <section class="slide">
+        <h2>HTML Bars</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+                    <div id="mainContainer"></div>
+                    <script src="../js/lib/d3.js"></script>
+                    <script>
+                        var dataset = [ 12, 25, 15, 20, 25 ];
+
+                        d3.select("mainContainer")
+                                .select('div')
+                                .data(dataset)
+                                .enter()
+                                .append("div")
+                                .style('width', function(d) { return (d*10)+'px'; })
+                                .style('height', '20px')
+                                .style('background-color', 'red')
+                                .style('margin', '1em')
+                                .style('text-align', 'right')
+                                .style('padding-right', '.5em')
+                                .text(function(d, i) {return d;});
+                    </script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>SVG Bars</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script src="../js/lib/d3.js"></script>
+<script>
+var dataset = [ 12, 25, 15, 20, 25 ];
+
+var w = 500;
+var h = 100;
+var svg = d3.select("body")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+
+svg.selectAll("rect")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("x", function(d, i) { return i * 25;})
+        .attr("y", function(d) { return h - d*2; })
+        .attr("width", 20)
+        .attr("height", function(d) { return d*2; })
+        .attr("fill", "teal");
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+	<!-- End slides. -->
+
+
+
+
+	<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>

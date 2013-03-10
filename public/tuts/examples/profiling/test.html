@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+
+        <script>
+
+
+            function removeLeak() {
+                delete window.detached;
+            }
+
+            function runLeak() {
+                var p = document.getElementById("myID");
+                detached = document.createElement("div");
+                p.appendChild(detached);
+
+                fill();
+
+                // ... then later
+
+                p.removeChild(detached);
+            }
+
+            function fill() {
+                for (var i = 0; i < 75; ++i) {
+                    var div = document.createElement('div');
+                    detached.appendChild(div);
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <h1>Dom Element Memory Leak Sample</h1>
+        <div id="myID">
+            <ol>
+                <li>Open the chrome Dev tools (F12)</li>
+                <li>Go to the "Profiles" tab</li>
+                <li>Select "Take Heap Snapshot"</li>
+                <li>Open the console and type "runLeak()"</li>
+                <li>Click "Start" to generate a profile</li>
+                <li>Note the "Detached DOM Tree" - elements that are referenced and therefore not garbage collected</li>
+                <li>Open the console and type "removeLeak()"</li>
+                <li>Take another snapshot by clicking "Start"</li>
+                <li>Note that the "Detached DOM Tree"s have been garbage collected</li>
+            </ol>
+        </div>
+
+
+
+    </body>
+</html>

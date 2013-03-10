@@ -12,7 +12,7 @@ Courseware for javascript and related technologies.
 8. JQuery Mobile - HTML5-based user interface system for popular mobile device platforms.
 
 ## Getting Started
-Download the code and run 'npm start' to start the server.
+Download the code and run 'node app.js' to start the server.
 
 Then go to localhost:3000 to see the various courses.
 

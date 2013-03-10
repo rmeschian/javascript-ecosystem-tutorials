@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+
+    <title>Javascript</title>
+
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+    <div class='navButtonBar'>
+        <a href='javascript:void(0)' class='backBtn' title="Back"><img src='../img/left.png' /></a>
+        <a href="javascript:void(0)" class='forwardBtn' title="Forward"><img src='../img/right.png' /></a>
+        <a href="../index.html" title="Home"><img src='../img/home.gif' /></a>
+    </div>
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+			<h1>The Javascript Programming Language</h1>
+            <h3>Inspired by Douglas Crockford's lectures</h3>
+		</div>
+	</section>
+
+	<section class="slide">
+
+		<h2>History</h2>
+
+		<table class='js_history_layout_table'>
+			<tr>
+				<td style='width: 1em;'><img class='js_history_large_icon'
+					src="../img/220px-BEich.jpg" /></td>
+				<td class='js_fact'>LiveScript Designed by Brendan Eich</td>
+			</tr>
+			<tr>
+				<td><img class='js_history_large_icon'
+					src="../img/netscape.jpeg" /></td>
+				<td class='js_fact'>1995 - Shipped in Netscape Navigator 2.0</td>
+			</tr>
+			<tr>
+				<td><img class='js_history_large_icon'
+					src="../img/explorer.jpg" /></td>
+				<td class='js_fact'>1996 - JScript at Microsoft</td>
+			</tr>
+			<tr>
+				<td><img class='js_history_large_icon'
+					src="../img/question.png" /></td>
+				<td class='js_fact'>1998 - ECMAScript</td>
+			</tr>
+		</table>
+
+	</section>
+
+
+	<section class="slide">
+		<h2>Key Ideas</h2>
+		<ul class='js_fact'>
+			<li>Load and go delivery</li>
+			<li>Dynamic typing</li>
+			<li>Objects as general containers</li>
+			<li>Prototypal inheritance</li>
+			<li>First class functions (Lambdas)</li>
+			<li>Linkage through global variables</li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<h2>Values</h2>
+		<ul class='js_fact'>
+			<li>Numbers (64-bit floating point)</li>
+			<li>Strings (0 or more 16bit characters)</li>
+			<li>Booleans (true or false)</li>
+			<li>Objects (Associative arrays, augmented with prototypes)</li>
+			<li>Arrays</li>
+			<li>null (a value that is nothing)</li>
+			<li>undefined (default value of members)</li>
+			<li>NaN (Not a number)</li>
+		</ul>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Number</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// Number - 64-bit floating point ("Double")
+	var a = 5, b = NaN, // not a number
+	c = Number("1"), // Number function converts strings into numbers
+	d = +"1"; // shorthand conversion (+ is overloaded)
+	
+	console.log(parseInt('25px'));
+	console.log(1 * NaN + 2); // NaN is toxic
+	console.log(NaN === NaN); // NaN not equal to NaN
+	console.log(isNaN(b)); // use isNaN to check
+	console.log(typeof (b)); // NaN is a number
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+	<section class="slide">
+		<h2>Math</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// Math - object with these and other methods for playing with numbers:
+	console.log('Math.max(1, 2): ' + Math.max(1, 2)); // max
+	console.log('Math.floor(1.5): ' + Math.floor(1.5)); // floor
+	console.log('Math.ceil(1.5): ' + Math.ceil(1.5)); // ceil
+	console.log('Math.pow(2, 3): ' + Math.pow(2, 3)); // pow
+	console.log('Math.random(): ' + Math.random()); // 0 to 1
+	
+	// random number from 0 to 1
+	console.log('Math.floor((Math.random()*10)+1): ' + Math.floor((Math.random() * 10) + 1));
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Strings</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// String - are 0 or more 16-bit characters
+	var a = "hello", // use "" to declare strings
+	b = 'hello', // use '' to declare strings
+	c = String(25), // String method used to cast values to strings
+	d = "hello" + " " + 'world', // use + to concat strings
+	e = "hello \"world\""; // use \ to escape quotes
+	
+	console.log('a.length: ' + a.length); // length attribute - number of characters
+	// Methods: charAt, concat, indexOf, slice, split, substring, ...
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+	<section class="slide">
+		<h2>Booleans</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// Boolean - true or false
+	var a = true, b = false, c = Boolean(0), // returns true if the value is truthy
+	d = Boolean(1), // returns false if the value is falsy
+	e = !!1; // same as calling Boolean(1)
+	
+	console.log(e);
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+	<section class="slide">
+		<h2>null and undefined</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// Null is an explicit nothing, undefined is the default nothing
+	var a, // nothing by default (empty variable)
+	b = null; // explicitely setting b to nothing
+	
+	console.log(a);
+	console.log(b);
+	// Note that null and undefined are falsy values (e.g. Boolean(null) is false)
+	console.log(Boolean(b));
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Date</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// Javascript date object
+	var d = new Date();
+	console.log(d);
+	console.log('year: ' + d.getFullYear());
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Falsy values</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	var a = false, b = undefined, c = null, d = 0, e = "", f = NaN;
+	
+	if (a)
+		console.log('Truethy');
+	else
+		console.log('Falsey');
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+	<section class="slide">
+		<h2>Objects</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// Object - key/value container
+	var a = {}, // new object (can also call new Object(), but don't)
+	b = {
+		name : "Rouben",
+		age : 32,
+		getInfo : function() {
+			return this.name + " is " + this.age + " years old";
+		}
+	};
+	console.log(b);
+	b.toString = function() {
+		return "this is about " + this.name;
+	};
+	console.log(b);
+	console.log(b.name + ' OR ' + b['name']);
+	console.log(b.getInfo());
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+	<section class="slide">
+		<h2>Arrays</h2>
+		<ul class='js_fact'>
+			<li>Array indices: If a key is a string holding a non-negative integer below a certain maximum then it is treated as an array index.</li>
+			<li>"length": The value of this property is a non-negative integer holding the length of an array. That length is defined as the numerically largest array index, converted to integer, plus one</li>
+		</ul>
+	</section>
+	
+
+	<section class="slide">
+		<h2>Arrays</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// Array - subclass of Object - used when terms are sequential integers
+	var a = [], // new array (can also call new Array(), but don't)
+	b = [ 1, 2, 3 ];
+	console.log(b + ', length of: ' + b.length);
+	b.pop(); // remove 3
+	b.push(4); // add 4
+	console.log(b);
+	// Methods: concat, join, pop, push, slice, sort, splice, ...
+	console.log('typeof: ' + typeof (b) + ', so use a lib function: ' + $.isArray(b));
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+
+
+	<section class="slide">
+		<h2>Dynamic Typing</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// Dynamic Typing - types are associated with values, not with variables
+	var a = 2;
+	console.log(typeof (a));
+	
+	a = "hello";
+	console.log(typeof (a));
+	
+	a = {};
+	console.log(typeof (a));
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Reserved words</h2>
+
+		<h3>abstract else instanceof super boolean enum int switch break
+			export interface synchronized byte extends let this case false long
+			throw catch final native throws char finally new transient class
+			float null true const for package try continue function private
+			typeof debugger goto protected var default if public void delete
+			implements return volatile do import short while double in static
+			with</h3>
+	</section>
+
+
+	<section class="slide">
+		<h2>Operators</h2>
+		<ul class='js_fact'>
+			<li>Arithmetic ( + - * / % )</li>
+			<li>Logical ( && || ! )</li>
+			<li>Ternary ( ?: )</li>
+			<li>Comparison ( == != > < >= <= <b>=== !==</b> )
+			</li>
+		</ul>
+	</section>
+
+
+
+
+	<section class="slide">
+		<h2>+ /</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	console.log('1 + 2: ' + (1 + 2)); // add
+	console.log('"1" + 2: ' + ("1" + 2)); // concat
+	console.log('(+"1") + 2: ' + ((+"1") + 2)); // cast to a number
+	
+	// dividing whole numbers can produce decimals
+	console.log('divide whole nums: ' + (5 / 2));
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+	<section class="slide">
+		<h2>== !=</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// type coercive operators
+	console.log('"" == 0:  ' + ("" == 0));
+	console.log('0 == "0":  ' + (0 == "0"));
+	console.log('false == "0":  ' + (false == "0"));
+	console.log('null == undefined:  ' + (null == undefined));
+	console.log('" \t\r\n" == 0:  ' + (" \t\r\n" == 0));
+	
+	// DON'T USE == AND !=  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+	<section class="slide">
+		<h2>=== !==</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	console.log('"" === 0:  ' + ("" === 0));
+	console.log('0 === "0":  ' + (0 === "0"));
+	console.log('false === "0":  ' + (false === "0"));
+	console.log('null === undefined:  ' + (null === undefined));
+	console.log('" \t\r\n" === 0:  ' + (" \t\r\n" === 0));
+	
+	// Strings can be compared with ===, no need to call .equals methods
+	console.log('"abc" === "abc":  ' + ("abc" === "abc"));
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>&& (guard operator)</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	var obj = {
+		obj2 : {
+			hi : 'hello'
+		}
+	}, v1, v2;
+	
+	if (obj) { // option 1
+		if (obj.obj2) {
+			v1 = obj.obj2.hi;
+		}
+	}
+
+	if (obj && obj.obj2) { // option 2
+		v1 = obj.obj2.hi;
+	}
+
+	v2 = obj && obj.obj2 && obj.obj2.hi; // option 3
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+
+	<section class="slide">
+		<h2>|| (default operator)</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	var label = "", title, name = "Yerevan", v1;
+	
+	// option 1
+	if (label) {
+		v1 = label;
+	} else if (title) {
+		v1 = title;
+	} else {
+		v1 = name;
+	}
+
+	// option 2
+	v1 = label || name || title;
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Statements</h2>
+		<ul class='js_fact'>
+			<li>expression</li>
+			<li>if</li>
+			<li>for/do/while</li>
+			<li>break/continue</li>
+			<li>switch</li>
+			<li>return</li>
+			<li>try/throw</li>
+		</ul>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>break</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	var i, x;
+	loop: for (i = 0; i < 10; i++) {
+		for (x = 0; x < 10; x++) {
+			if (i === 5 && x === 7)
+				break loop; // break statements can refer to loop labels
+		}
+	}
+
+	console.log('i:  ' + i + ', x: ' + x);
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+
+	<section class="slide">
+		<h2>for</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	var arr = [ 'y', 'o', 'u' ], obj = {
+		a : 1,
+		b : 'hello',
+		c : true
+	}, i, key;
+	
+	// loop through an array
+	for (i = 0; i < arr.length; i++) {
+		console.log(i + '  >  ' + arr[i]);
+	}
+
+	// iterate through members of an object 
+	for ( var key in obj) {
+		if (obj.hasOwnProperty(key)) // don't walk up the inheritance chain
+			console.log(key + '  >  ' + obj[key]);
+	}
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>switch</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	var a = "Armenia";
+	switch (a) {
+		case "Russia":
+			console.log('Wrong!');
+			break;
+		case "China":
+			console.log('Wrong!');
+			break;
+		case "Armenia":
+			console.log('Correct!');
+			break;
+		default:
+			console.log('Wha?');
+	}
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+
+	<section class="slide">
+		<h2>try/catch</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	try {
+		throw new Error("Bad things happened");
+	} catch (err) {
+		console.log('Caught > ' + err);
+	} finally {
+		console.log('Always called');
+	}
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>with</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	var func = function(o) {
+		// delete o.name;
+	}
+	var obj = {
+		name : 'Mike'
+	};
+	
+	func(obj);
+	
+	with (obj) {
+		name = 'Joe'; // if name is not in the object, a global variable is created
+	}
+
+	console.log(obj.name);
+	// Error-prone, don't use the 'with' statement!!!!!
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>function</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	console.log(add(3, 5));
+	function add(a, b) {
+		return a + b;
+	}
+
+	var sum = function() {
+		var sum = 0;
+		for ( var i = 0; i < arguments.length; i++)
+			sum += arguments[i];
+		return sum;
+	}
+	console.log(sum(1, 2, 3, 4, 5));
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Scope</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// javascript does not have block scope, only functional scope
+	var a = 1, b = 2;
+	
+	var c = function() {
+		if (true) {
+			var b = 5; // scoped to the function
+		}
+		console.log('inner scope: ' + a);
+		console.log('inner scope: ' + b);
+	}
+	c();
+	
+	console.log('outer scope: ' + a);
+	console.log('outer scope: ' + b);
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+
+		<a href='http://madebyknight.com/javascript-scope/' target='_blank'>Quiz</a>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Objects</h2>
+		<ul class='js_fact'>
+			<li>Set of unordered key/value pairs</li>
+			<li>Keys (names) are strings</li>
+			<li>Values can be objects, functions, numbers, etc</li>
+			<li>Objects can inherit from other objects (no classes)</li>
+		</ul>
+	</section>
+
+
+	<section class="slide">
+		<h2>Objects</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// object creation (looks like a tree, like XML but readable)
+	var obj = { // do not use 'new Object()'
+		country : "Armenia",
+		comments : [ {
+			by : "Sevak",
+			msg : "Awesome!"
+		}, {
+			by : "Razmik",
+			msg : "Beautiful!"
+		}, {
+			by : "Avetis",
+			msg : "Breathtaking!"
+		} ]
+	}
+
+	// object augmentation
+	obj.capital = "Yerevan";
+	obj["has great food"] = true;
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+
+	</section>
+
+
+
+
+	<section class="slide">
+		<h2>Object linking</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	var obj1 = {
+		firstName : 'Paruyr'
+	}
+	var obj2 = {
+		lastName : 'Sevak'
+	}
+	var obj3 = {
+		getName : function() {
+			return this.firstName + ' ' + this.lastName;
+		}
+	}
+
+	obj2.__proto__ = obj1; // create a link
+	obj3.__proto__ = obj2; // create a link
+	// obj3 -> obj2 -> obj1
+	
+	console.log(obj3.getName());
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+	<section class="slide">
+		<h2>Object linking (the right way part 1)</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	var func = function() {
+		this.firstName = 'Paruyr';
+	};
+	func.prototype = {
+		lastName : 'Sevak'
+	};
+	
+	// new func() produces an object that inherits from func.prototype
+	var obj = new func();
+	// obj has a __proto__ references to {lastName: 'Sevak'}
+	
+	console.log(obj.lastName);
+	console.log((obj.__proto__ === func.prototype));
+	
+	func.prototype.hello = function() {
+		console.log('hi');
+	}
+	obj.hello();
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+	<section class="slide">
+		<h2>Object linking (the right way part 2)</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	function object(o) {
+		function F() {
+		}
+		F.prototype = o;
+		return new F(); // resulting object has an __proto__ reference to o
+	}
+
+	var obj1 = {
+		firstName : 'Paruyr'
+	}
+
+	var obj2 = object(obj1);
+	obj2.lastName = 'Sevak';
+	
+	var obj3 = object(obj2);
+	obj3.getName = function() {
+		return this.firstName + ' ' + this.lastName;
+	}
+
+	console.log(obj3.getName());
+	obj1.firstName = 'Joe';
+	console.log(obj3.getName());
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Classical inheritance</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	function Shape(name) {
+	};
+	
+	function Parallelogram(side1, side2) {
+		this.side1 = side1;
+		this.side2 = side2;
+	}
+	Parallelogram.prototype = new Shape();
+	Parallelogram.prototype.isSquare = function() {
+		return this.side1 && this.side1 === this.side2;
+	};
+	
+	function Square(sideLength) {
+		this.sideLength = sideLength;
+		Parallelogram.call(this, sideLength, sideLength);
+		// OR Parallelogram.apply(this, [sideLength, sideLength]);
+	}
+	Square.prototype = new Parallelogram();
+	
+	var sq = new Square(25);
+	
+	console.log(sq instanceof Shape);
+	console.log(sq.sideLength);
+	console.log(sq.isSquare());
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+	<section class="slide">
+		<h2>JSON - JavaScript Object Notation</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	var obj = {
+		name : 'Joe',
+		mail : 'joe@gmail.com',
+		age : 26
+	}
+
+	var json = JSON.stringify(obj);
+	console.log(json);
+	var obj2 = JSON.parse(json);
+	console.log(obj2.name);
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+
+		<a href='http://www.json.org/' target='_blank'>JSON spec</a> <br /> <a
+			href='http://caniuse.com/json' target='_blank'>JSON.parse/JSON.stringify
+			support</a>
+	</section>
+
+
+
+
+
+	<section class="slide">
+		<h2>Global Object</h2>
+		<ul class='js_fact'>
+			<li>Container for global variables</li>
+			<li>'window' in the browser, 'global' in nodejs</li>
+			<li>Use of global variables can cause collisions</li>
+			<li>Variables not properly declared can become global</li>
+		</ul>
+	</section>
+
+
+	<section class="slide">
+		<h2>Encapsulation</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	var a = 2; // a is now in the global scope, very bad!
+	
+	(function() {
+		var x = 'hello'; // private variable
+		z = 'uh oh'; // this is now global!!!
+		var jQuery = {
+			myFunc : function() {
+				console.log(x);
+			}
+		// etc...
+		}
+
+		// to contribute to global namespace
+		window.jQuery = jQuery;
+	})();
+	
+	jQuery.myFunc();
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>eval</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	var s = "var x = 'hello', y = 'world'; console.log(x+' '+y);";
+	eval(s);
+	// Don't use this unless you really know what you are doing!
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+
+	<section class="slide">
+		<h2>RegExp</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// Javascript supports regular expressions
+	var regexp = /ab[c]?/ig, regexp2 = new RegExp('ab[c]?', 'ig');
+	var str = "the weather is abc";
+	console.log(str.replace(regexp, "nice!"));
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	<section class="slide">
+		<h2>toString()</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	var obj = {};
+    console.log(obj);
+    obj.toString = function() { return "hello" };
+    console.log(obj);
+	
+    var arr = [1, 2, 3];
+    console.log(arr);
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+	
+	
+	<section class="slide">
+		<h2>Threads</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// Javascript is single threaded, but we do have setTimeout
+	var runner = function(name, count) {
+		if (++count === 5)
+			return;
+		console.log(name + ': ' + count);
+		setTimeout(function() {
+			runner(name, count);
+		}, 0);
+	}
+	runner('a', 0);
+	runner('b', 0);
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+	
+	
+	<section class="slide">
+		<div
+			class='centerMsg'>
+			<h1>Good code style can help avoid bugs</h1>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Always put { on the right</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// Javascript automatically inserts ; at end of expressions, be aware of this!
+	var func = function() {
+		return
+		{
+			msg: "hello world"
+		}
+	}
+	console.log(func().msg);
+	// 1. Never rely on automatic semicolon insertion
+	// 2. Be aware of this behavior
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>,</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	// Avoid trailing commas
+	var arr = [ 1, 2, 3, ];
+	console.log(arr.length);
+	// some interpreters will interpret this as [1, 2, 3, undefined], length of 4
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+	
+	<section class="slide">
+		<h2>Common scope error</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	var ajax = function(callback) {
+		setTimeout(callback, 0);
+	}
+	var arr = [ 'a', 'b', 'c', 'd', 'e' ];
+	for ( var i = 0; i < arr.length; i++) {
+		var n = arr[i]; // scoped to the function, not this block
+		ajax(function() {
+			console.log(n);
+		});
+	}
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Strict mode</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	(function() {
+      "use strict"; // ECMAScript 5 
+      
+      var a = { foo: true, foo: false }; // error
+      with(z) {} // error 
+      x = 3; // error
+      // can't introduce variables using eval
+      eval("var a = false;"); 
+      console.log( typeof a ); // undefined   
+	})();
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+ 
+ 	<section class="slide">
+		<div class='centerMsg'>
+			<h1>Modules</h1>
+		</div>
+	</section>
+	
+	
+ 	<section class="slide">
+		<h2>Asynchronous Module Definition</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+// Used by require.js, dojo, nodejs, etc...
+define('myModule', 
+    ['math', 'graph'], 
+    function ( math, graph ) {
+        return {
+            plot: function(x, y){
+                return graph.drawPie(math.randomGrid(x,y));
+            }
+        }
+    };
+});
+
+// in another file, we can do:
+require(['myModule', 'fooModule'], 
+    function ( m, f ) {
+    // rest of your code here
+    m.plot(3, 4);
+});
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+ 	
+	
+	
+	<section class="slide">
+		<h2>Debugging</h2>
+		<ul class='js_fact'>
+			<li>debugger; can be added to represent a breakpoint</li>
+			<li>console.log/warn/error can be used for logging</li>
+			<li>F12 will open the Dev Tools in most browsers</li>
+			<li>Use Chrome!</li>
+			<li>Use Firebug in Firefox</li>
+			<li>Write unit tests - QUnit</li>
+		</ul>
+	</section>
+
+	<section class="slide">
+		<h2>Key Ideas</h2>
+		<ul class='js_fact'>
+			<li>Load and go delivery</li>
+			<li>Dynamic typing</li>
+			<li>Objects as general containers</li>
+			<li>Prototypal inheritance</li>
+			<li>First class functions (Lambdas)</li>
+			<li>Linkage through global variables</li>
+		</ul>
+	</section>
+
+    <section class="slide">
+        <h1>Credits</h1>
+        <ul>
+            <li>Inspired by Douglas Crockford's javascript lectures</li>
+        </ul>
+    </section>
+
+	<section class="slide">
+		<div class='centerMsg'>
+			<h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+		</div>
+	</section>
+
+	<!-- End slides. -->
+
+
+
+	<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>

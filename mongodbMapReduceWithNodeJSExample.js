@@ -26,16 +26,16 @@ function init(callback) {
 
 function seedData(callback) {
     db.collection('sample', function(err, collection) {
-        if (err)
+        if(err)
             throw err;
 
         var count = 4;
         var clbk = function() {
-            if (--count === 0) {
+            if(--count === 0) {
                 collection.find({}, function(err, cursor) {
                     cursor.toArray(function(err, items) {
                         console.log("\n\nSample values:")
-                        console.log(JSON.stringify(items)+'\n\n');
+                        console.log(JSON.stringify(items) + '\n\n');
                         callback();
                     });
                 });
@@ -43,30 +43,30 @@ function seedData(callback) {
         }
 
         collection.save({
-            name : "Rouben Meschian",
-            age : 31,
-            gender : "male",
+            name        : "Rouben Meschian",
+            age         : 32,
+            gender      : "male",
             nationality : "Armenian"
         }, clbk);
 
         collection.save({
-            name : "Michael Jackson",
-            age : 42,
-            gender : "male",
+            name        : "Michael Jackson",
+            age         : 42,
+            gender      : "male",
             nationality : "American"
         }, clbk);
 
         collection.save({
-            name : "Armina Meschian",
-            age : 2,
-            gender : "female",
+            name        : "Armina Meschian",
+            age         : 2,
+            gender      : "female",
             nationality : "Armenian"
         }, clbk);
-
+        y
         collection.save({
-            name : "Brendan Eich",
-            age : 32,
-            gender : "male",
+            name        : "Brendan Eich",
+            age         : 32,
+            gender      : "male",
             nationality : "American"
         }, clbk);
     });
@@ -91,15 +91,15 @@ init(function() {
         });
         return {
             nationality : key,
-            avg_age : sum / count
+            avg_age     : sum / count
         };
     }
 
     var MR = {
         mapreduce : "sample",
-        out : "mapReduceResultCollection",
-        map : map.toString(),
-        reduce : reduce.toString()
+        out       : "mapReduceResultCollection",
+        map       : map.toString(),
+        reduce    : reduce.toString()
     }
 
     console.log("\nexecuting mapreduce");

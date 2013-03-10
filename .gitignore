@@ -1,5 +1,6 @@
 build/
 .settings
 .idea
+npm-debug.log
 notes.txt
 slides

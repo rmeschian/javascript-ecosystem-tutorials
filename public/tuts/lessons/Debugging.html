@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=1024, user-scalable=no">
+        <meta name="author" content="Rouben Meschian">
+
+        <title>Debugging</title>
+
+        <link rel="stylesheet" href="../css/main.css">
+    </head>
+    <body class="deck-container">
+
+
+        <div class='navButtonBar'>
+            <a href='javascript:void(0)' class='backBtn' title="Back"><img src='../img/left.png' /></a>
+            <a href="javascript:void(0)" class='forwardBtn' title="Forward"><img src='../img/right.png' /></a>
+            <a href="../index.html" title="Home"><img src='../img/home.gif' /></a>
+        </div>
+
+        <!-- Begin slides. Just make elements with a class of slide. -->
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1>Javascript Debugging</h1>
+                <img src="../img/bug.gif">
+            </div>
+        </section>
+
+
+        <section class="slide">
+            <h1>Browser Developer Tools</h1>
+            <table class='table'>
+                <tr>
+                    <td><img src="../img/chrome_small.jpg"></td>
+                    <td> Developer tools</td>
+                    <td> Built in</td>
+                    <td>F12</td>
+                </tr>
+                <tr>
+                    <td><img src="../img/internet_explorer_small.png"></td>
+                    <td> Developer Tools</td>
+                    <td> Built in</td>
+                    <td>F12</td>
+                </tr>
+                <tr>
+                    <td><img src="../img/firefox_small.png"></td>
+                    <td> FireBug</td>
+                    <td> Plugin</td>
+                    <td>F12</td>
+                </tr>
+                <tr>
+                    <td><img src="../img/opera_small.png"></td>
+                    <td> DragonFly</td>
+                    <td>Built in</td>
+                    <td>Ctrl+Shift+I</td>
+                </tr>
+            </table>
+        </section>
+
+
+        <section class="slide">
+            <h2>Logging</h2>
+    <pre>
+console.log("Log");
+console.debug("Debug");
+console.warn("Warning, be careful");
+console.error("Error, oh no!");
+    </pre>
+        </section>
+
+
+        <section class="slide">
+            <h2>Timing</h2>
+    <pre>
+console.time("my timer");
+... other code ...
+console.timeEnd("my timer"); // print elapsed time
+    </pre>
+        </section>
+
+        <section class="slide">
+            <h2>Log Objects</h2>
+
+            <pre>console.log({a: "Hello", b: "World"});</pre>
+            <table class='presTable'>
+                <tr>
+                    <td><img src="../img/firefox_small.png"> <img src="../img/chrome_small.jpg"></td>
+                    <td><span> Object {a: "Hello", b: "World"}</span></td>
+                </tr>
+                <tr>
+                    <td><img src="../img/internet_explorer_small.png"></td>
+                    <td><span> [object Object]</span></td>
+                </tr>
+            </table>
+
+            <pre>console.log("The object is", {a: "Hello", b: "World"});</pre>
+            <table class='presTable'>
+                <tr>
+                    <td><img src="../img/firefox_small.png"> <img src="../img/chrome_small.jpg"></td>
+                    <td><span> The object is Object {a: "Hello", b: "World"}</span></td>
+                </tr>
+                <tr>
+                    <td><img src="../img/internet_explorer_small.png"></td>
+                    <td><span> The object is[object Object]</span></td>
+                </tr>
+            </table>
+
+
+            <pre>console.dir({a: "Hello", b: "World"});</pre>
+            <table class='presTable'>
+                <tr>
+                    <td><img src="../img/firefox_small.png"> <img src="../img/chrome_small.jpg">
+                        <img src="../img/internet_explorer_small.png"></td>
+                    <td><span>{<br>
+                        &nbsp;&nbsp;a : "Hello",<br>
+                        &nbsp;&nbsp;b : "World"<br>
+                        }</span></td>
+                </tr>
+            </table>
+
+        </section>
+
+
+        <section class="slide">
+            <h2>Group Logs</h2>
+    <pre>
+console.group('group');
+console.log('Some');
+console.log('Stuff');
+console.groupEnd('group');
+    </pre>
+        </section>
+
+        <section class="slide">
+            <h2>Not all browsers have console</h2>
+
+            <p>Use <a href="https://github.com/NV/console.js">https://github.com/NV/console.js</a></p>
+        </section>
+
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h2>debugger;</h2>
+            </div>
+        </section>
+
+
+        <section class="slide">
+            <h2>Conditional Breakpoint</h2>
+            <pre>
+if(...) {
+    debugger;
+}
+            </pre>
+        </section>
+
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h2>Break on Errors (<img src="../img/pauseOnUncaughtExceptionsButton.png">)</h2>
+            </div>
+        </section>
+
+
+        <section class="slide">
+            <h2>Use Chrome Dev Tools</h2>
+
+            <p>Search by file name</p>
+            <pre>
+Ctrl + O (Windows)
+Cmd + O (Mac OSX)</pre>
+
+            <p>Text search within the current file</p>
+            <pre>
+Ctrl + F (Windows)
+Cmd + F (Mac OSX)</pre>
+
+            <p>Text search across all files</p>
+            <pre>
+Ctrl + Shift + F (Windows)
+Cmd + Opt + F (Max OSX)</pre>
+
+        </section>
+
+
+
+        <section class="slide">
+            <h2>Chrome Profiler - Heap</h2>
+
+            <ul>
+                <li>Summary — shows objects grouped by the constructor name</li>
+                <li>Comparison — displays difference between two snapshots</li>
+                <li>Containment — allows exploration of heap contents</li>
+                <li>Dominators — shows dominators tree</li>
+            </ul>
+
+            <a href="../examples/profiling/test.html">Sample</a>
+        </section>
+
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1>Good Luck!</h1>
+            </div>
+        </section>
+
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1>Rouben Meschian</h1>
+                <h4>rmeschian@gmail.com</h4>
+            </div>
+        </section>
+
+        <!-- End slides. -->
+
+
+        <script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+    </body>
+</html>

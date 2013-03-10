@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+
+    <title>JQuery</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+    <div class='navButtonBar'>
+        <a href='javascript:void(0)' class='backBtn' title="Back"><img src='../img/left.png' /></a>
+        <a href="javascript:void(0)" class='forwardBtn' title="Forward"><img src='../img/right.png' /></a>
+        <a href="../index.html" title="Home"><img src='../img/home.gif' /></a>
+    </div>
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+            <img src="../img/jquery.png" alt="JQuery">
+		</div>
+	</section>
+
+	<section class="slide">
+		<div style='margin-top: 1em'>
+			<img src='../img/resig.jpg' />
+		</div>
+		<ul class='js_fact'>
+			<li>Created by John Resig in 2006</li>
+			<li>Most popular JavaScript library in use today</li>
+			<li>MIT License</li>
+		</ul>
+	</section>
+
+
+
+
+	<section class="slide">
+		<div
+			style='position: absolute; left: 0; right: 0; top: 38%; text-align: center'>
+			<h3>
+				JQuery exposes itself to the global object:<br> window.jQuery =
+				window.$ = jQuery;
+			</h3>
+		</div>
+	</section>
+
+
+	<section class="slide">
+		<h2>Getting started</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<ol>
+	<li>Yerevan</li>
+	<li>Vanadzor</li>
+	<li>Gyumri</li>
+</ol>
+
+<script src="../js/lib/jquery.js"></script>
+<script>
+	jQuery(document).ready(function($) { // document.onload
+		var lis = $('li'); // select all elements of type 'li'
+		// resulting list is an array, with splice, .length, etc
+		for ( var i = 0; i < lis.length; i++)
+			console.log(lis[i].innerHTML);
+		console.log('num LIs: ' + lis.length);
+	});
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Using CSS Selectors</h2>
+		<ul class='js_fact'>
+			<li>$( '#myID' ); // select an element by ID</li>
+			<li>$( 'li' ); // select all LIs</li>
+			<li>$( 'ul li' ); // select LIs that are in ULs</li>
+			<li>$( '.person' ); // select elements by class</li>
+			<li>$( '[data-foo="bar"]' ); // select by attribute</li>
+		</ul>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Using CSS Selectors</h2>
+		<ul class='js_fact'>
+			<li>$( element ); // wrap an element</li>
+			<li>$( [element1, element2] ); // wrap an array of elements</li>
+			<li>$( '.foo', element ); // select by class only nodes under
+				'element'</li>
+			<li>$( '.foo', $(element) ); // select by class only nodes under
+				the given jquery object</li>
+		</ul>
+	</section>
+
+
+
+
+
+	<section class="slide">
+		<h2>html, text, attr, css, val</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<label></label> <input type='text' />
+<div class='msg'></div>
+
+
+<script>
+	jQuery(document).ready(function($) { // document.onload
+		$('label').html("<b>Name:</b>"); // .innerHTML
+		$('.msg').text("some content"); // sets inner text (use a text node)
+		$('input').attr('title', 'This is my title'); // sets an attribute
+		$('.msg').css('background', 'lightblue').css({
+			'font-weight' : 'bold',
+			'font-color' : 'red'
+		});
+		$('input').val('input value'); // .value
+	});
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+	<section class="slide">
+		<h2>Add/remove css classes</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<style>
+.testClass {
+	background: red
+}
+</style>
+<div class='sample'>hello world</div>
+
+
+<script>
+	jQuery(document).ready(function($) { // document.onload
+		var s = $('.sample');
+		
+		s.addClass('testClass');
+		//s.removeClass('testClass');
+		//s.toggleClass('testClass');
+	});
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Chaining</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<div></div>
+
+<script>
+	jQuery(document).ready(function($) { // document.onload
+		//var node = $('div');
+		//node.html('hello world');
+		//node.css('font-weight', 'bold');
+		//node.attr('title', 'hello!');
+		$('div').html('hello world').css('font-weight', 'bold').attr('title', 'hello!');
+	});
+</script>
+</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+
+
+
+
+	<section class="slide">
+		<h2>Finding elements relative to a selection</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<ul class='className'>
+	<li>
+		<span><h5>hello</h5></span>
+	</li>
+	<li>world</li>
+</ul>
+
+<script>
+	jQuery(document).ready(function($) { // document.onload
+		var s = $('li').first(); // select the first li (also .last())
+		s.siblings(); // get all siblings
+		s.next(); // next sibling (also prev())
+		s.parent(); // get parent
+		s.children(); // get immediate children
+		s.find('h5'); // same as $('h5', s);
+		s.parents('.className'); // find ALL ancestors that match the selector
+		s.closest('.className'); // find the FIRST ancestor that matches the selector 
+	});
+</script>
+</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+
+	<section class="slide">
+		<h2>Creating new elements</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	jQuery(document).ready(function($) { // document.onload
+	
+		// create h3 with text in it
+		var hello = $('<h3>hello world</h3>');
+		
+		// add the h3 to the 'body' element
+		$('body').append(hello); // same as calling .appendChild
+	});
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Removing elements</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+If we lose the Teghut forest, we are in <span>LOTS of</span> trouble
+
+<script>
+	jQuery(document).ready(function($) { // document.onload
+	
+		//$('span').remove(); // removes element AND unhooks all event handlers
+		//$('span').replaceWith( '<b>big</b>' ); // remove and append
+		// use .detach to detach from parent element
+	});
+</script>
+</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Events (on/off)</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<style>
+.over {
+	background: lightblue
+}
+</style>
+<div>
+	HELLO!!! <a href='javascript:void(0)'>Unhook events</a>
+</div>
+<div>
+	GOOD BYE!!!
+</div>
+
+
+<script>
+	jQuery(document).ready(function($) { // document.onload
+		// use live/die, rather than bind/unbind or on/off
+		$('div').on('mouseenter mouseleave', function(e) {
+			if (e.type === 'mouseenter')
+				$(this).addClass('over');
+			else
+				$(this).removeClass('over');
+		});
+		$('a').click(function(event) { // same as calling $('a').on('click', function() {
+			$('div').off();
+			$(this).off('click');
+			event.preventDefault();
+		});
+		$('body').append('<div>New div!</div>');
+	});
+</script>
+
+</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+	<section class="slide">
+		<h2>Events</h2>
+		<ul class='js_fact'>
+			<li>click</li>
+			<li>keydown</li>
+			<li>keypress</li>
+			<li>keyup</li>
+			<li>mouseover</li>
+			<li>mouseout</li>
+			<li>mouseenter</li>
+			<li>mouseleave</li>
+			<li>scroll</li>
+			<li>focus</li>
+			<li>blur</li>
+			<li>resize</li>
+		</ul>
+		<a href='http://api.jquery.com/category/events/' target='_blank'>JQuery
+			docs</a>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Animations</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<button>Run</button>
+<div style='background: red; width: 30px; height: 30px;'></div>
+
+<script>
+	jQuery(document).ready(function($) { // document.onload
+		$('button').click(function() {
+			
+			$('div').animate({
+				width : '400px',
+				height : '100px'
+			}, 500, function() {
+				$(this).html("All Done");
+			});
+			
+		});
+	});
+</script>
+</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+		<a href='http://api.jquery.com/category/effects/' target='_blank'>JQuery
+			docs</a>
+	</section>
+
+
+	<section class="slide">
+		<h2>$.ajax</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	$.ajax({
+		url : "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+		type : 'get',
+		dataType : 'json',
+		data : {
+			tags : "armenia",
+			tagmode : "any",
+			format : "json"
+		},
+		success : function(data) {
+			$.each(data.items, function(i, item) {
+				$('body').append($('<img src="'+item.media.m+'"/>'));
+			});
+		},
+		errors : function(data) {
+			alert(JSON.stringify(data));
+		}
+	});
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>$.getJson (see also $.get $.post)</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?", {
+		tags : "armenia",
+		tagmode : "any",
+		format : "json"
+	}, function(data) {
+		if (!data)
+			return;
+		$.each(data.items, function(i, item) {
+			$('body').append($('<img src="'+item.media.m+'"/>'));
+		});
+	});
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+
+	<section class="slide">
+		<h2>Plugin template</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<script>
+	(function($) {
+		$.fn.yourFunc = function(options) { // add your func to JQuery's prototype
+			// Create some defaults, extending them with any options that were provided
+			var settings = $.extend({
+				'location' : 'top', // attributes
+				'background-color' : 'blue'
+			}, options);
+			
+			return this.each(function() {
+				var $this = $(this);
+				// apply your code to $this
+			});
+		};
+	})(jQuery);
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+    <section class="slide">
+        <h1>Credits</h1>
+        <ul>
+            <li>Some examples inspired by http://jqfundamentals.com</li>
+        </ul>
+    </section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+	<!-- End slides. -->
+
+
+	<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Armenian Poets</title>
+
+        <link rel="stylesheet" href="lib/jquery.mobile-1.2.0.min.css"/>
+        <script src="lib/jquery-1.8.2.min.js"></script>
+
+
+        <script type="text/javascript">
+            $(document).bind('mobileinit', function(){
+                // Adding deafult button
+                $.mobile.page.prototype.options.addBackBtn = true;
+
+                // fade is the default transition style
+                $.mobile.defaultPageTransition = "flip";
+            });
+        </script>
+
+        <script src="lib/jquery.mobile-1.2.0.min.js"></script>
+
+        <!-- to avoid header text from being
+               truncated overwrite the margin -->
+        <style type="text/css">
+            .ui-header .ui-title {
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div data-role="page" id="mainPage">
+            <div data-role="header" data-position="fixed">
+                <h4>Armenian Poets</h4>
+            </div>
+            <div data-role="content">
+                <div data-role="content">
+                    <ul data-role="listview" data-inset="true" data-filter="true" id="poetList">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript">
+
+            $.getJSON("amPoets.json", function (poets) {
+                //Start off with an empty list every time to get the latest from server
+                $('#poetList').empty();
+
+                //add the poet items as list
+                $.each(poets, function (i, poet) {
+                    $('#poetList').append(generatePoetLink(poet));
+                });
+
+                //refresh the list view to show the latest changes
+                $('#poetList').listview('refresh');
+
+            });
+
+            //creates a poet link list item
+            function generatePoetLink(poet) {
+
+                //debugger;
+                return '<li><a href="javascript:void(0)'
+                        + '" onclick="goToPoetDetailPage(\''
+                        + poet.name
+                        + '\',\''
+                        + poet.picUrl + '\')">'
+                        + poet.name
+                        + '</a></li>';
+            }
+
+            function goToPoetDetailPage(poetName, poetPicUrl) {
+
+                var id = poetName;
+                var poetPage = $("#" + poetName);
+
+                //create the page html template
+                if (poetPage.length === 0) {
+                    poetPage = $("<div id='" + id + "' data-role='page' data-url=dummyUrl><div data-role='header' data-position='fixed'><h1>"
+                            + poetName + "</h1></div><div data-role='content'><img src='"
+                            + poetPicUrl + "'></div><div data-role='footer' data-position='fixed'><h4>"
+                            + poetName + "</h4></div></div>");
+
+                    //append the new page to the page container
+                    poetPage.appendTo($.mobile.pageContainer);
+                }
+
+                //go to the newly created page
+                $.mobile.changePage(poetPage);
+            }
+        </script>
+
+    </body>
+</html>
