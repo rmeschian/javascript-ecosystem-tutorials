@@ -40,7 +40,7 @@ function seedData(callback) {
                     });
                 });
             }
-        }
+        };
 
         collection.save({
             name        : "Rouben Meschian",
@@ -62,7 +62,7 @@ function seedData(callback) {
             gender      : "female",
             nationality : "Armenian"
         }, clbk);
-        y
+
         collection.save({
             name        : "Brendan Eich",
             age         : 32,
@@ -82,7 +82,7 @@ init(function() {
 
     var map = function() {
         emit(this.nationality, this.age);
-    }
+    };
 
     var reduce = function(key, values) {
         var sum = 0, count = values.length;
@@ -93,14 +93,14 @@ init(function() {
             nationality : key,
             avg_age     : sum / count
         };
-    }
+    };
 
     var MR = {
         mapreduce : "sample",
         out       : "mapReduceResultCollection",
         map       : map.toString(),
         reduce    : reduce.toString()
-    }
+    };
 
     console.log("\nexecuting mapreduce");
     db.executeDbCommand(MR, function(err, dbres) {

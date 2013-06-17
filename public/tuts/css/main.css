@@ -3,10 +3,16 @@
 @import url("/tuts/js/lib/codemirror/theme/vibrant-ink.css");
 @import url("/tuts/js/lib/codemirror/lib/codemirror.css");
 
+html {overflow-y: scroll;}
+
 .navButtonBar {
-    position: absolute;
-    right: 1em;
-    top: 1em
+    /*position: absolute;*/
+    /*right: 1em;*/
+    /*top: 1em*/
+}
+
+.codeEditor hr {
+    margin: 0
 }
 
 .centerMsg {

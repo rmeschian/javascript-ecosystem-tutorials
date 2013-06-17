@@ -1,150 +1,1062 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=1024, user-scalable=no">
-        <meta name="author" content="Rouben Meschian">
 
-        <title>Performance - Best Practices</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=1024, user-scalable=no">
+<meta name="author" content="Rouben Meschian">
 
-        <link rel="stylesheet" href="../css/main.css">
-    </head>
-    <body class="deck-container">
+<title>Web Application Performance</title>
 
-        <div class='navButtonBar'>
-            <a href='javascript:void(0)' class='backBtn' title="Back"><img src='../img/left.png' /></a>
-            <a href="javascript:void(0)" class='forwardBtn' title="Forward"><img src='../img/right.png' /></a>
-            <a href="../index.html" title="Home"><img src='../img/home.gif' /></a>
+<link rel="stylesheet" href="../css/main.css">
+
+<div class="deck-container">
+
+    <div class="navButtonBar">
+        <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+        <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+        <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+    </div>
+
+    <!-- Begin slides. Just make elements with a class of slide. -->
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Web Application Performance</h1>
+            <img src="../img/fast.gif" style="width: 300px"/>
         </div>
+    </section>
+    
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Pillars of Web Performance</h1>
+            <h2><span style="color: red">Network</span> | <span style="color: blue">Compute</span> | <span style="color: orange">Render</span></h2>
+        </div>
+    </section>
 
-        <!-- Begin slides. Just make elements with a class of slide. -->
+    <!--Network-->
 
-        <section class="slide">
-            <div class='centerMsg'>
-                <h1>Performance</h1>
-                <h3>Best Practices</h3>
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1 style="color: red">Network</h1>
+            <h3>Minimize payload size +  round-trip times (RTT)</h3>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>Turn GZIP on the server</h2>
+            <h3>Compress served resources</h3>
+
+            <p5>Test GZIP enabled: Open chrome dev tools -> Network -> Select Resource -> Header.  Make sure you have Content-Encoding:gzip in the header.</p5>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Enable GZIP on Apache</h2>
+        <h4>mod_deflate configuration for Apache 2.x:</h4>
+            <pre>
+&lt;IfModule mod_deflate.c&gt;
+    SetOutputFilter DEFLATE
+    # Don’t compress
+    SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip dont-vary
+    SetEnvIfNoCase Request_URI \.(?:exe|t?gz|zip|bz2|sit|rar)$ no-gzip dont-vary
+    #Dealing with proxy servers
+    &lt;IfModule mod_headers.c&gt;
+        Header append Vary User-Agent
+    &lt;/IfModule&gt;
+&lt;/IfModule>
+            </pre>
+    </section>
+
+    <section class="slide">
+        <h2>NodeJS + Express</h2>
+            <pre>
+var express = require('express');
+var app = express();
+app.use(express.compress());
+
+var oneYear = 31557600000;
+app.use(express.static(__dirname + '/public', { maxAge: oneYear }));
+
+app.listen(process.env.PORT || 3000);
+            </pre>
+    </section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>Use a CDN for popular libs</h2>
+            <p>Increase probability of a cache hit</p>
+            <p><a src="https://developers.google.com/speed/libraries">https://developers.google.com/speed/libraries/</a></p>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Using a CDN - traditional pattern</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>window.jQuery || document.write('<script src="../js/lib/jquery.js"><\/script>')</script>
+                </textarea>
             </div>
-        </section>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
 
-
-        <section class="slide">
-            <div class='centerMsg'>
-                <h2>Use a CDN</h2>
-                <p>Increase probability of a cache hit</p>
-                <p><a src="https://developers.google.com/speed/libraries/">https://developers.google.com/speed/libraries/</a></p>
+    <section class="slide">
+        <h2>Using a CDN - with yepnope</h2>
+        <h4>Asynchronous conditional resource loader</h4>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script src="../js/lib/yepnope.1.5.4-min.js"></script>
+<script>
+    yepnope([{
+        load: '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+        complete: function () {
+            if (!window.jQuery) {
+                yepnope('../js/lib/jquery.js');
+            }
+        }
+    }]);
+</script>
+                </textarea>
             </div>
-        </section>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
-        <section class="slide">
-            <div class='centerMsg'>
-                <h2>Gzip components</h2>
-                <p>Smaller payload</p>
+
+    <section class="slide">
+        <h2>Using a CDN - with require.js</h2>
+        <h4>JavaScript file and module loader</h4>
+        <pre>
+requirejs.config({
+paths: {
+    jquery: [
+        '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min',
+        '../js/lib/jquery'
+    ]
+}
+});
+
+//Later
+require(['jquery'], function ($) {
+});
+        </pre>
+    </section>
+
+
+    <!--<section class="slide">-->
+        <!--<div class='centerMsg'>-->
+            <!--<h2>Try using SPDY</h2>-->
+            <!--<h3>Experimental protocol from google</h3>-->
+
+            <!--<h4>Apache/Jetty/NodeJS/etc...</h4>-->
+            <!--<h4><a href="//www.chromium.org/spdy"  target="_blank">http://www.chromium.org/spdy</a></h4>-->
+        <!--</div>-->
+    <!--</section>-->
+
+    <!--<section class="slide">-->
+        <!--<h2>SPDY with NodeJS</h2>-->
+        <!--<pre>-->
+<!--var spdy = require('spdy'),-->
+    <!--express = require('express'),-->
+    <!--fs = require('fs');-->
+
+<!--var options = { /* SPDY options */ };-->
+<!--var app = express();-->
+<!--var server = spdy.createServer(options, app);-->
+<!--server.listen(443);-->
+        <!--</pre>-->
+    <!--</section>-->
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Images</h1>
+            <h3>Over 60% of typical page sizes are images</h3>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h1>Use proper image compression</h1>
+        <ul>
+            <li>GIF: animation or transparency (IE6)</li>
+            <li>PNG: drawing or if a wide color range is needed with transparency</li>
+            <li>JPEG if the image is a photograph.</li>
+            <li>WEBP - new standard from google (limited support)</li>
+        </ul>
+        <h2 class="alert-info">Pick whichever compresses best per image!!!</h2>
+    </section>
+
+    <section class="slide">
+        <h2>Tools are available that perform further, lossless compression on JPEG and PNG files, with no effect on image quality</h2>
+        <ul>
+            <li>JPEG: jpegtran or jpegoptim</li>
+            <li>PNG: OptiPNG or PNGOUT</li>
+            <li>You can use page speed :-)</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h1>Create SPRITEs to minimize round trips</h1>
+        <h2><a href="//spritegen.website-performance.org" target="_blank">http://spritegen.website-performance.org</a></h2>
+    </section>
+
+    <section class="slide">
+        <div class="codeEditor">
+            <h2>Using SPRITEs</h2>
+            <div class='codeEditor_editor'>
+                <textarea>
+<div class="myimg sprite-dog-icon"></div>
+<hr>
+<img src="../examples/sprite/output/sprite.png"/>
+<style>
+.myimg { background: url(../examples/sprite/output/sprite.png) no-repeat top left }
+.sprite-camel-icon{ background-position: 0 0; width: 106px; height: 128px }
+.sprite-dog-icon{ background-position: 0 -129px; width: 127px; height: 75px }
+.sprite-elephant-icon{ background-position: 0 -205px; width: 127px; height: 88px }
+.sprite-pig-icon{ background-position: 0 -294px; width: 127px; height: 111px }
+.sprite-zebra-icon{ background-position: 0 -406px; width: 128px; height: 128px }
+</style>
+                </textarea>
             </div>
-        </section>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Responsive Design?</h1>
+            <h3>One size does not fit all!!!</h3>
+            <h4>But, there are no perfect solutions</h4>
+        </div>
+    </section>
 
-        <section class="slide">
-            <div class='centerMsg'>
-                <h2>Put stylesheets at the top</h2>
-                <p>Page will render progressively</p>
+    <section class="slide">
+        <h2>Images in responsive design</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<style>
+    @media screen and (max-width: 400px) {
+        div {
+            height: 130px;
+            width: 180px;
+            background-image: url(../examples/responsive/img/armenia-sml.jpg);
+        }
+    }
+    @media screen and (min-width: 401px) and (max-width: 700px) {
+        div {
+            width: 375px;
+            height: 281px;
+            background-image: url(../examples/responsive/img/armenia-med.jpg);
+        }
+    }
+    @media screen and (min-width: 701px) and (max-width: 1000px) {
+        div {
+            width: 480px;
+            height: 360px;
+            background-image: url(../examples/responsive/img/armenia-lrg.jpg);
+        }
+    }
+    @media screen and (min-width: 1001px) {
+        div {
+            width: 600px;
+            height: 450px;
+            background-image: url(../examples/responsive/img/armenia-extlrg.jpg);
+        }
+    }
+
+</style>
+
+<div></div>
+                </textarea>
             </div>
-        </section>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+    </section>
 
+    <section class="slide">
+        <h2>Adaptive Images</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<span data-picture data-alt="A giant stone face at The Bayon temple in Angkor Thom, Cambodia">
+    <span data-src="../examples/responsive/img/teghut-sm.jpg"></span>
+    <span data-src="../examples/responsive/img/teghut-med.jpg"     data-media="(min-width: 400px)"></span>
+    <span data-src="../examples/responsive/img/teghut-lrg.jpg"      data-media="(min-width: 800px)"></span>
+    <span data-src="../examples/responsive/img/teghut-extlrg.jpg" data-media="(min-width: 1000px)"></span>
 
-        <section class="slide">
-            <div class='centerMsg'>
-                <h2>Put scripts at the bottom</h2>
-                <p>Don't block page rendering</p>
+    <!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+    <noscript>
+        <img src="../examples/picturefill/img/small.jpg" alt="A giant stone face at The Bayon temple in Angkor Thom, Cambodia">
+    </noscript>
+</span>
+
+<script type="text/javascript" src="../js/lib/matchmedia.js"></script>
+<script src="../js/lib/picturefill.js"></script>
+                </textarea>
             </div>
-        </section>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>Minify JS/CSS/HTML</h2>
+            <p>Downloading smaller files...</p>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>Remove duplicate</h2>
+            <p>JS/CSS/HTML/Anything...</p>
+            <p>Use good modular design practices</p>
+        </div>
+    </section>
 
 
-        <section class="slide">
-            <div class='centerMsg'>
-                <h2>Avoid CSS expressions</h2>
-                <p>Example: background-color: expression( (new Date()).getHours()%2 ? "#B8D4FF" : "#F08A00" );</p>
+
+
+
+
+
+    <section class="slide">
+        <h2>Omit the protocol from embedded resources (http:, https:)</h2>
+<pre>
+&lt;!-- Bad --&gt;
+&lt;script src="http://www.mysight.com/js/foo/bar/main.js"&gt;&lt;/script&gt;
+</pre>
+<pre>
+&lt;!-- Better --&gt;
+&lt;script src="//www.mysight.com/js/foo/bar/main.js"&gt;&lt;/script&gt;
+</pre>
+<pre>
+&lt;!-- Best (if hostname is the same, use a relative path) --&gt;
+&lt;script src="/js/foo/bar/main.js"&gt;&lt;/script&gt;
+</pre>
+    </section>
+
+    <section class="slide">
+        <h2>Omit optional tags</h2>
+<h5>Not recommended</h5>
+        <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Sample&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;Hello World&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<h5>Recommended</h5>
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;title&gt;Sample&lt;/title&gt;
+&lt;p&gt;Hello World&lt;/p&gt;
+</pre>
+    </section>
+
+    <section class="slide">
+        <h2>Omit type attribute for styles and scripts</h2>
+<pre>
+&lt;!-- Bad --&gt;
+&lt;link type="text/css" rel="stylesheet" href="/foo/style.css"/&gt;
+&lt;script type="text/javascript" src="/foo/main.js"&gt;&lt;/script&gt;
+</pre>
+<pre>
+&lt;!-- Good --&gt;
+&lt;link rel="stylesheet" href="/foo/style.css"/&gt;
+&lt;script src="/foo/main.js"&gt;&lt;/script&gt;
+</pre>
+    </section>
+
+    <section class="slide">
+        <h2>Use shorthand CSS where possible</h2>
+<pre>
+/* Not recommended */
+border-top-style: none;
+font-family: palatino, georgia, serif;
+font-size: 100%;
+line-height: 1.6;
+padding-bottom: 2em;
+padding-left: 1em;
+padding-right: 1em;
+padding-top: 0;
+</pre>
+
+<pre>
+/* Recommended */
+border-top: 0;
+font: 100%/1.6 palatino, georgia, serif;
+padding: 0 1em 2em;
+</pre>
+    </section>
+
+    <sectipn class="slide">
+        <h2>Write compressible Javascript</h2>
+        <ul>
+            <li>Avoid global variables (put code in closure)</li>
+            <li>Make global variables local (window, undefined, etc)</li>
+            <li>Avoid using 'this' too often, assign to 'self' or 'that'</li>
+            <li>Study JQuery...</li>
+        </ul>
+    </sectipn>
+
+
+
+    <!-- COMPUTE -->
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1 style="color: blue">Compute</h1>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Don't freeze the UI</h2>
+        <ul>
+            <li>1 thread = if JS is running, nothing else is happening</li>
+            <li>Use setTimeout to allow the UI to update when performing long computations</li>
+            <li>Use Web Workers if available for long JS work</li>
+        </ul>
+    </section>
+
+
+    <section class="slide">
+        <div class="codeEditor">
+            <h2>UI frozen by JS execution</h2>
+            <div class='codeEditor_editor'>
+                <textarea>
+<h1 id="counter">0</h1>
+<button>Start</button>
+<script>
+    var node = document.getElementById('counter'),
+            btn = document.getElementsByTagName('button')[0];
+
+    btn.onclick = function() {
+        for(var i = 1; i <= 99999; i++)
+            node.innerHTML = i;
+    };
+</script>
+                </textarea>
             </div>
-        </section>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
-        <section class="slide">
-            <div class='centerMsg'>
-                <h2>Make JS and CSS external</h2>
-                <p>Increase probability of a cache hit</p>
+
+    <section class="slide">
+        <div class="codeEditor">
+            <h2>UI allowed to render</h2>
+            <div class='codeEditor_editor'>
+                <textarea>
+<h1 id="counter">0</h1>
+<button>Start</button>
+<script>
+    var node = document.getElementById('counter'),
+            btn = document.getElementsByTagName('button')[0];
+
+    var next = function(i) {
+        if(i > 100)
+            return;
+        node.innerHTML = i;
+        window.setTimeout(function() {
+            next(i + 1);
+        }, 0);
+    };
+
+    btn.onclick = function() {
+        next(0);
+    };
+</script>
+                </textarea>
             </div>
-        </section>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
-        <section class="slide">
-            <div class='centerMsg'>
-                <h2>Minify JS/CSS/HTML</h2>
-                <p>Downloading smaller files...</p>
+
+    <section class="slide">
+        <div class="codeEditor">
+            <h2>My utility for long-running JS code</h2>
+            <h4>Defend against stack overflow and UI blocking</h4>
+            <div class='codeEditor_editor'>
+                <textarea>
+<h1 id="counter">0</h1>
+<button>Start</button>
+<script>
+
+    var runner = (function() {
+        var jsTime,
+            countThreshhold = 100,
+            timeoutThreshold = 50,
+            jsCount = 0,
+            runNextQueue;
+
+        var runWithoutBlocking = function(f) {
+            // summary: Runs the function with a possible delay to avoid freezing the browser.
+
+            if(!jsTime)
+                jsTime = new Date().getTime();
+            jsCount++;
+
+            if (jsCount >= countThreshhold || (new Date().getTime() - jsTime > timeoutThreshold)) {
+                if (runNextQueue) {
+                    runNextQueue.push(f);
+                    return;
+                }
+                runNextQueue = [f];
+                var func = window.setImmediate || window.setTimeout;
+                func(function() {
+                    jsTime  = new Date().getTime();
+                    jsCount = 0;
+
+                    var tempArray = runNextQueue;
+                    runNextQueue = null;
+                    for (var i = 0; i < tempArray.length ; i++)
+                        runWithoutBlocking(tempArray[i]);
+                },0)
+            } else {
+                f();
+            }
+        };
+
+        return runWithoutBlocking;
+    })();
+
+
+
+
+    var node = document.getElementById('counter'),
+            btn = document.getElementsByTagName('button')[0];
+
+    var next = function(i) {
+        if(i > 99999)
+            return;
+        node.innerHTML = i;
+        runner(function() {
+            next(i + 1);
+        });
+    };
+
+    btn.onclick = function() {
+        next(0);
+    };
+
+
+</script>
+                </textarea>
             </div>
-        </section>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
-        <section class="slide">
-            <div class='centerMsg'>
-                <h2>Remove duplicate</h2>
-                <p>JS/CSS/HTML/Anything...</p>
-                <p>Use good modular design practices</p>
+    <section class="slide">
+        <h2>Web Workers</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<button onclick='start();'>Start</button> <button onclick='stop();'>Stop</button>
+<h2 id="result"></h2>
+
+<script>
+    var worker;
+
+    function start() {
+        if(window.Worker && !worker) {
+            worker = new Worker("../examples/html5/demo_workers.js");
+            worker.onmessage = function(event){
+                $("#result").text(event.data);
+            };
+            worker.postMessage({
+                text: " bottles of beer"
+            });
+        }
+    }
+
+    function stop() {
+        if(!worker)
+            return;
+        worker.terminate();
+        worker = null;
+    }
+</script>
+                </textarea>
             </div>
-        </section>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
 
-        <section class="slide">
-            <div class='centerMsg'>
-                <h2>Configure ETags</h2>
-                <p>Better way to validate cached files</p>
+    <section class="slide">
+        <h2>Closures are not cheap</h2>
+        <ul>
+            <li>Reuse functions</li>
+            <li>Avoid array.forEach(), JQuery.each(), Y.each(), dojo.forEach, ... when possible</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>Automatic Garbage Collection</h2>
+        <ul>
+            <li>Runs whenever it wants</li>
+            <li>Minimize creation/destruction cycles</li>
+            <li>May want to use an object pool</li>
+        </ul>
+    </section>
+
+
+    <!--Render-->
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1 style="color: orange">Render</h1>
+            <h3>Reflow/Repaint</h3>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h4>Repaint - also known as redraw - is what happens whenever something is made visible when it was not previously visible, or vice versa, without altering the layout of the document.</h4>
+        -<a href="//dev.opera.com/articles/view/efficient-javascript/?page=3#reflow">Mark 'Tarquin' Wilton-Jones</a>
+    </section>
+
+    <section class="slide">
+        <h2>When Repaint?</h2>
+        <ul>
+            <li>Change visibility</li>
+            <li>Formatting style change (colors, borders, etc)</li>
+            <li>When reflow occurs</li>
+        </ul>
+        -<a href="//www.slideshare.net/nzakas/writing-efficient-javascript">Nicholas Zakas</a>
+    </section>
+
+    <section class="slide">
+        <h4>Reflow is the process by which the geometry of the layout engine's formatting objects are computed.</h4>
+        -<a href="//www-archive.mozilla.org/newlayout/doc/reflow.html">Chris Waterson</a>
+    </section>
+
+    <section class="slide">
+        <h2>When Reflow?</h2>
+        <ul>
+            <li>Initial page load</li>
+            <li>Browser window resize</li>
+            <li>DOM nodes added/removed</li>
+            <li>Layout style applied</li>
+            <li>Layout information retrieved</li>
+        </ul>
+        -<a href="//www.slideshare.net/nzakas/writing-efficient-javascript">Nicholas Zakas</a>
+    </section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>Put stylesheets at the top</h2>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>Put scripts at the bottom</h2>
+            <p>Don't block page rendering</p>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>Reduce DOM elements</h2>
+            <p>Fewer bytes to download</p>
+            <p>Faster browser performance</p>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Minimize Reflows!!!</h1>
+            <h3>Touch the live DOM as little as possible</h3>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="codeEditor">
+        <h2>Example 1 - bad performance</h2>
+        <div class='codeEditor_editor'>
+            <textarea>
+<div>Hello World</div>
+<script>
+    document.getElementsByTagName('div')[0].style.top = "10px"; // reflow, repaint
+    document.getElementsByTagName('div')[0].style.left = "10px"; // reflow, repaint
+    document.getElementsByTagName('div')[0].style.color = "#dad"; // repaint only, no dimensions changed
+</script>
+                </textarea>
             </div>
-        </section>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
-        <section class="slide">
-            <div class='centerMsg'>
-                <h2>Reduce DOM elements</h2>
-                <p>Fewer bytes to download</p>
-                <p>Faster browser performance</p>
+    <section class="slide">
+        <div class="codeEditor">
+            <h2>Example 1 - better, but still bad</h2>
+            <div class='codeEditor_editor'>
+                <textarea>
+<div>Hello World</div>
+<script>
+    var mysty = document.getElementsByTagName('div')[0].style;
+    mysty.top = "10px";
+    mysty.left = "20px";
+    mysty.color = "#dad";
+</script>
+                </textarea>
             </div>
-        </section>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
-        <section class="slide">
-            <div class='centerMsg'>
-                <h2>Minimize DOM access</h2>
-                <p>The DOM is slow, avoid it as much as possible</p>
+    <section class="slide">
+        <div class="codeEditor">
+            <h2>Example 1 - good</h2>
+            <div class='codeEditor_editor'>
+                <textarea>
+<div>Hello World</div>
+<script>
+    var csstext = "; top: 10px; left: 10px; color: #dad;";
+    document.getElementsByTagName('div')[0].style.cssText += csstext;
+
+    /*
+     $('#my').css({
+     top: '10px',
+     left: '10px',
+     color: '#dad'
+     });
+     */
+</script>
+                </textarea>
             </div>
-        </section>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
-        <section class="slide">
-            <div class='centerMsg'>
-                <h2>Avoid forcing dom reflow</h2>
-                <p>display: none or use DocumentFragments (document.createDocumentFragment())</p>
+    <section class="slide">
+        <div class="codeEditor">
+            <h2>Example 1 - even good</h2>
+            <div class='codeEditor_editor'>
+                <textarea>
+<div>Hello World</div>
+<style>
+    .myClass {
+        top: 10px;
+        left: 10px;
+        color: #dad
+    }
+</style>
+<script>
+    document.getElementsByTagName('div')[0].className = 'myClass';
+    // $('div').addClass('myClass');
+</script>
+                </textarea>
             </div>
-        </section>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
-        <section class="slide">
-            <div class='centerMsg'>
-                <h2>Use GET for AJAX Requests</h2>
-                <p>POST is implemented in the browsers as a two-step process: sending the headers first, then sending data</p>
+
+    
+    <section class="slide">
+        <h2>Browsers are intelligent</h2>
+
+        <h5>Browser has to give you the most up-to-date value when calling:</h5>
+        <ul>
+            <li>offsetTop, offsetLeft, offsetWidth, offsetHeight</li>
+            <li>scrollTop/Left/Width/Height</li>
+            <li>clientTop/Left/Width/Height</li>
+            <li>getComputedStyle(), or currentStyle in IE</li>
+        </ul>
+
+        <h5>Avoid calling these in a loop where css is changed!</h5>
+    </section>
+
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>Avoid forcing dom reflow</h2>
+            <p>display: none or use DocumentFragments (document.createDocumentFragment())</p>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <div class="codeEditor">
+            <h2>Example 2 - bad</h2>
+            <div class='codeEditor_editor'>
+                <textarea>
+<ul id="container">
+    <li id="template">
+
+    </li>
+</ul>
+
+<script>
+    var template = document.getElementById('template'),
+        container = document.getElementById('container'),
+        localLI;
+
+    template.parentNode.removeChild(template);
+
+    var data = ['Java', 'Ruby', 'Python', 'Javascript', 'C', 'C++'];
+
+    for(var i = 0; i < data.length; i++) {
+        localLI = template.cloneNode(true);
+        container.appendChild(localLI); // reflow/repaint
+        localLI.innerHTML = data[i]; // reflow/repaint
+    }
+</script>
+                </textarea>
             </div>
-        </section>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
-        <section class="slide">
-            <div class='centerMsg'>
-                <h2>Avoid Empty Image src</h2>
-                <p>Some browsers will still send requests for / to the server</p>
+
+    <section class="slide">
+        <div class="codeEditor">
+            <h2>Example 2 - good</h2>
+            <div class='codeEditor_editor'>
+                <textarea>
+<ul id="container">
+    <li id="template">
+
+    </li>
+</ul>
+
+<script>
+    var template = document.getElementById('template'),
+            container = document.getElementById('container'),
+            fragment = document.createDocumentFragment(),
+            localLI;
+
+    template.parentNode.removeChild(template);
+
+    var data = ['Java', 'Ruby', 'Python', 'Javascript', 'C', 'C++'];
+
+    for(var i = 0; i < data.length; i++) {
+        localLI = template.cloneNode(true);
+        fragment.appendChild(localLI);
+        localLI.innerHTML = data[i];
+    }
+
+    container.appendChild(fragment);
+</script>
+                </textarea>
             </div>
-        </section>
-
-        <section class="slide">
-            <div class='centerMsg'>
-                <h1>Rouben Meschian</h1>
-                <h4>rmeschian@gmail.com</h4>
-            </div>
-        </section>
-
-        <!-- End slides. -->
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
 
-        <script data-main="../js/main" src="../js/lib/require/require.js"></script>
 
-    </body>
-</html>
+    <!--<section class="slide">-->
+        <!--<div class="codeEditor">-->
+            <!--<h2>Example 3 - bad</h2>-->
+            <!--<div class='codeEditor_editor'>-->
+                <!--<textarea>-->
+<!--<div class="myimg sprite-elephant-icon"></div>-->
+<!--<style>-->
+    <!--.myimg {-->
+        <!--position: absolute;-->
+        <!--left: 0;-->
+        <!--top: 0;-->
+        <!--background: url(../examples/sprite/output/sprite.png) no-repeat top left-->
+    <!--}-->
+    <!--.sprite-elephant-icon{-->
+        <!--background-position: 0 -205px; width: 127px; height: 88px-->
+    <!--}-->
+<!--</style>-->
+
+<!--<script>-->
+    <!--var elephant = document.getElementsByTagName('div')[0];-->
+    <!--elephant.style.left = '0px';-->
+
+    <!--//var p = 0;-->
+    <!--var next = function() {-->
+        <!--//p += 2;-->
+        <!--p = parseInt(elephant.style.left) + 2;-->
+        <!--elephant.style.left = p + 'px';-->
+
+        <!--if(p > 400)-->
+            <!--return;-->
+
+        <!--window.setTimeout(function() {-->
+            <!--next();-->
+        <!--}, 10);-->
+    <!--};-->
+
+    <!--next();-->
+<!--</script>-->
+                <!--</textarea>-->
+            <!--</div>-->
+            <!--<hr />-->
+            <!--<div class="codeEditor_target"></div>-->
+        <!--</div>-->
+    <!--</section>-->
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h2>HTMLCollection Objects - ARE LIVE!</h2>
+            <h4>document.images</h4>
+            <h4>document.forms</h4>
+            <h4>getElementsByTagName()</h4>
+            <h4>getElementsByClassName()</h4>
+            -<a href="//www.slideshare.net/nzakas/writing-efficient-javascript">Nicholas Zakas</a>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Infinite loop!</h2>
+<pre>
+var divs = document.getElementsByTagName('div'), div;
+
+for(var i = 0; i < divs.length; i++) {
+    div = document.createElement('div');
+    divs[i].appendChild(div);
+}
+</pre>
+    </section>
+
+    <section class="slide">
+        <h2>HTMLCollection Objects</h2>
+        <ul>
+            <li>Avoid if possible</li>
+            <li>Copy to a an array if used often</li>
+            <li>Use JQuery, which returns a JS array that is not live</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>CSS Selectors - use them efficiently</h2>
+        <ol>
+            <li>ID, e.g. #header</li>
+            <li>Class, e.g. .promo</li>
+            <li>Type, e.g. div</li>
+            <li>Adjacent sibling, e.g. h2 + p</li>
+            <li>Child, e.g. li > ul</li>
+            <li>Descendant, e.g. ul a</li>
+            <li>Universal, i.e. *</li>
+            <li>Attribute, e.g. [type="text"]</li>
+            <li>Pseudo-classes/-elements, e.g. a:hover</li>
+        </ol>
+        -<a href="//stevesouders.com">Steve Souders</a>
+    </section>
+
+    <section class="slide">
+        <h2>Browsers read selectors right-to-left!</h2>
+
+Select ALL a tags, then check which ones are under #foo and return those
+<pre>
+#foo a {...}
+</pre>
+
+<h5>The right-most expression is called the 'key'.  The key will affect performance the most.</h5>
+    </section>
+
+    <section class="slide">
+        <h2>Don't overqualify selectors</h2>
+If you have this:
+<pre>
+&lt;ul id='nav'&gt;
+    &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+
+Don't do this:
+<pre>
+#nav li a {...}
+</pre>
+
+If you can do this:
+<pre>
+#nav a {...}
+</pre>
+        
+        -<a href="http://csswizardry.com/2011/09/writing-efficient-css-selectors/">Harry Roberts</a>
+    </section>
+
+    <section class="slide">
+        <h2>To prevent reflows, specify the width and height of all images, either in the HTML <img> tag, or in CSS</h2>
+    </section>
+
+    <!--<section class="slide">-->
+        <!--<div class='centerMsg'>-->
+            <!--<h2>Avoid CSS expressions</h2>-->
+            <!--<p>Example: background-color: expression( (new Date()).getHours()%2 ? "#B8D4FF" : "#F08A00" );</p>-->
+        <!--</div>-->
+    <!--</section>-->
+
+    <!--<section class="slide">-->
+        <!--<div class='centerMsg'>-->
+            <!--<h2>Avoid Empty Image src</h2>-->
+            <!--<p>Some browsers will still send requests for / to the server</p>-->
+        <!--</div>-->
+    <!--</section>-->
+
+    <section class="slide">
+        <h1>Credits</h1>
+        <ul>
+            <li>http://google-styleguide.googlecode.com/</li>
+            <li>http://developer.yahoo.com/performance/rules.html</li>
+            <li>http://www.phpied.com/rendering-repaint-reflowrelayout-restyle/</li>
+            <li>http://www.slideshare.net/nzakas/writing-efficient-javascript</li>
+            <li>http://csswizardry.com/2011/09/writing-efficient-css-selectors/</li>
+            <li>http://stevesouders.com/</li>
+        </ul>
+    </section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+    <!-- End slides. -->
+
+
+
+
+</div>
+
+<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+

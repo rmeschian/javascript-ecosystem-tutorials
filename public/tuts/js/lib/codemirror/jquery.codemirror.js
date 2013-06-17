@@ -53,7 +53,7 @@
                             content = '<!doctype html><html><head> ' + styles + '<style>p, h1, h2, h3, h4, h5, h6 { padding: 0; margin: 0} </style> ' + scripts + '  </head><body>' + content + '</body></html>';
                         }
 
-                        var iframe = $("<iframe style='min-height: 20em; width: 99%' ></html></iframe>")[0];
+                        var iframe = $("<iframe style='min-height: 80em; width: 99%' ></html></iframe>")[0];
                         editorTarget.empty().append(iframe);
 
                         var f = (iframe.contentWindow) ? iframe.contentWindow : (iframe.contentDocument.document) ? iframe.contentDocument.document : iframe.contentDocument;

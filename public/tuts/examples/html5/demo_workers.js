@@ -8,6 +8,11 @@ this.onmessage=function(event){
 			timedCount();
 		}, 500);
 	}
-	
+
 	timedCount();
+//    postMessage("Starting");
+//    for(var i = 0; i < 9999999999; i++) {
+//
+//    }
+//    postMessage('All done!');
 };
