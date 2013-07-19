@@ -10,11 +10,13 @@ Courseware for javascript and related technologies.
 6. Debugging - Common tools used for debugging web applications.
 7. Performance - Best practices for a fast website.
 8. JQuery Mobile - HTML5-based user interface system for popular mobile device platforms.
+9. Bootstrap - Front-end framework for the web
+10. KnockoutJS - Declarative data-binding framework
 
 ## Getting Started
 Download the code and run 'node app.js' to start the server.
 
-Then go to localhost:3000/tuts to see the various courses.
+Then, using your browser, go to localhost:3000/tuts
 
 ## License
 Copyright (c) 2013 Rouben Meschian
