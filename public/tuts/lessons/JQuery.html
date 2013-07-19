@@ -300,20 +300,23 @@ If we lose the Teghut forest, we are in <span>LOTS of</span> trouble
 
 
 <script>
-	jQuery(document).ready(function($) { // document.onload
-		// use live/die, rather than bind/unbind or on/off
-		$('div').on('mouseenter mouseleave', function(e) {
-			if (e.type === 'mouseenter')
-				$(this).addClass('over');
-			else
-				$(this).removeClass('over');
-		});
-		$('a').click(function(event) { // same as calling $('a').on('click', function() {
-			$('div').off();
+	jQuery(document).ready(function($) {
+
+        var func = function(e) {
+            if (e.type === 'mouseenter')
+                $(this).addClass('over');
+            else
+                $(this).removeClass('over');
+        };
+
+		$('div').on('mouseenter mouseleave', func); // OR $('body').on('mouseenter mouseleave', 'div', func);
+		$('a').on('click', function(evt) {
+			$('div').off('mouseenter mouseleave', func); // OR $('body').off("mouseenter mouseleave", "div", func);
 			$(this).off('click');
 			event.preventDefault();
 		});
 		$('body').append('<div>New div!</div>');
+
 	});
 </script>
 

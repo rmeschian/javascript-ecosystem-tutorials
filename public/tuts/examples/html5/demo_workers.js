@@ -4,9 +4,9 @@ this.onmessage=function(event){
 	function timedCount() {
 		i++;
 		postMessage(i+t);
-		setTimeout(function() {
+		//setTimeout(function() {
 			timedCount();
-		}, 500);
+		//}, 500);
 	}
 
 	timedCount();

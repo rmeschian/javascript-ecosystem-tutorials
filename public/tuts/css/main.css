@@ -29,13 +29,13 @@ html {overflow-y: scroll;}
 }
 
 body {
-    padding: 1em 2em;
+    /*padding: 1em 2em;*/
     height: 100%;
     /*font-size: 150%;*/
 }
 
 ul li {
-    padding: .5em
+    /*padding: .5em*/
 }
 
 iframe {

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+    <title>Bootstrap</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+    <div class="navButtonBar">
+        <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+        <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+        <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+    </div>
+
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+			<h1>Twitter <span style='color: red'>Bootstrap</span></h1>
+            <p>Front-end framework</p>
+		</div>
+	</section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>
+                Responsive Layout
+            </h1>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Basic setup</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/bootstrap-responsive.css"/>
+    </head>
+    <body>
+
+        <h1>The site goes here!</h1>
+
+        <script  src="../js/lib/jquery.js"></script>
+        <script  src="../js/lib/bootstrap.js"></script>
+    </body>
+</html>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Navbar</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/bootstrap-responsive.css"/>
+    </head>
+    <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <button class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <i class="icon-th-list"></i>
+                    </button>
+                    <a href="#" class="brand">Sample Application</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script  src="../js/lib/jquery.js"></script>
+        <script  src="../js/lib/bootstrap.js"></script>
+    </body>
+</html>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Hero</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/bootstrap-responsive.css"/>
+    </head>
+    <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <button class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <i class="icon-th-list"></i>
+                    </button>
+                    <a href="#" class="brand">Sample Application</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-unit">
+            <h1>Welcome to my site</h1>
+            <p>This is an awesome site</p>
+            <p><a href="#" class="btn btn-primary btn-large">More info</a></p>
+        </div>
+
+        <script  src="../js/lib/jquery.js"></script>
+        <script  src="../js/lib/bootstrap.js"></script>
+    </body>
+</html>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Fluid Grid (12 columns)</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/bootstrap-responsive.css"/>
+    </head>
+    <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <button class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <i class="icon-th-list"></i>
+                    </button>
+                    <a href="#" class="brand">Sample Application</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-unit">
+            <h1>Welcome to my site</h1>
+            <p>This is an awesome site</p>
+            <p><a href="#" class="btn btn-primary btn-large">More info</a></p>
+        </div>
+
+        <div class="container">
+            <div class="row-fluid">
+
+                <div class="span4">
+                    <h2>This site rocks!</h2>
+                </div>
+
+                <div class="span8">
+                    <p>Pie chocolate pastry pudding applicake lollipop candy jelly pie. Caramels brownie danish liquorice chupa chups. Oat cake sugar plum ice cream caramels candy canes carrot cake jelly sugar plum icing. Wafer icing sweet roll applicake soufflé bonbon cotton candy. Marshmallow croissant pastry. Marshmallow fruitcake unerdwear.com tart lemon drops pudding danish apple pie. Lemon drops sweet roll gingerbread wafer marzipan sugar plum. Applicake oat cake lollipop candy canes cookie. Topping candy canes topping soufflé chocolate chocolate cake toffee. Unerdwear.com cupcake fruitcake chocolate bar bear claw sweet cake marzipan toffee. Marzipan candy topping bonbon wafer soufflé. Jelly beans cupcake apple pie chocolate bar gummi bears macaroon dessert jelly-o donut. Toffee marzipan bonbon jelly chocolate cake sweet roll muffin gummies. Cake danish macaroon chocolate halvah gingerbread wafer.</p>
+
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <h4>Some info 1</h4>
+                            <p>Some info about me</p>
+                            <button class="btn">More info</button>
+                        </div>
+                        <div class="span4">
+                            <h4>Some info 2</h4>
+                            <p>Some info about me</p>
+                            <button class="btn">More info</button>
+                        </div>
+                        <div class="span4">
+                            <h4>Some info 3</h4>
+                            <p>Some info about me</p>
+                            <button class="btn">More info</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script  src="../js/lib/jquery.js"></script>
+        <script  src="../js/lib/bootstrap.js"></script>
+    </body>
+</html>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+    <section class="slide">
+        <h2>Navlist</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/bootstrap-responsive.css"/>
+    </head>
+    <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <button class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <i class="icon-th-list"></i>
+                    </button>
+                    <a href="#" class="brand">Sample Application</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-unit">
+            <h1>Welcome to my site</h1>
+            <p>This is an awesome site</p>
+            <p><a href="#" class="btn btn-primary btn-large">More info</a></p>
+        </div>
+
+        <div class="container">
+            <div class="row-fluid">
+
+                <div class="span4">
+
+                    <ul class="nav nav-list">
+                        <li class="nav-header">Some info</li>
+                        <li class="active"><a href="#">Overview</a></li>
+                        <li><a href="#">Option 1</a></li>
+                        <li><a href="#">Option 2</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Option 3</a></li>
+                        <li><a href="#">Option 4</a></li>
+                    </ul>
+
+                </div>
+
+                <div class="span8">
+                    <p>Pie chocolate pastry pudding applicake lollipop candy jelly pie. Caramels brownie danish liquorice chupa chups. Oat cake sugar plum ice cream caramels candy canes carrot cake jelly sugar plum icing. Wafer icing sweet roll applicake soufflé bonbon cotton candy. Marshmallow croissant pastry. Marshmallow fruitcake unerdwear.com tart lemon drops pudding danish apple pie. Lemon drops sweet roll gingerbread wafer marzipan sugar plum. Applicake oat cake lollipop candy canes cookie. Topping candy canes topping soufflé chocolate chocolate cake toffee. Unerdwear.com cupcake fruitcake chocolate bar bear claw sweet cake marzipan toffee. Marzipan candy topping bonbon wafer soufflé. Jelly beans cupcake apple pie chocolate bar gummi bears macaroon dessert jelly-o donut. Toffee marzipan bonbon jelly chocolate cake sweet roll muffin gummies. Cake danish macaroon chocolate halvah gingerbread wafer.</p>
+
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <h4>Some info</h4>
+                            <p>Some info about me</p>
+                            <button class="btn">More info</button>
+                        </div>
+                        <div class="span4">
+                            <h4>Some info</h4>
+                            <p>Some info about me</p>
+                            <button class="btn">More info</button>
+                        </div>
+                        <div class="span4">
+                            <h4>Some info</h4>
+                            <p>Some info about me</p>
+                            <button class="btn">More info</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script  src="../js/lib/jquery.js"></script>
+        <script  src="../js/lib/bootstrap.js"></script>
+    </body>
+</html>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Responsive Design</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/bootstrap-responsive.css"/>
+        <style>
+
+            /* Large desktop */
+            @media (min-width: 1200px) {
+
+            }
+
+            /* Desktop */
+            @media (min-width: 980px) and (max-width: 1199px) {
+
+            }
+
+            /* Portrait tablet to landscape and desktop */
+            @media (min-width: 768px) and (max-width: 979px) {
+
+            }
+
+            /* Landscape phone to portrait tablet */
+            @media (max-width: 767px) {
+
+            }
+
+            /* Landscape phones and down */
+            @media (max-width: 480px) {
+
+            }
+        </style>
+    </head>
+    <body>
+
+        <h1>Hello World!</h1>
+
+        <script  src="../js/lib/jquery.js"></script>
+        <script  src="../js/lib/bootstrap.js"></script>
+    </body>
+</html>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Responsive Design - utility classes</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/bootstrap-responsive.css"/>
+    </head>
+    <body>
+
+        <h1 class="visible-phone">Phone!</h1>
+        <h1 class="visible-tablet">Tablet!</h1>
+        <h1 class="visible-desktop">Desktop!</h1>
+
+        <hr>
+        <h1 class="hidden-phone">NOT Phone!</h1>
+        <h1 class="hidden-tablet">NOT Tablet!</h1>
+        <h1 class="hidden-desktop">NOT Desktop!</h1>
+
+        <script  src="../js/lib/jquery.js"></script>
+        <script  src="../js/lib/bootstrap.js"></script>
+    </body>
+</html>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+	<!-- End slides. -->
+
+
+	<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+
+</body>
+</html>
