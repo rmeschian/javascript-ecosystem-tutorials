@@ -2,6 +2,7 @@
 
 Courseware for javascript and related technologies.
 
+0. World Wide Web Technologies - An introduction to http, browsers, html and css.
 1. Javascript - Prototype-based programming language that is dynamic, loosely typed and has first-class functions.
 2. JQuery - Library for working with the DOM.
 3. RequireJS - JavaScript file and module loader.

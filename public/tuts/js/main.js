@@ -61,7 +61,7 @@ require([
         $('.codeEditor').codemirror({
             mode           : "text/html",
             tabMode        : "indent",
-            defaultStyles  : ['../css/main.css'],
+            defaultStyles  : ['../css/bootstrap.css', '../css/bootstrap-responsive.css'],
             defaultScripts : ["../js/lib/jquery.js"],
             theme          : "vibrant-ink"
         });

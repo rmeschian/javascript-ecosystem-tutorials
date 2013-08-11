@@ -29,13 +29,34 @@ html {overflow-y: scroll;}
 }
 
 body {
-    /*padding: 1em 2em;*/
+    padding: 1em 2em;
     height: 100%;
+    /*background: #ffffff;*/
     /*font-size: 150%;*/
 }
 
 ul li {
     /*padding: .5em*/
+}
+
+h1{
+    font-size: 40px;
+    font-weight: 300;
+}
+
+h2{
+    font-size: 20px;
+    font-weight: 300;
+}
+
+h3{
+    font-size: 15px;
+    font-weight: 300;
+}
+
+h4{
+    font-size: 13px;
+    font-weight: 300;
 }
 
 iframe {
