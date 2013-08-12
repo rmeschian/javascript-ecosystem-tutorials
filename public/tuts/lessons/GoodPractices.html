@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+    <title>Good Practices</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+<div class="navButtonBar">
+    <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+    <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+    <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+</div>
+
+
+<!-- Begin slides. Just make elements with a class of slide. -->
+
+<section class="slide">
+    <div class='centerMsg'>
+        <h1>Good <span style='color: red'>Practices</span></h1>
+    </div>
+</section>
+
+
+<section class="slide">
+    <h1>We spend more time reading code than writing it</h1>
+    <h2>Write readable code!</h2>
+</section>
+
+<section class="slide">
+    <h1>Be consistent with formatting/naming</h1>
+</section>
+
+<section class="slide">
+    <h1>Use globals sparingly - they are evil!</h1>
+    <ul>
+        <li>Non-locality </li>
+        <li>No Access Control or Constraint Checking</li>
+        <li>Implicit coupling</li>
+        <li>Testing and Confinement</li>
+    </ul>
+    <a href="http://c2.com/cgi/wiki?GlobalVariablesAreBad">Source</a>
+</section>
+
+<section class="slide">
+    <h1>Write loosely coupled code</h1>
+    <p1>Loosely coupled system is one in which each of its components has, or makes use of, little or no knowledge of the definitions of other separate components.</p1>
+</section>
+
+<section class="slide">
+    <h1>Write functions that required as little to run as possible</h1>
+    <pre>
+        function func(manager) {
+            var id = manager.info.getId();
+            return store.get(id);
+        }
+    </pre>
+    <h3>VS.</h3>
+    <pre>
+        function func(id) {
+            return store.get(id);
+        }
+    </pre>
+</section>
+
+<section class="slide">
+    <h1>Taint check - don't let bad inputs break your system</h1>
+</section>
+
+<section class="slide">
+    <h1>Comment all public APIs (e.g. javadoc)</h1>
+</section>
+
+<section class="slide">
+    <h1>Code Commenting</h1>
+    <ol>
+        <li>A comment should explain WHY a piece of code is like it is, not what it does.</li>
+        <li>If you are tempted to write a comment to summarize what a block of code does, rewrite it!</li>
+    </ol>
+</section>
+
+<section class="slide">
+    <h1>Duplication is Evil (DIE principle)</h1>
+
+    <p>Every piece of knowledge must have a single, unambiguous, authoritative representation within a system.</p>
+    <a href="http://net.tutsplus.com/tutorials/html-css-techniques/top-15-best-practices-for-writing-super-readable-code/">Source</a>
+</section>
+
+<section class="slide">
+    <h1>Avoid deep-nesting</h1>
+    <p>The more levels of nesting, the harder code is to read</p>
+
+    <pre>
+        function myFunc(foo, bar) {
+            if(foo && bar) {
+                // body of function
+            }
+        }
+    </pre>
+    <h3>VS</h3>
+    <pre>
+        function myFunc(foo, bar) {
+            if(!foo || !bar)
+                return;
+
+            // body of function
+        }
+    </pre>
+</section>
+
+<section class="slide">
+    <h1>Minimize line length</h1>
+    <ul>
+        <li>Keep variable names short</li>
+        <li>Limit nesting</li>
+        <li>Don't do too much in a single line</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h1>Capitalize SQL Special Words</h1>
+    <pre>
+        SELECT ... WHERE ...
+    </pre>
+</section>
+
+<section class="slide">
+    <h1>Separation of Code and Data</h1>
+</section>
+
+<section class="slide">
+    <h1>Keep UI separate from core business logic</h1>
+</section>
+
+<section class="slide">
+    <h1>Use a version control system (e.g. GIT)</h1>
+    <h3>Add comments to EVERY commit</h3>
+</section>
+
+<section class="slide">
+    <h1>Write unit tests!</h1>
+    <ul>
+        <li>Validate what you have written</li>
+        <li>Validate future changes</li>
+    </ul>
+</section>
+
+<section class="slide">
+    Write modules that do one thing well. Write a new module rather than complicate an old one.
+    Write modules that encourage composition rather than extension.
+    Write modules that handle data Streams, because that is the universal interface.
+    Write modules that are agnostic about the source of their input or the destination of their output.
+    Write modules that solve a problem you know, so you can learn about the ones you don’t.
+    Write modules that are small. Iterate quickly. Refactor ruthlessly. Rewrite bravely.
+    Write modules quickly, to meet your needs, with just a few tests for compliance. Avoid extensive specifications. Add a test for each bug you fix.
+    Write modules for publication, even if you only use them privately. You will appreciate documentation in the future.
+    <a href="http://blog.izs.me/post/48281998870/unix-philosophy-and-node-js?utm_source=javascriptweekly&utm_medium=email">Source</a>
+</section>
+
+<section class="slide">
+    Working is better than perfect.
+    Focus is better than features.
+    Compatibility is better than purity.
+    Simplicity is better than anything.
+    <a href="http://blog.izs.me/post/48281998870/unix-philosophy-and-node-js?utm_source=javascriptweekly&utm_medium=email">Source</a>
+</section>
+
+<section class="slide">
+    <img src="../img/shut_up_n_code.jpg" alt=""/>
+</section>
+
+
+<section class="slide">
+    <div class='centerMsg'>
+        <h1>Rouben Meschian</h1>
+        <h4>rmeschian@gmail.com</h4>
+    </div>
+</section>
+
+<!-- End slides. -->
+
+
+<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>
