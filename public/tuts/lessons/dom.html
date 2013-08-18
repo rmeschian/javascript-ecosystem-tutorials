@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+
+    <title>DOM</title>
+
+
+    <link rel="stylesheet" href="../css/main.css">
+
+    <style type="text/css">
+        .dom-example {
+            font-weight: bold;
+            color: red
+        }
+        .dom-exp {
+
+        }
+    </style>
+</head>
+<body class="deck-container">
+
+<div class="navButtonBar">
+    <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+    <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+    <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+</div>
+
+<!-- Begin slides. Just make elements with a class of slide. -->
+
+<section class="slide">
+    <div class='centerMsg'>
+        <h1>Document Object Model - <span style='color: red'>DOM</span></h1>
+    </div>
+</section>
+
+<section class="slide">
+    <h2>Sample HTML Page</h2>
+
+    <pre><span style="color: red">&lt;!DOCTYPE&nbsp;html&gt;</span><br/><span style="color: blue">&lt;html&gt;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: orange">&lt;head&gt;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #800080">&lt;title&gt;Sample&nbsp;page&lt;/title&gt;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: orange">&lt;/head&gt;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: darkgreen">&lt;body&gt;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: darkturquoise">&lt;h1&gt;Hello&nbsp;World&lt;/h1&gt;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: darkgreen">&lt;/body&gt;</span><br/><span style="color: blue">&lt;/html&gt;</span></pre>
+
+</section>
+
+<section class="slide">
+
+    <h2>Sample HTML DOM</h2>
+
+
+    <table>
+        <tr>
+            <td>
+                <div class="dom-example">document</div>
+                <div class="dom-exp">Document Node</div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div class="dom-example">&lt;!DOCTYPE html&gt;</div>
+                <div class="dom-exp">Document Type Node</div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div class="dom-example">&lt;html&gt;</div>
+                <div class="dom-exp">Element Node</div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="dom-example">&lt;head&gt;</div>
+                <div class="dom-exp">Element Node</div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="dom-example">&lt;title&gt;</div>
+                <div class="dom-exp">Element Node</div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="dom-example">Sample Page</div>
+                <div class="dom-exp">Text Node</div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="dom-example">&lt;body&gt;</div>
+                <div class="dom-exp">Element Node</div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="dom-example">&lt;h1&gt;</div>
+                <div class="dom-exp">Element Node</div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="dom-example">Hello World</div>
+                <div class="dom-exp">Text Node</div>
+            </td>
+        </tr>
+
+    </table>
+
+</section>
+
+<section class="slide">
+    <h2>Node type</h2>
+    <p>Chick the type by doing node.nodeType</p>
+    <pre>node.nodeType === Node.ELEMENT_NODE</pre>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node.nodeType" target="_blank">List of node types</a>
+</section>
+
+<section class="slide">
+    <h2>Node name</h2>
+    <pre>node.nodeName === 'H1'</pre>
+</section>
+
+<section class="slide">
+    <h2>Text node</h2>
+    <pre>node.nodeType === Node.TEXT_NODE // 3</pre>
+    <pre>node.nodeValue // get the text value</pre>
+</section>
+
+
+<section class="slide">
+    <h2>Node Parents, Children, and Siblings</h2>
+    <ul>
+        <li>childNodes</li>
+        <li>firstChild</li>
+        <li>lastChild</li>
+        <li>parentNode</li>
+        <li>nextSibling</li>
+        <li>previousSibling</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2>Example</h2>
+
+    <div class="codeEditor">
+        <div class='codeEditor_editor'>
+            <textarea>
+<div>
+    <h1>hello world</h1>
+</div>
+<script>
+function walk(node, func) {
+    func(node);
+    var children = node.childNodes;
+    for(var i = 0; i < children.length; i++) {
+        walk(children[i], func);
+    }
+}
+
+walk(document.body, function(node) {
+    console.debug(node.nodeType + ' > ' + node.nodeName + ' > ' + node.nodeValue);
+});
+</script>
+            </textarea>
+        </div>
+        <hr/>
+        <div class="codeEditor_target"></div>
+    </div>
+</section>
+
+<section class="slide">
+    <h2>Element Attribute</h2>
+    <pre>node.getAttribute('attribute_name')</pre>
+    <pre>node.setAttribute('attribute_name', value)</pre>
+</section>
+
+
+<section class="slide">
+    <h2>Find elements in the DOM</h2>
+    <ul>
+        <li>document.getElementById</li>
+        <li>document.getElementsByTagName</li>
+        <li>document.getElementsByClassName (HTML5)</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2>Example</h2>
+
+    <div class="codeEditor">
+        <div class='codeEditor_editor'>
+            <textarea>
+<div>
+    <div id="target">
+        <h1>hello world</h1>
+    </div>
+</div>
+<script>
+    function walk(node, func) {
+        func(node);
+        var children = node.childNodes;
+        for(var i = 0; i < children.length; i++) {
+            walk(children[i], func);
+        }
+    }
+
+    walk(document.getElementById('target'), function(node) {
+        console.debug(node.nodeType + ' > ' + node.nodeName + ' > ' + node.nodeValue);
+    });
+</script>
+            </textarea>
+        </div>
+        <hr/>
+        <div class="codeEditor_target"></div>
+    </div>
+</section>
+
+<section class="slide">
+    <h2>Create nodes</h2>
+    <ul>
+        <li>document.createElement('tag_name')</li>
+        <li>document.createTextNode('text')</li>
+        <li>document.createDocumentFragment()</li>
+        <li>node.cloneNode(true) // make a copy -> include all attributs + child nodes</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2>Add/remove nodes</h2>
+    <ul>
+        <li>node.appendChild(newNode)</li>
+        <li>node.insertBefore(newNode)</li>
+        <li>node.removeChild(nodeToRemove)</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2>innerHTML</h2>
+    <p>Returns the inner HTML as a string</p>
+</section>
+
+<section class="slide">
+    <h2>Example</h2>
+
+    <div class="codeEditor">
+        <div class='codeEditor_editor'>
+            <textarea>
+<div>
+    <div id="target">
+
+    </div>
+</div>
+<script>
+    var target = document.getElementById('target');
+    var h1 = document.createElement('h1');
+    h1.innerHTML = "hello world";
+    target.appendChild(h1);
+</script>
+            </textarea>
+        </div>
+        <hr/>
+        <div class="codeEditor_target"></div>
+    </div>
+</section>
+
+<section class="slide">
+    <h2>Change style/class</h2>
+    <div class="codeEditor">
+        <div class='codeEditor_editor'>
+            <textarea>
+<div>
+    <div id="target">
+        Hello World!
+    </div>
+</div>
+<style>
+    .myClass {
+        background: blue
+    }
+    .anotherClass {
+        border: solid 4px orange;
+    }
+</style>
+<script>
+    var target = document.getElementById('target');
+    target.style.color = 'red';
+    target.className = 'myClass';
+    target.className += ' anotherClass';
+</script>
+            </textarea>
+        </div>
+        <hr/>
+        <div class="codeEditor_target"></div>
+    </div>
+</section>
+
+<section class="slide">
+    <h2>Template Example</h2>
+
+    <div class="codeEditor">
+        <div class='codeEditor_editor'>
+            <textarea>
+<div>
+    <div id="target">
+
+    </div>
+    <div id="template">
+        <h1>This is a template</h1>
+    </div>
+</div>
+<script>
+var target = document.getElementById('target'),
+        template = document.getElementById('template'),
+        node;
+
+for(var i = 0; i < 10; i++) {
+    var n = template.cloneNode(true);
+    n.style.display = "";
+    target.appendChild(n);
+}
+</script>
+            </textarea>
+        </div>
+        <hr/>
+        <div class="codeEditor_target"></div>
+    </div>
+</section>
+
+
+<section class="slide">
+    <h2>Events</h2>
+
+    <div class="codeEditor">
+        <div class='codeEditor_editor'>
+            <textarea>
+<div id="container">
+    <button id="myButton">My Button</button>
+</div>
+<script>
+    var btn = document.getElementById('myButton');
+    btn.onclick = function(e) {
+        var div = document.getElementById('container');
+        div.onmouseover = function() {
+            div.style.background = 'blue';
+        };
+        div.onmouseout = function() {
+            div.style.background = 'orange';
+        };
+        div.style.background = 'red';
+    };
+</script>
+            </textarea>
+        </div>
+        <hr/>
+        <div class="codeEditor_target"></div>
+    </div>
+</section>
+
+<section class="slide">
+    <h2>Animation</h2>
+
+    <div class="codeEditor">
+        <div class='codeEditor_editor'>
+            <textarea>
+<div id="container">
+    <img id="myimg" src="../img/am_flag.jpg" style="position: absolute; top: 30px">
+    <button id="mybtn">Run</button>
+</div>
+<script>
+    var img = document.getElementById('myimg'),
+            btn = document.getElementById('mybtn');
+
+    function anim() {
+        var left = parseInt(img.style.left) || 0;
+        if(left > 600)
+            return;
+        img.style.left = (left+1)+'px';
+        window.setTimeout(function() {
+            anim();
+        });
+    }
+    btn.onclick = function() {
+        anim();
+    };
+</script>
+            </textarea>
+        </div>
+        <hr/>
+        <div class="codeEditor_target"></div>
+    </div>
+</section>
+
+<section class="slide">
+    <h2>AJAX</h2>
+
+
+    <div class="codeEditor">
+        <div class='codeEditor_editor'>
+            <textarea>
+<div id="target"></div>
+<script>
+var xmlhttp=new XMLHttpRequest();
+xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+        document.getElementById("target").innerHTML=xmlhttp.responseText;
+    }
+};
+xmlhttp.open("GET","../index.html",true);
+xmlhttp.send();
+</script>
+            </textarea>
+        </div>
+        <hr/>
+        <div class="codeEditor_target"></div>
+    </div>
+</section>
+</section>
+
+<section class="slide">
+    <div class='centerMsg'>
+        <h1>Rouben Meschian</h1>
+        <h4>rmeschian@gmail.com</h4>
+    </div>
+</section>
+
+<!-- End slides. -->
+
+
+<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>
