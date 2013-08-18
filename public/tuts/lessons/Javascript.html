@@ -123,7 +123,7 @@
 	console.log('Math.pow(2, 3): ' + Math.pow(2, 3)); // pow
 	console.log('Math.random(): ' + Math.random()); // 0 to 1
 	
-	// random number from 0 to 1
+	// random number from 1 - 10
 	console.log('Math.floor((Math.random()*10)+1): ' + Math.floor((Math.random() * 10) + 1));
 </script>
 				</textarea>
@@ -296,8 +296,6 @@
 	b.pop(); // remove 3
 	b.push(4); // add 4
 	console.log(b);
-	// Methods: concat, join, pop, push, slice, sort, splice, ...
-	console.log('typeof: ' + typeof (b) + ', so use a lib function: ' + $.isArray(b));
 </script>
 				</textarea>
 			</div>
@@ -307,8 +305,29 @@
 	</section>
 
 
+    <section class="slide">
+        <h2>Is Array?</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script>
+    var a = [];
+    console.log(typeof(a));
 
+    // check yourself
+    console.log(Array.isArray(a)); // not available on all browsers
+    console.log(a.constructor === Array);
+    console.log(Object.prototype.toString.call(a) === "[object Array]");
 
+    // use a library (like jQuery)
+    console.log($.isArray(a));
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
 	<section class="slide">
 		<h2>Dynamic Typing</h2>

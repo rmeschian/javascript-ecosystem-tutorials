@@ -8,6 +8,17 @@
     <title>World Wide Web Technologies</title>
 
     <link rel="stylesheet" href="../css/main.css">
+
+    <style type="text/css">
+        .browser-opp {
+            font-weight: bold;
+            color: red
+        }
+        .browser-state {
+            font-weight: bold;
+            color: blue
+        }
+    </style>
 </head>
 <body class="deck-container">
 
@@ -35,7 +46,7 @@
     <section class="slide">
         <h2>Tim Berners-Lee</h2>
         <ol>
-            <li>1980s Working at CERN in Geniva</li>
+            <li>1980s Working at "European Organization for Nuclear Research" in Geniva</li>
             <li>Physicists from around the world needed to share data</li>
             <li>Data stored in a variety of formats, on incompatible computer systems</li>
             <li>Solution: A single unified documentation system</li>
@@ -103,6 +114,101 @@
 
     <section class="slide">
         <div class='centerMsg'>
+            <h1>Putting it all together</h1>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Classical Browser Model (Mosaic)</h2>
+
+        <table>
+            <tr>
+                <td class="browser-state">URL</td>
+                <td><i class="icon-arrow-right"></i></td>
+                <td class="browser-opp">Fetch</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><i class="icon-arrow-down"></i></td>
+            </tr>
+            <tr>
+                <td class="browser-opp">Parse</td>
+                <td><i class="icon-arrow-left"></i></td>
+                <td class="browser-state">Cache</td>
+            </tr>
+            <tr>
+                <td><i class="icon-arrow-down"></i></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="browser-state">Tree</td>
+                <td><i class="icon-arrow-right"></i></td>
+                <td class="browser-opp">Flow</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><i class="icon-arrow-down"></i></td>
+            </tr>
+            <tr>
+                <td class="browser-opp">Paint</td>
+                <td><i class="icon-arrow-left"></i></td>
+                <td class="browser-state">Display List</td>
+            </tr>
+            <tr>
+                <td><i class="icon-arrow-down"></i></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="browser-state">Pixles</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <!--<ul>-->
+        <!--<li>Mosaic ran through this pileine one time</li>-->
+        <!--<li>Netscape 1: re-run flow to paint as images loaded</li>-->
+        <!--</ul>-->
+        <!--<div style="display: inline-block; color: indianred">URL</div>  <i class="icon-arrow-right"></i> <div style="display: inline-block; color: darkslateblue">Fetch</div>-->
+        <!--<div><i class="icon-arrow-down"></i></div>-->
+        <!--<div style="display: inline-block; color: indianred">Cache</div>  <i class="icon-arrow-right"></i> <div style="display: inline-block; color: darkslateblue">Parse</div>-->
+        <!--<div><i class="icon-arrow-down"></i></div>-->
+        <!--<div style="display: inline-block; color: indianred">Tree</div>  <i class="icon-arrow-right"></i> <div style="display: inline-block; color: darkslateblue">Flow</div>-->
+
+        <!--<div><i class="icon-arrow-down"></i></div>-->
+        <!--<div style="display: inline-block; color: indianred">Display List</div>  <i class="icon-arrow-right"></i> <div style="display: inline-block; color: darkslateblue">Paint</div>-->
+
+        <!--<div><i class="icon-arrow-down"></i></div>-->
+        <!--<div style="display: inline-block; color: indianred">Pixels</div>-->
+    </section>
+
+    <section class="slide">
+        <h2>Scripted Browser Model (Netscape 2)</h2>
+        <table>
+            <tr>
+                <td class="browser-opp">Flow</td>
+                <td><i class="icon-arrow-right"></i></td>
+                <td class="browser-opp">Paint</td>
+            </tr>
+            <tr>
+                <td><i class="icon-arrow-up"></i></td>
+                <td></td>
+                <td><i class="icon-arrow-down"></i></td>
+            </tr>
+            <tr>
+                <td class="browser-opp">Script</td>
+                <td><i class="icon-arrow-left"></i></td>
+                <td class="browser-opp">Event</td>
+            </tr>
+        </table>
+    </section>
+
+    <section class="slide">
+        <div class='centerMsg'>
             <h1>1994: Tim Berners-Lee founded World Wide Web Consortium (W3C)</h1>
             <h3>Main international standards organization for the World Wide Web</h3>
         </div>
@@ -160,15 +266,6 @@ Hello
             <hr />
             <div class="codeEditor_target"></div>
         </div>
-    </section>
-
-
-    <section class="slide">
-        <h2>Flow/Paint</h2>
-        <ul>
-            <li><b>Flow</b> - compute layout (where things should go, how they should look)</li>
-            <li><b>Paint</b> - render the DOM onto the screen</li>
-        </ul>
     </section>
 
     <section class="slide">
@@ -501,11 +598,11 @@ div {
         <ul>
             <li>CSS can be placed on elements using the 'style' attribute, but avoid doing this</li>
             <li>CSS can be placed inside 'style' tags at the top, but avoid doing this</li>
-            <li>Put CSS in external files with .css extensions, reference them with inside your 'head' tags:
+            <li>Put CSS in external files with .css extensions, reference them inside your 'head' tags:
             <pre>&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;../css/main.css&quot;&gt;</pre>
             </li>
-            <li>Remember, order matters!</li>
-            <li>Remember, most specific selectors win</li>
+            <li>Order matters!</li>
+            <li>Most specific selectors win</li>
         </ul>
     </section>
 
