@@ -21,10 +21,60 @@
 
 	<section class="slide">
 		<div class='centerMsg'>
-            <h1>D<span style='color: red'>3</span></h1>
-            <h3>Data-Driven Documents</h3>
+            <h1><span style='color: red'>D</span>ata <span style='color: red'>D</span>riven <span style='color: red'>D</span>ocuments</h1>
+            <h2>D3</h2>
 		</div>
 	</section>
+
+
+    <section class="slide">
+        <h2>Uses selectors and chaining, like JQuery</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div></div>
+<script src="../js/lib/d3.js"></script>
+<script>
+    d3.select("div")
+            .append('p')
+            .text('Hello D3')
+            .style({
+                color   : 'red',
+                border  : 'solid 2px orange',
+                padding : '1em'
+            }
+    );
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Basic Binding</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div></div>
+<script src="../js/lib/d3.js"></script>
+<script>
+    var dataset = [ 'Javascript', 'C++', 'C#', 'Java' ];
+    d3.select("div")
+            .selectAll("p") // none found
+            .data(dataset)
+            .enter() // for each item in our dataset that is missing a 'p' tag
+            .append("p") // add a 'p' for each data item without a 'p' tag
+            .text(function(item) { return item; }); ; // value can also be a function
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
 
 
     <section class="slide">
@@ -32,24 +82,73 @@
         <div class="codeEditor">
             <div class='codeEditor_editor'>
                 <textarea>
-                    <div id="mainContainer"></div>
-                    <script src="../js/lib/d3.js"></script>
-                    <script>
-                        var dataset = [ 12, 25, 15, 20, 25 ];
+<script src="../js/lib/d3.js"></script>
+<script>
+    var dataset = [ 12, 25, 15, 20, 25 ];
 
-                        d3.select("mainContainer")
-                                .select('div')
-                                .data(dataset)
-                                .enter()
-                                .append("div")
-                                .style('width', function(d) { return (d*10)+'px'; })
-                                .style('height', '20px')
-                                .style('background-color', 'red')
-                                .style('margin', '1em')
-                                .style('text-align', 'right')
-                                .style('padding-right', '.5em')
-                                .text(function(d, i) {return d;});
-                    </script>
+    d3.select('body')
+            .selectAll('div')
+            .data(dataset)
+            .enter()
+            .append("div")
+            .style('width', function(d) { return (d*10)+'px'; })
+            .style('height', '20px')
+            .style('background-color', 'red')
+            .style('margin', '1em')
+            .style('text-align', 'right')
+            .style('padding-right', '.5em')
+            .text(function(d, i) {return d;});
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>HTML Moving Bars (Enter/Update/Exit)</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script src="../js/lib/d3.js"></script>
+<script>
+    var dataset = [ 12, 25, 15, 20, 25 ];
+
+    var body = d3.select('body');
+    function run() {
+        var divs = body.selectAll('div').data(dataset);
+
+        // enter
+        divs.enter()
+            .append("div")
+            .style('width', function(d) { return (d*10)+'px'; })
+            .style('height', '20px')
+            .style('background-color', 'red')
+            .style('margin', '1em')
+            .style('text-align', 'right')
+            .style('padding-right', '.5em')
+            .text(function(d, i) {return d;});
+
+        // update
+        divs //.transition().duration(1000)
+            .style('width', function(d) { return (d*10)+'px'; })
+            .text(function(d, i) {return d;});
+
+        // exit
+        divs.exit().remove();
+
+        window.setTimeout(function() {
+            dataset.shift();
+            dataset.push(Math.floor(Math.random()*50));
+            run();
+        }, 1000);
+    }
+    run();
+
+
+</script>
                 </textarea>
             </div>
             <hr />
@@ -65,24 +164,168 @@
                 <textarea>
 <script src="../js/lib/d3.js"></script>
 <script>
-var dataset = [ 12, 25, 15, 20, 25 ];
+    var dataset = [ 12, 25, 15, 20, 49, 55, 22, 99, 300 ];
+    var w = 500;
+    var h = d3.max(dataset, function(d) { return d; }) + 10;
 
-var w = 500;
-var h = 100;
-var svg = d3.select("body")
-        .append("svg")
-        .attr("width", w)
-        .attr("height", h);
+    var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
 
-svg.selectAll("rect")
-        .data(dataset)
-        .enter()
-        .append("rect")
-        .attr("x", function(d, i) { return i * 25;})
-        .attr("y", function(d) { return h - d*2; })
-        .attr("width", 20)
-        .attr("height", function(d) { return d*2; })
-        .attr("fill", "teal");
+    svg.selectAll("rect")
+            .data(dataset)
+            .enter()
+            .append("rect")
+            .attr("x", function(d, i) { return i * 25;})
+            .attr("y", function(d) { return h - d; })
+            .attr("width", 20)
+            .attr("height", function(d) { return d; })
+            .attr("fill", "teal");
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Updating SVG Bars</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script src="../js/lib/d3.js"></script>
+<script>
+    var dataset = [
+        {id: 1, value: 34},
+        {id: 2, value: 334},
+        {id: 3, value: 134},
+        {id: 4, value: 324},
+        {id: 5, value: 74},
+        {id: 6, value: 23},
+        {id: 7, value: 51},
+        {id: 8, value: 99},
+        {id: 9, value: 87},
+        {id: 10, value: 134},
+        {id: 11, value: 200},
+        {id: 12, value: 25}
+    ];
+
+    var w = 300;
+    var h = d3.max(dataset, function(d) { return d.value; }) + 10;
+
+    var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+
+    function updateRect(rect) {
+        rect.attr("x", function(d, i) { return i * 25;})
+                .attr("y", function(d) { return h - d.value; })
+                .attr("width", 20)
+                .attr("height", function(d) { return d.value; })
+                .attr("fill", "teal");
+    }
+
+    function run() {
+        var rect = svg.selectAll("rect").data(dataset, function(d) {return d.id;});
+
+        rect.enter().append("rect")
+                .attr("x", function(d, i) { return (i+1) * 25;})
+                .attr("y", function(d) { return h - d.value; })
+                .attr("width", 20)
+                .attr("height", function(d) { return d.value; })
+                .attr("fill", "teal");
+
+        updateRect(rect); // update rects
+
+        rect.exit().remove(); // remove uneeded rects
+
+        window.setTimeout(function() {
+            dataset.shift();
+            dataset.push({id: Math.random(), value: Math.floor(Math.random()*h)});
+            run();
+        }, 1000);
+    }
+    run();
+
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Updating SVG Bars + Animation</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script src="../js/lib/d3.js"></script>
+<script>
+    var dataset = [
+        {id: 1, value: 34},
+        {id: 2, value: 334},
+        {id: 3, value: 134},
+        {id: 4, value: 324},
+        {id: 5, value: 74},
+        {id: 6, value: 23},
+        {id: 7, value: 51},
+        {id: 8, value: 99},
+        {id: 9, value: 87},
+        {id: 10, value: 134},
+        {id: 11, value: 200},
+        {id: 12, value: 25}
+    ];
+
+    var w = 300;
+    var h = d3.max(dataset, function(d) { return d.value; }) + 10;
+
+    var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+
+    function updateRect(rect) {
+        rect.transition()
+                .duration(1000)
+                .attr("x", function(d, i) { return i * 25;})
+                .attr("y", function(d) { return h - d.value; })
+                .attr("width", 20)
+                .attr("height", function(d) { return d.value; })
+                .attr("fill", "teal");
+    }
+
+    function run() {
+        var rect = svg.selectAll("rect").data(dataset, function(d) {return d.id;});
+
+        rect.enter().append("rect")
+                .attr("x", function(d, i) { return (i+1) * 25;})
+                .attr("y", function(d) { return h - d.value; })
+                .attr("width", 20)
+                .attr("height", function(d) { return d.value; })
+                .attr("fill", "teal");
+
+        updateRect(rect); // update rects
+
+        rect.exit().transition().duration(1000).attr('x', -25).remove(); // remove uneeded rects
+
+        window.setTimeout(function() {
+            dataset.shift();
+            dataset.push({id: Math.random(), value: Math.floor(Math.random()*h)});
+            run();
+        }, 1000);
+    }
+    run();
+
 </script>
                 </textarea>
             </div>
