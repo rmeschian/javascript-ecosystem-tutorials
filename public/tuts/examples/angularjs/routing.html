@@ -41,7 +41,7 @@
                     ]
                 };
 
-                angular.module('phonecat', []).controller("PhoneListCtrl", ["$scope", function ($scope) {
+        angular.module('phonecat', []).controller("PhoneListCtrl", ["$scope", function ($scope) {
 
                     $scope.numbers = data.numbers;
                     $scope.add = function (newPhone) {
@@ -53,7 +53,7 @@
                         newPhone.type = '';
                     };
 
-                }]).controller("PhoneDetailCtrl", ["$scope", "$routeParams", function ($scope, $routeParams) {
+      }]).controller("PhoneDetailCtrl", ["$scope", "$routeParams", function ($scope, $routeParams) {
 
                     $scope.phoneId = $routeParams.phoneId;
 

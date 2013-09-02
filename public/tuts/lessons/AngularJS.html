@@ -505,6 +505,95 @@
     </section>
 
 
+
+
+    <section class="slide">
+        <h2>Directive Demo</h2>
+        <p>Based on the <a href="https://github.com/jonashartmann/webcam-directive" target="_blank">webcam directive</a></p>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<p>This is going to be sweet!</p>
+<webcam></webcam>
+
+<script src="../js/lib/angular.js"></script>
+<script>
+    (function() {
+
+        // GetUserMedia is not yet supported by all browsers
+        // Until then, we need to handle the vendor prefixes
+        navigator.getMedia = ( navigator.getUserMedia ||
+                navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia ||
+                navigator.msGetUserMedia);
+
+        var Demo = angular.module( "Demo", [] );
+
+        Demo.directive('webcam', function () {
+            return {
+                template:
+                        '<div class="webcam">' +
+                            '<video class="webcam-live"></video>' +
+                        '</div>',
+                restrict: 'EA',
+                replace: true,
+                link: function postLink($scope, element) {
+
+                    // called when camera stream is loaded
+                    var onSuccess = function onSuccess(stream) {
+
+                        // Firefox supports a src object
+                        if (navigator.mozGetUserMedia) {
+                            videoElem.mozSrcObject = stream;
+                        } else {
+                            var vendorURL = window.URL || window.webkitURL;
+                            videoElem.src = vendorURL.createObjectURL(stream);
+                        }
+
+                        /* Start playing the video to show the stream from the webcam*/
+                        videoElem.play();
+                    };
+
+                    // called when any error happens
+                    var onFailure = function onFailure(err) {
+                        alert("uh oh :(");
+                    };
+
+                    // Check the availability of getUserMedia across supported browsers
+                    if (!navigator.getMedia) {
+                        onFailure();
+                        return;
+                    }
+
+                    var videoElem = element.find('video')[0];
+
+                    navigator.getMedia (
+                            {
+                                video: true,  // ask only for video
+                                audio: false
+                            },
+                            onSuccess,
+                            onFailure
+                    );
+                }
+            };
+        });
+        angular.bootstrap($('body'), ["Demo"]);
+    })();
+</script>
+
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+
+
     <section class="slide">
         <h2>Directive</h2>
         <div class="codeEditor">
