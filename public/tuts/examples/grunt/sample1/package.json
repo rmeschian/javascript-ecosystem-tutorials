@@ -1,0 +1,19 @@
+{
+  "name": "fun-sample-project",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.2.2",
+    "ejs": "*",
+    "grunt": "*"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-cssmin": "~0.6.0",
+    "grunt-htmlcompressor": "~0.1.8"
+  }
+}
