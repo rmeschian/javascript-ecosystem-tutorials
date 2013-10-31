@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+    <title>LESS</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+    <div class="navButtonBar">
+        <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+        <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+        <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+    </div>
+
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+			<h1><span style='color: red'>{</span> LESS <span style='color: red'>}</span></h1>
+		</div>
+	</section>
+
+	<section class="slide">
+		<ul class='js_fact'>
+			<li>The dynamic stylesheet language</li>
+			<li>Apache License</li>
+		</ul>
+	</section>
+
+
+
+    <section class="slide">
+        <h2>Nested Rules</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div class="header">
+    <h1>Hello <span>World</span></h1>
+    <h2>Welcome to Less!</h2>
+</div>
+
+<style>
+    /* CSS */
+    .header h1 {
+        color: red;
+    }
+    .header h1 span {
+        color: darkblue;
+    }
+    .header h2 {
+        color: darkorange;
+    }
+</style>
+
+<style type="text/less">
+    /* LESS */
+    .header {
+        h1 {
+            color: red;
+            span {
+                color: darkblue;
+            }
+        }
+        h2 {
+            color: darkorange;
+        }
+    }
+</style>
+
+<script src="../js/lib/less.js"></script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Variables</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<h1>Hello World</h1>
+<h2>Welcome to Less!</h2>
+
+<style>
+    /* CSS */
+    h1 {
+        color: red;
+    }
+    h2 {
+        color: red;
+    }
+</style>
+
+<style type="text/less">
+    /* LESS */
+    @color: red;
+
+    h1 {
+        color: @color;
+    }
+    h2 {
+        color: @color;
+    }
+</style>
+
+<script src="../js/lib/less.js"></script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Mixins</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id="header">Hello World</div>
+<div id="footer">Welcome to Less!</div>
+
+<style>
+    /* CSS */
+    #header {
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px
+        border-radius: 5px;
+        border: solid 1px red;
+        padding: 10px;
+        margin: 2em;
+    }
+
+    #footer {
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px
+        border-radius: 10px;
+        border: solid 1px red;
+        padding: 20px;
+        margin: 2em;
+    }
+</style>
+
+<style type="text/less">
+    /* LESS */
+    .rounded-corners (@radius: 5px, @padding: 10px) {
+      -webkit-border-radius: @radius;
+      -moz-border-radius: @radius;
+      -ms-border-radius: @radius;
+      -o-border-radius: @radius;
+      border-radius: @radius;
+      border: solid 1px red;
+      padding: @padding;
+    }
+    .foo {
+        margin: 2em
+    }
+
+    #header {
+        .rounded-corners;
+        .foo;
+    }
+    #footer {
+        .rounded-corners(10px, 20px);
+        .foo;
+    }
+</style>
+
+<script src="../js/lib/less.js"></script>
+
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Operations</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id="header">Hello World</div>
+<div id="footer">Welcome to Less!</div>
+
+<style type="text/less">
+    @border : 1px;
+    @red    : #842210;
+
+    div {
+        margin : 2em;
+        border : solid 10px;
+    }
+    #header {
+        border-left-width  : @border;
+        border-right-width : (@border * 10 + 60);
+        width              : (100%/2);
+    }
+    #footer {
+        border-color : desaturate(@red, 10%);
+    }
+</style>
+
+<script src="../js/lib/less.js"></script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+    <section class="slide">
+        <h2>Functions</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id="header">Hello World</div>
+
+<style type="text/less">
+    @color  : red;
+    #header {
+        background : fade(@color, floor(100/2));
+    }
+</style>
+
+<script src="../js/lib/less.js"></script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1><a href="http://lesscss.org/">http://lesscss.org/</a></h1>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+	<!-- End slides. -->
+
+
+	<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>

@@ -15,6 +15,7 @@ CourseWare for modern application development.
 *  Performance - Best practices for a fast website.
 *  JQuery Mobile - HTML5-based user interface system for popular mobile device platforms.
 *  Bootstrap - Front-end framework for the web
+*  Less - Dynamic stylesheet language
 
 ## Getting Started
 Download the code and run 'node app.js' to start the server.
