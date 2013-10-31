@@ -8,12 +8,14 @@ CourseWare for modern application development.
 *  JQuery - Library for working with the DOM.
 *  RequireJS - JavaScript file and module loader.
 *  AngularJS - Application development framework for the browser.
+*  KnockoutJS - Declarative data-binding framework
+
+*  BackboneJS - MVC framework for the browser
 *  HTML5 - Semantic markup, canvas, CSS3 etc...
 *  Debugging - Common tools used for debugging web applications.
 *  Performance - Best practices for a fast website.
 *  JQuery Mobile - HTML5-based user interface system for popular mobile device platforms.
 *  Bootstrap - Front-end framework for the web
-*  KnockoutJS - Declarative data-binding framework
 
 ## Getting Started
 Download the code and run 'node app.js' to start the server.
