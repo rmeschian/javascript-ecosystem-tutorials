@@ -9,7 +9,6 @@ CourseWare for modern application development.
 *  RequireJS - JavaScript file and module loader.
 *  AngularJS - Application development framework for the browser.
 *  KnockoutJS - Declarative data-binding framework
-
 *  BackboneJS - MVC framework for the browser
 *  HTML5 - Semantic markup, canvas, CSS3 etc...
 *  Debugging - Common tools used for debugging web applications.
