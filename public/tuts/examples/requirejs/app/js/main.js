@@ -14,6 +14,6 @@ require.config({
     }
 });
 
-require(["helloModule", "text"], function (helloObj) {
+require(["helloModule"], function (helloObj) {
     helloObj.hello();
 });

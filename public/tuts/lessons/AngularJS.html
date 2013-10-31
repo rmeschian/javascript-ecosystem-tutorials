@@ -79,8 +79,7 @@
 <div data-ng-app>
 
   <input type="text" data-ng-model="yourName" />
-
-  <h2>{{yourName}}</h2> same as <h2 data-ng-bind="yourName">loading...</h2>
+  <h2 data-ng-bind="yourName"></h2>
 
 </div>
 <script src="../js/lib/angular.js"></script>
@@ -209,7 +208,6 @@
 
 
 
-
 	<section class="slide">
 		<h2>Load and Save data</h2>
 		<div class="codeEditor">
@@ -217,35 +215,81 @@
 				<textarea>
 <div data-ng-app>
 
-	<div data-ng-controller="MyCtrl">
-        <input type="text" data-ng-model="value.msg"/><br>
-        <button data-ng-click="load()" class="btn btn-primary">Load</button>
-        <button data-ng-click="save()" class="btn btn-primary">Save</button>
-  	</div>
+    <div data-ng-controller="MyCtrl">
+
+
+        <form class="form-horizontal" data-ng-submit="save()">
+
+            <div class="control-group">
+                <label class="control-label" >First name</label>
+                <div class="controls">
+                    <input type="text" data-ng-model="value.firstName" placeholder="First name">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" >Last name</label>
+                <div class="controls">
+                    <input type="text" data-ng-model="value.lastName" placeholder="Last name">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+
+        <button data-ng-click="load()" class="btn btn">Load</button>
+
+    </div>
 
 </div>
 <script src="../js/lib/angular.js"></script>
 
 <script>
-  $.getJSON = function(addr, callback) {
-   	window.setTimeout(function() {
-      callback({msg: "I came from the server"});
-    });
-  }
-  function MyCtrl($scope) {
-    $scope.load = function() {
-      $.getJSON("/stuff", function(resp) {
-     	$scope.$apply(function() {
-        	$scope.value = resp;
-      	});
-  	  });
-    }
-    $scope.save = function() {
-      console.log("saving: "+angular.toJson($scope.value));
+    // ============================================
+    // SERVER - let's pretend this is server code :-)
+
+    var serverDB = window.localStorage;
+
+    var Server = {
+        getData: function(cb) {
+            var data = serverDB.getItem('angular_data');
+            window.setTimeout(function() {
+                cb(data);
+            }, 100);
+        },
+        saveData: function(data, cb) {
+            serverDB.setItem('angular_data', data);
+            window.setTimeout(cb, 100);
+        }
     };
-  }
+
+
+    // ============================================
+    // CLIENT - jquery ajax functions hacked to call our "Server"
+
+    $.getJSON = function(addr, callback) {
+        Server.getData(function(data) {
+            callback(data && JSON.parse(data));
+        });
+    };
+    $.post = function(addr, data, callback) {
+        Server.saveData(data, callback);
+    };
+    function MyCtrl($scope) {
+        $scope.load = function() {
+            $.getJSON('/some/url/data', function(resp) {
+                $scope.value = resp;
+                $scope.$apply();
+            });
+        };
+        $scope.save = function() {
+            $.post('/some/url/save', angular.toJson($scope.value), function() {});
+        };
+    }
 </script>
-				</textarea>
+                </textarea>
 			</div>
 			<hr />
 			<div class="codeEditor_target"></div>
@@ -506,9 +550,108 @@
 
 
 
+    <section class="slide">
+        <h2>Directive Maps Demo</h2>
+        <p>Based on the <a href="http://wbyoko.co/angularjs-google-maps-components/" target="_blank">maps directive</a></p>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id="main" data-ng-controller="mapCtrl">
+
+    <div style="margin: 1em; padding: 1em; border: solid 1px gray; border-radius: 15px">
+        <h1>{{longitude}} / {{latitude}}</h1>
+        <hr>
+        <input type="text" ng-model="longitude">
+        <input type="text" ng-model="latitude">
+        <hr>
+        <button ng-click="findCurLoc();" class="btn">Find current location</button>
+    </div>
+
+    <div data-google-map="" data-lat="latitude" data-lng="longitude" style="width: 100%; height: 500px"></div>
+</div>
+
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var myApp = angular.module( "myApp", [] );
+
+
+    // controller
+    myApp.controller('mapCtrl', function function_name ($scope) {
+
+        $scope.latitude = 42.35670;
+        $scope.longitude = -71.05690;
+
+        $scope.findCurLoc = function() {
+            window.navigator.geolocation.getCurrentPosition(function(position) {
+                $scope.latitude = position.coords.latitude;
+                $scope.longitude = position.coords.longitude;
+                $scope.$apply();
+            });
+        };
+    });
+
+    // directive
+    myApp.directive('googleMap', function function_name () {
+        return {
+            scope: {
+                lat: '=',
+                lng: '='
+            },
+            link: function (scope, elem, attrs) {
+
+                var mapOptions = {
+                    zoom             : 8,
+                    disableDefaultUI : true,
+                    center           : new google.maps.LatLng(scope.lat || 0, scope.lng || 0),
+                    mapTypeId        : google.maps.MapTypeId.ROADMAP
+                };
+
+                var map = new google.maps.Map(elem[0], mapOptions);
+
+                // update model when map changes
+                google.maps.event.addListener(map, 'center_changed', function() {
+                    var center = map.getCenter();
+                    var lat = center.lat();
+                    var lng = center.lng();
+                    if (scope.lat != lat || scope.lng != lng) {
+                        //console.log('1: '+scope.lat + ' !== '+lat+", "+scope.lng+" !== "+lng);
+                        scope.lat = lat;
+                        scope.lng = lng;
+                        if(!scope.$$phase) scope.$apply();
+                    }
+                });
+
+
+                // update map when model changes
+                scope.$watch('lng + lat', function () {
+                    var center = map.getCenter();
+                    var lat = center.lat();
+                    var lng = center.lng();
+                    if (scope.lat !== lat || scope.lng !== lng) {
+                        map.setCenter(new google.maps.LatLng(scope.lat, scope.lng));
+                    }
+                });
+            }
+        }
+    });
+
+    angular.bootstrap(document.getElementById('main'), ["myApp"]);
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+
 
     <section class="slide">
-        <h2>Directive Demo</h2>
+        <h2>Directive Video Demo</h2>
         <p>Based on the <a href="https://github.com/jonashartmann/webcam-directive" target="_blank">webcam directive</a></p>
         <div class="codeEditor">
             <div class='codeEditor_editor'>

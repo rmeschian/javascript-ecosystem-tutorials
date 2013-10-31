@@ -1,17 +1,17 @@
-(function ($) {
+(function($) {
 
     "use strict";
 
-    $.fn.codemirror = function (options, o2) {
+    $.fn.codemirror = function(options, o2) {
 
         var result = this;
 
-        if (options === 'resize') {
-            return this.each(function () {
+        if(options === 'resize') {
+            return this.each(function() {
                 var jqContainer = $(this);
                 var editorWrapper = jqContainer.find('.codeEditor_editor');
                 var editor = editorWrapper.data('editor');
-                if (editor) {
+                if(editor) {
                     editor.refresh();
                 }
             });
@@ -27,26 +27,26 @@
             runmode     : true
         }, options);
 
-        if (settings.defaultScripts)
+        if(settings.defaultScripts)
             defaultScripts = defaultScripts.concat(settings.defaultScripts);
 
-        if (settings.defaultStyles)
+        if(settings.defaultStyles)
             defaultStyles = defaultStyles.concat(settings.defaultStyles);
 
-        this.each(function () {
+        this.each(function() {
             var jqContainer = $(this),
                 editorTarget = jqContainer.find('.codeEditor_target');
 
             var tmr;
-            var writeToIframe = function () {
-                if (tmr)
+            var writeToIframe = function() {
+                if(tmr)
                     window.clearTimeout(tmr);
 
-                tmr = window.setTimeout(function () {
+                tmr = window.setTimeout(function() {
 
                     try {
                         var content = editor.getValue();
-                        if (content.indexOf('<html' < 0)) {
+                        if(content.indexOf('<html' < 0)) {
                             var scripts = defaultScripts.length === 0 ? '' : '<script src="' + defaultScripts.join('"></script><script src="') + '"></script>';
                             scripts += "<script>console.log = function(val) { $('body').append('<p>' + val + '</p>'); } </script>";
                             var styles = defaultStyles.length === 0 ? '' : '<link rel="stylesheet" href="' + defaultStyles.join('" /><link rel="stylesheet" href="') + '"/>';
@@ -60,13 +60,24 @@
                         f.document.open();
                         f.document.write(content);
                         f.document.close();
-                    } catch (e) {
+
+
+//                        var addressBar = $('<input type="text" />').change(function() {
+//                            if(iframe.src !== addressBar.val())
+//                                iframe.src = addressBar.val();
+//                        });
+//                        iframe.onLoad = function() {
+//                            addressBar.val(iframe.src);
+//                        };
+//                        editorTarget.append(addressBar);
+
+                    } catch(e) {
                     }
                 }, 600);
-            }
+            };
 
             var args = $.extend({
-                onChange : function () {
+                onChange : function() {
                     writeToIframe();
                 }
             }, settings);
@@ -74,7 +85,7 @@
 
             var editorWrapper = jqContainer.find('.codeEditor_editor');
             var textarea = editorWrapper.children('textarea')[0];
-            if (!textarea) {
+            if(!textarea) {
                 textarea = $("<textarea style='height: auto; width: 99%' ></textarea>")[0];
                 textarea.value = editorWrapper.html();
                 editorWrapper.html('');

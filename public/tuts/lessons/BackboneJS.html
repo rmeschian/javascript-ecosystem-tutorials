@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+    <title>BackboneJS</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+    <div class="navButtonBar">
+        <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+        <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+        <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+    </div>
+
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+			<!--<h1>Backbone<span style='color: red'>JS</span></h1>-->
+            <img src="../img/backbone.png">
+		</div>
+	</section>
+
+	<section class="slide">
+		<ul class='js_fact'>
+			<li>Gives structure to web applications by providing models with key-value binding and custom events, collections with a rich API of enumerable functions, views with declarative event handling, and connects it all to your existing API over a RESTful JSON interface</li>
+			<li>MIT License</li>
+		</ul>
+	</section>
+
+
+
+    <section class="slide">
+        <h2>Routing</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<h1></h1>
+
+<section id="menu">
+    <ul>
+        <li><a href="#/">Catch fired route event</a></li>
+        <li><a href="#/passParams/SomeID">Pass Params to Local Function</a></li>
+        <li><a href="#/new">Anonymous Function Handler</a></li>
+        <li><a href="#/117-a/b/c/open">Handle Regexp routes</a></li>
+    </ul>
+</section>
+
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/lib/underscore.js"></script>
+<script src="../js/lib/backbone.js"></script>
+<script>
+    var Router = Backbone.Router.extend({
+        routes : {
+            ''               : 'home',              // advertise an event
+            'passParams/:id' : 'passParamsHandler', // reference local function
+            'new'            : function() {         // reference an anonymous function
+                $('h1').text('Anonymous function rendering route!');
+            }
+        },
+        initialize : function(options) {
+            this.route(/^(.*?)\/open$/, 'regexHandler'); // add regex routing
+        },
+        passParamsHandler : function(id) {
+            $('h1').text('Local function with parameter: ' + id + '!');
+        },
+        regexHandler : function() {
+            $('h1').text('Regex Route!');
+        }
+    });
+
+    var router = new Router();
+    router.on('route:home', function() { // catch fired event
+        $('h1').text('Caught fired route event!');
+    });
+
+    Backbone.history.start();
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+
+    <section class="slide">
+        <h2>Model</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/lib/underscore.js"></script>
+<script src="../js/lib/backbone.js"></script>
+<script>
+    var Person = Backbone.Model.extend({
+        defaults : {
+            name        : 'Rouben Meschian',
+            age         : 33,
+            nationality : 'Armenian'
+        },
+        initialize: function(){
+            this.on("change:name", function(model){
+                var name = model.get("name");
+                console.log("EVENT: Changed my name to " + name );
+            });
+        }
+    });
+
+    var person = new Person({ name: "Serj Tankian", age: 45 });
+
+    console.log('Age: ' + person.get("age"));
+    console.log('Name: ' + person.get("name"));
+    console.log('Nationality: ' + person.get("nationality"));
+
+    // change name
+    person.set('name', 'Tim Berners-Lee');
+    console.log('New name is: ' + person.get("name"));
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+
+    <section class="slide">
+        <h2>View</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<h1 id="target"></h1>
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/lib/underscore.js"></script>
+<script src="../js/lib/backbone.js"></script>
+<script>
+    var PersonView = Backbone.View.extend({
+        initialize : function(){
+            this.render();
+        },
+        render : function(){
+            this.$el.html( "This is fun" );
+        }
+    });
+
+    var view = new PersonView({ el: $("#target") });
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Model + View</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<h1 id="target"></h1>
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/lib/underscore.js"></script>
+<script src="../js/lib/backbone.js"></script>
+<script>
+    var Person = Backbone.Model.extend({
+        defaults: {
+            name        : 'Rouben Meschian',
+            age         : 33,
+            nationality : 'Armenian'
+        },
+        initialize: function(){
+            this.on("change:name", function(model){
+                var name = model.get("name");
+                console.log("EVENT: Changed my name to " + name );
+            });
+        }
+    });
+
+    var person = new Person({ name: "Serj Tankian", age: 45 });
+
+    var PersonView = Backbone.View.extend({
+        initialize : function(){
+            this.render();
+        },
+        render : function(){
+            var that = this;
+            var update = function() {
+              that.$el.html(that.model.get('name'));
+            };
+            that.model.on('change:name', update);
+            update();
+        }
+    });
+
+    var view = new PersonView({ el: $("#target"), model: person });
+
+    // change the name, that fires events which are caught to update the UI
+    window.setTimeout(function() {
+       person.set('name', 'Tim Berners-Lee');
+    }, 1000);
+
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+    <section class="slide">
+        <h2>Collections</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<ul id="target"></ul>
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/lib/underscore.js"></script>
+<script src="../js/lib/backbone.js"></script>
+<script>
+    var TodoItem = Backbone.Model.extend({
+        defaults: {
+            text: "Not specified",
+            done: false
+        }
+    });
+
+    var Todos = Backbone.Collection.extend({
+        model: TodoItem
+    });
+
+    var todo1 = new TodoItem({ text: "Learn Javascript" });
+    var todo2 = new TodoItem({ text: "Study Backbone" });
+    var todo3 = new TodoItem({ text: "Build awesome applications" });
+
+    todo3.on('change:done', function() {
+        console.log("Task 3 changed to: " + todo3.get('done'));
+    });
+
+    var myTodos = new Todos([ todo1, todo2, todo3]);
+    console.log("TODOs: " + JSON.stringify(myTodos.models) ); // [todo1, todo2, todo3]
+
+
+
+    var TodosViw = Backbone.View.extend({
+        initialize: function(){
+            this.render();
+        },
+        render: function(){
+            var that = this;
+            this.collection.each(function(todo) {
+                var myTodoItemView = new TodoItemView({
+                    model   : todo,
+                    tagName : 'li'
+                });
+                that.$el.append(myTodoItemView.el);
+            });
+        }
+    });
+
+    var TodoItemView = Backbone.View.extend({
+        initialize: function(){
+            this.render();
+        },
+        render: function(){
+            var that = this;
+            var checkbox = $(' <input type="checkbox" />').change(function() {
+                that.model.set('done', !!checkbox.attr('checked'));
+            });
+            that.$el.append(checkbox);
+            that.$el.append('</h3>'+that.model.get('text')+'</h3>');
+        }
+    });
+
+    var view = new TodosViw({ el: $("#target"), collection: myTodos });
+
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Epoxy<span style='color: red'>JS</span></h1>
+            <h2>Elegant Data Binding for Backbone</h2>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Binding to a model</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id="app" class="demo">
+    <input type="text" data-bind="value:firstName,events:['keyup']">
+    <input type="text" data-bind="value:lastName,events:['keyup']">
+    <input type="text" data-bind="value:name,events:['keyup']"/>
+
+    <p>
+        <span data-bind="text:firstName"></span>
+        <span data-bind="text:lastName"></span>
+    </p>
+
+    <p data-bind="text:name"></p>
+</div>
+
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/lib/underscore.js"></script>
+<script src="../js/lib/backbone.js"></script>
+<script src="../js/lib/epoxy.js"></script>
+<script>
+    var Person = Backbone.Epoxy.Model.extend({
+        defaults: {
+            firstName   : '',
+            lastName    : ''
+        },
+        computeds: {
+            name: {
+                get: function() {
+                    return this.get('firstName') + ' ' + this.get('lastName');
+                },
+                set: function( value ) {
+                    var tokens = value.split(' ');
+                    return {
+                        firstName : tokens[0],
+                        lastName  : tokens[1]
+                    };
+                }
+            }
+        }
+    });
+
+    var person = new Person({ firstName: 'Serj', lastName: 'Tankian' });
+
+    var View = Backbone.Epoxy.View.extend({
+        el       : '#app',
+        bindings : 'data-bind'
+    });
+
+    var view = new View({model: person});
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Visibility binding</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id="target">
+    <p>
+        <label>First name*</label>
+        <input type="text" data-bind="value:firstName,events:['keyup']">
+        <span data-bind="toggle:not(firstName)">Please enter a first name.</span>
+    </p>
+    <p>
+        <label>Last name*</label>
+        <input type="text" data-bind="value:lastName,events:['keyup']">
+        <span data-bind="toggle:not(lastName)">Please enter a last name.</span>
+    </p>
+    <p data-bind="text:format('Name: $1 $2',firstName,lastName)"></p>
+    <p class="req">* Required</p>
+</div>
+
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/lib/underscore.js"></script>
+<script src="../js/lib/backbone.js"></script>
+<script src="../js/lib/epoxy.js"></script>
+<script>
+    var Person = Backbone.Epoxy.Model.extend({
+        defaults: {
+            firstName : '',
+            lastName  : ''
+        }
+    });
+
+    var view = new Backbone.Epoxy.View({
+        el    : '#target',
+        model : new Person({ firstName: 'Serj', lastName: 'Tankian' })
+    });
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Custom binding handlers</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id="target">
+    <p data-bind="custom:name"></p>
+</div>
+
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/lib/underscore.js"></script>
+<script src="../js/lib/backbone.js"></script>
+<script src="../js/lib/epoxy.js"></script>
+<script>
+    var Person = Backbone.Epoxy.Model.extend({
+        defaults: {
+            name  : ''
+        }
+    });
+
+    var view = new Backbone.Epoxy.View({
+        el              : '#target',
+        model           : new Person({ name: 'Serj Tankian' }),
+        bindingHandlers : {
+            custom: function( $element, value ) {
+                $element.text( 'This is the value: ' + value );
+            }
+        }
+    });
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+
+    <section class="slide">
+        <h2>Binding collections</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id="target">
+    <ul data-bind="collection:$collection"></ul>
+</div>
+
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/lib/underscore.js"></script>
+<script src="../js/lib/backbone.js"></script>
+<script src="../js/lib/epoxy.js"></script>
+<script>
+    var ListItemView = Backbone.View.extend({
+        tagName     : 'li',
+        initialize  : function() {
+            this.$el.text( this.model.get('label') );
+        }
+    });
+
+    var ListCollection = Backbone.Collection.extend({
+        model   : Backbone.Model,
+        view    : ListItemView
+    });
+
+    var ListView = Backbone.Epoxy.View.extend({
+        el          : '#target',
+        initialize  : function() {
+            this.collection = new ListCollection();
+            this.collection.reset([{label: 'Javascript'}, {label: 'Java'}, {label: 'C++'}]);
+        }
+    });
+
+    var view = new ListView();
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+    <section class="slide">
+        <h2>Google Maps Example</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id='app'>
+    <input type="text" data-bind="value:lng,events:['keyup']">
+    <input type="text" data-bind="value:lat,events:['keyup']">
+</div>
+
+<div id="target" style="width: 600px; height: 500px"></div>
+
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/lib/underscore.js"></script>
+<script src="../js/lib/backbone.js"></script>
+<script src="../js/lib/epoxy.js"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script>
+    var Location = Backbone.Epoxy.Model.extend({
+        defaults: {
+            lat : 0,
+            lng : 0
+        }
+    });
+
+    var loc = new Location({ lat: 42.35670, lng : -71.05690 });
+
+    var Map = Backbone.Epoxy.View.extend({
+        initialize: function() {
+            var that = this;
+
+            var mapOptions = {
+                zoom             : 8,
+                disableDefaultUI : true,
+                center           : new google.maps.LatLng(0, 0),
+                mapTypeId        : google.maps.MapTypeId.ROADMAP
+            };
+
+            var map = new google.maps.Map(this.el, mapOptions);
+
+            // update the map when the model changes
+            var update = function() {
+                map.setCenter(new google.maps.LatLng(that.model.get('lat') || 0, that.model.get('lng') || 0));
+            };
+            update();
+            that.model.on('change:lat', update);
+            that.model.on('change:lng', update);
+
+
+            // update model when map changes
+            google.maps.event.addListener(map, 'center_changed', function() {
+                var center = map.getCenter();
+                var lat = center.lat();
+                var lng = center.lng();
+                if (that.model.get('lat') != lat || that.model.get('lng') != lng) {
+                    that.model.set('lat', lat);
+                    that.model.set('lng', lng);
+                }
+            });
+
+        }
+    });
+
+    var mapView = new Map({
+        el    : "#target",
+        model : loc
+    });
+
+    var View = Backbone.Epoxy.View.extend({
+        el       : "#app",
+        bindings : "data-bind"
+    });
+
+    var view = new View({model: loc});
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+	<!-- End slides. -->
+
+
+	<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>
