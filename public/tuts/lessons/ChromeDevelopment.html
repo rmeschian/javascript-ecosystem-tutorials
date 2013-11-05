@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+    <title>Chrome</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+    <div class="navButtonBar">
+        <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+        <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+        <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+    </div>
+
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+			<h1><img src="../img/chrome_small.jpg"> Chrome</h1>
+
+		</div>
+	</section>
+
+	<section class="slide">
+		<ul class='js_fact'>
+			<li>Rich client-side interactivity without messy event handlers</li>
+			<li>MVVM pattern - object-oriented JS and declarative bindings</li>
+			<li>IE6+ FF2+ Chrome Safari Opera ...</li>
+			<li>MIT License</li>
+		</ul>
+	</section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>
+                Declarative Data-binding
+            </h1>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Data-binding programmatically</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<input type="text" />
+<h2></h2>
+<script>
+    var input = $('input');
+    var updateLbl = function() {
+        $('h2').text(input.val());
+    }
+    $('input').on('change', updateLbl).val("Rouben");
+    updateLbl();
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+	<section class="slide">
+		<h2>Basic binding</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<div data-ng-app>
+
+  <input type="text" data-ng-model="yourName" />
+  <h2 data-ng-bind="yourName"></h2>
+
+</div>
+<script src="../js/lib/angular.js"></script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Explicit binding</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<div id='main'>
+
+  <input type="text" data-ng-model="yourName" />
+
+  <h2>{{yourName}}</h2>
+
+</div>
+
+<script src="../js/lib/angular.js"></script>
+<script>
+	angular.bootstrap($('#main'));
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+
+	<section class="slide">
+		<h2>Controller</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<div data-ng-app>
+
+	<div data-ng-controller="MyCtrl">
+    	<input type="text" data-ng-model="name" />
+    	{{name}}
+  	</div>
+
+  	<script>
+    	function MyCtrl($scope) {
+      		$scope.name = "Joe";
+    	};
+  	</script>
+</div>
+<script src="../js/lib/angular.js"></script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+	<section class="slide">
+		<h2>Add custom listeners</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<div data-ng-app>
+
+	<div data-ng-controller="MyCtrl">
+    	<input type="text" data-ng-model="name" />
+  	</div>
+
+  	<script>
+    	function MyCtrl($scope) {
+      		$scope.name = "Joe";
+      		$scope.$watch('name', function(newValue, oldValue) {
+      			console.log("new value is: "+newValue);
+      		});
+    	}
+  	</script>
+</div>
+<script src="../js/lib/angular.js"></script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Binding collections</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<div data-ng-app>
+
+	<ul data-ng-controller="MyCtrl">
+
+      <li data-ng-repeat="lang in langs">
+        {{lang.text}}
+      </li>
+
+  	</ul>
+
+</div>
+<script src="../js/lib/angular.js"></script>
+
+<script>
+  function MyCtrl($scope) {
+	$scope.langs = [{text: "Java"}, {text: "C#"}];
+  };
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+	<section class="slide">
+		<h2>Load and Save data</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<div data-ng-app>
+
+    <div data-ng-controller="MyCtrl">
+
+
+        <form class="form-horizontal" data-ng-submit="save()">
+
+            <div class="control-group">
+                <label class="control-label" >First name</label>
+                <div class="controls">
+                    <input type="text" data-ng-model="value.firstName" placeholder="First name">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" >Last name</label>
+                <div class="controls">
+                    <input type="text" data-ng-model="value.lastName" placeholder="Last name">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+
+        <button data-ng-click="load()" class="btn btn">Load</button>
+
+    </div>
+
+</div>
+<script src="../js/lib/angular.js"></script>
+
+<script>
+    // ============================================
+    // SERVER - let's pretend this is server code :-)
+
+    var serverDB = window.localStorage;
+
+    var Server = {
+        getData: function(cb) {
+            var data = serverDB.getItem('angular_data');
+            window.setTimeout(function() {
+                cb(data);
+            }, 100);
+        },
+        saveData: function(data, cb) {
+            serverDB.setItem('angular_data', data);
+            window.setTimeout(cb, 100);
+        }
+    };
+
+
+    // ============================================
+    // CLIENT - jquery ajax functions hacked to call our "Server"
+
+    $.getJSON = function(addr, callback) {
+        Server.getData(function(data) {
+            callback(data && JSON.parse(data));
+        });
+    };
+    $.post = function(addr, data, callback) {
+        Server.saveData(data, callback);
+    };
+    function MyCtrl($scope) {
+        $scope.load = function() {
+            $.getJSON('/some/url/data', function(resp) {
+                $scope.value = resp;
+                $scope.$apply();
+            });
+        };
+        $scope.save = function() {
+            $.post('/some/url/save', angular.toJson($scope.value), function() {});
+        };
+    }
+</script>
+                </textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+
+
+	<section class="slide">
+		<h2>Binding lists</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<div data-ng-app>
+    <div data-ng-controller="Todos">
+
+        <h2>TODOS ( {{numDone()}} / {{todos.length}} )</h2>
+
+        <ul>
+            <li data-ng-repeat="todo in todos">
+                <input type="checkbox" data-ng-model="todo.done">
+                <span>{{todo.text}}</span>
+            </li>
+        </ul>
+
+        <form data-ng-submit="add(newItem)">
+            <input type="text" data-ng-model="newItem.text"  /><br>
+            <button type='submit' class="btn btn-primary">Add</button>
+        </form>
+    </div>
+
+    <script>
+        function Todos($scope) {
+            $scope.todos = [
+                {text:'learn angular', done:true},
+                {text:'build an angular app', done:false}];
+
+            $scope.numDone = function() {
+                var count = 0;
+                for(var i = 0; i < $scope.todos.length; i++) {
+                    if($scope.todos[i].done)
+                        count++;
+                }
+                return count;
+            };
+            $scope.add = function(newItem) {
+                $scope.todos.push({text:newItem.text, done:false});
+                newItem.text = '';
+            };
+
+        }
+    </script>
+</div>
+<script src="../js/lib/angular.js"></script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+
+    <section class="slide">
+        <h2>Binding lists + Validation</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div data-ng-app>
+    <div data-ng-controller="Todos">
+
+        <h2>TODOS ( {{numDone()}} / {{todos.length}} )</h2>
+
+        <ul>
+            <li data-ng-repeat="todo in todos">
+                <input type="checkbox" data-ng-model="todo.done">
+                <span>{{todo.text}}</span>
+            </li>
+        </ul>
+
+        <form name="myForm" data-ng-submit="add(newItem)">
+
+            <p>
+                <input type="text"
+                       data-ng-model="newItem.text"
+                       data-ng-maxlength="15"
+                       data-ng-required="true"
+                       name="newItem"
+                       />
+
+                <span data-ng-show="myForm.newItem.$error.required">
+                    Required field!
+                </span>
+
+                <span data-ng-show="myForm.newItem.$error.maxlength">
+                    Too long, use fewer characters!
+                </span>
+            </p>
+            <button type='submit' data-ng-disabled="myForm.$invalid" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+
+    <script>
+        function Todos($scope) {
+            $scope.todos = [
+                {text:'learn angular', done:true},
+                {text:'build an angular app', done:false}];
+
+            $scope.numDone = function() {
+                var count = 0;
+                for(var i = 0; i < $scope.todos.length; i++) {
+                    if($scope.todos[i].done)
+                        count++;
+                }
+                return count;
+            };
+            $scope.add = function(newItem) {
+                $scope.todos.push({text:newItem.text, done:false});
+                newItem.text = '';
+            };
+
+        }
+    </script>
+</div>
+<script src="../js/lib/angular.js"></script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+	<section class="slide">
+		<h2>Avoid global variables</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<div id='main'>
+	<div data-ng-controller="MyScope">
+    	<input type="text" data-ng-model="name" />
+      {{name}}
+  	</div>
+</div>
+<script src="../js/lib/angular.js"></script>
+<script>
+(function() {
+    var Demo = angular.module( "Demo", [] );
+    Demo.controller("MyScope", function($scope) {
+        $scope.name = "Joe";
+    });
+    angular.bootstrap($('#main'), ["Demo"]);
+})();
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>
+                Dependency Injection
+            </h1>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Inject values</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id='main'>
+    <div data-ng-controller="MyScope">
+        <input type="text" data-ng-model="name" />
+        {{name}}
+    </div>
+</div>
+<script src="../js/lib/angular.js"></script>
+<script>
+    (function() {
+        var Demo = angular.module( "Demo", [] );
+        Demo.value("myValue", 23);
+        Demo.controller("MyScope", function($scope, myValue) {
+            $scope.name = myValue;
+        });
+        angular.bootstrap($('#main'), ["Demo"]);
+    })();
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Inject Factories (Services)</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id='main'>
+    <div data-ng-controller="MyScope">
+        <input type="text" data-ng-model="name" />
+        {{revName()}}
+    </div>
+</div>
+<script src="../js/lib/angular.js"></script>
+<script>
+    (function() {
+        var Demo = angular.module( "Demo", [] );
+
+        Demo.value("myValue", 'World');
+
+        Demo.factory('myFactory', function() {
+            return {
+                reverse : function(name) {
+                    return name.split("").reverse().join("");
+                }
+            }
+        });
+
+        Demo.controller("MyScope", function($scope, myValue, myFactory) {
+            $scope.name = myValue;
+            $scope.revName = function() {
+                return myFactory.reverse($scope.name);
+            }
+        });
+        angular.bootstrap($('#main'), ["Demo"]);
+    })();
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>
+                Directives
+            </h1>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Directive Maps Demo</h2>
+        <p>Based on the <a href="http://wbyoko.co/angularjs-google-maps-components/" target="_blank">maps directive</a></p>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id="main" data-ng-controller="mapCtrl">
+
+    <div style="margin: 1em; padding: 1em; border: solid 1px gray; border-radius: 15px">
+        <h1>{{longitude}} / {{latitude}}</h1>
+        <hr>
+        <input type="text" ng-model="longitude">
+        <input type="text" ng-model="latitude">
+        <hr>
+        <button ng-click="findCurLoc();" class="btn">Find current location</button>
+    </div>
+
+    <div data-google-map="" data-lat="latitude" data-lng="longitude" style="width: 100%; height: 500px"></div>
+</div>
+
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var myApp = angular.module( "myApp", [] );
+
+
+    // controller
+    myApp.controller('mapCtrl', function function_name ($scope) {
+
+        $scope.latitude = 42.35670;
+        $scope.longitude = -71.05690;
+
+        $scope.findCurLoc = function() {
+            window.navigator.geolocation.getCurrentPosition(function(position) {
+                $scope.latitude = position.coords.latitude;
+                $scope.longitude = position.coords.longitude;
+                $scope.$apply();
+            });
+        };
+    });
+
+    // directive
+    myApp.directive('googleMap', function function_name () {
+        return {
+            scope: {
+                lat: '=',
+                lng: '='
+            },
+            link: function (scope, elem, attrs) {
+
+                var mapOptions = {
+                    zoom             : 8,
+                    disableDefaultUI : true,
+                    center           : new google.maps.LatLng(scope.lat || 0, scope.lng || 0),
+                    mapTypeId        : google.maps.MapTypeId.ROADMAP
+                };
+
+                var map = new google.maps.Map(elem[0], mapOptions);
+
+                // update model when map changes
+                google.maps.event.addListener(map, 'center_changed', function() {
+                    var center = map.getCenter();
+                    var lat = center.lat();
+                    var lng = center.lng();
+                    if (scope.lat != lat || scope.lng != lng) {
+                        //console.log('1: '+scope.lat + ' !== '+lat+", "+scope.lng+" !== "+lng);
+                        scope.lat = lat;
+                        scope.lng = lng;
+                        if(!scope.$$phase) scope.$apply();
+                    }
+                });
+
+
+                // update map when model changes
+                scope.$watch('lng + lat', function () {
+                    var center = map.getCenter();
+                    var lat = center.lat();
+                    var lng = center.lng();
+                    if (scope.lat !== lat || scope.lng !== lng) {
+                        map.setCenter(new google.maps.LatLng(scope.lat, scope.lng));
+                    }
+                });
+            }
+        }
+    });
+
+    angular.bootstrap(document.getElementById('main'), ["myApp"]);
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <section class="slide">
+        <h2>Directive Video Demo</h2>
+        <p>Based on the <a href="https://github.com/jonashartmann/webcam-directive" target="_blank">webcam directive</a></p>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<p>This is going to be sweet!</p>
+<webcam></webcam>
+
+<script src="../js/lib/angular.js"></script>
+<script>
+    (function() {
+
+        // GetUserMedia is not yet supported by all browsers
+        // Until then, we need to handle the vendor prefixes
+        navigator.getMedia = ( navigator.getUserMedia ||
+                navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia ||
+                navigator.msGetUserMedia);
+
+        var Demo = angular.module( "Demo", [] );
+
+        Demo.directive('webcam', function () {
+            return {
+                template:
+                        '<div class="webcam">' +
+                            '<video class="webcam-live"></video>' +
+                        '</div>',
+                restrict: 'EA',
+                replace: true,
+                link: function postLink($scope, element) {
+
+                    // called when camera stream is loaded
+                    var onSuccess = function onSuccess(stream) {
+
+                        // Firefox supports a src object
+                        if (navigator.mozGetUserMedia) {
+                            videoElem.mozSrcObject = stream;
+                        } else {
+                            var vendorURL = window.URL || window.webkitURL;
+                            videoElem.src = vendorURL.createObjectURL(stream);
+                        }
+
+                        /* Start playing the video to show the stream from the webcam*/
+                        videoElem.play();
+                    };
+
+                    // called when any error happens
+                    var onFailure = function onFailure(err) {
+                        alert("uh oh :(");
+                    };
+
+                    // Check the availability of getUserMedia across supported browsers
+                    if (!navigator.getMedia) {
+                        onFailure();
+                        return;
+                    }
+
+                    var videoElem = element.find('video')[0];
+
+                    navigator.getMedia (
+                            {
+                                video: true,  // ask only for video
+                                audio: false
+                            },
+                            onSuccess,
+                            onFailure
+                    );
+                }
+            };
+        });
+        angular.bootstrap($('body'), ["Demo"]);
+    })();
+</script>
+
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <section class="slide">
+        <h2>Directive</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id='main'>
+    <div data-ng-controller="MyScope">
+        <div data-hello-world></div>
+        <input type="text" data-ng-model="name" />
+        {{revName()}}
+    </div>
+</div>
+<script src="../js/lib/angular.js"></script>
+<script>
+    (function() {
+        var Demo = angular.module( "Demo", [] );
+
+        Demo.value("myValue", 'World');
+
+        Demo.factory('myFactory', function() {
+            return {
+                reverse : function(name) {
+                    return name.split("").reverse().join("");
+                }
+            }
+        });
+
+        Demo.controller("MyScope", function($scope, myValue, myFactory) {
+            $scope.name = myValue;
+            $scope.revName = function() {
+                return myFactory.reverse($scope.name);
+            }
+        });
+
+        Demo.directive("helloWorld", function () {
+            return {
+                template : "<fieldset><legend></legend></fieldset>", // templateUri
+                link     : function (scope, elm, $attrs) {
+                    var update = function() {
+                        elm.find('legend').text(scope.name);
+                    };
+                    scope.$watch('name', update);
+                    update();
+                }
+            };
+        });
+        angular.bootstrap($('#main'), ["Demo"]);
+    })();
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Routing</h1>
+            <h3><a href="../examples/angularjs/routing.html">Example - ../examples/angularjs/</a></h3>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+	<!-- End slides. -->
+
+
+	<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>

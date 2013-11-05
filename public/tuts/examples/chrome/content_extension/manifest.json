@@ -1,0 +1,15 @@
+{
+    "name"             : "Script Injection Example",
+    "version"          : "1.0",
+    "manifest_version" : 2,
+    "description"      : "This example demonstrates how to inject script into a pages",
+    "content_scripts"  : [
+        {
+            "matches" : ["http://*/*", "https://*/*"], // inject into all pages
+            "js"      : ["jquery.js", "app.js"]
+        }
+    ],
+    "icons"            : {
+        "128" : "icon.png"
+    }
+}

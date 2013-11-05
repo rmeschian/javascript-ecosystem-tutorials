@@ -1,0 +1,15 @@
+{
+	"name": "Arthur Meschian",
+	"version": "1.0",
+	"manifest_version": 2,
+	"description": "AM youtube channel",
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_title": "EXTENSTION DESCRIPTION",
+		"default_popup": "extension.html"
+	},
+	"content_security_policy": "script-src 'self' https://www.google.com; object-src 'self'",
+	"icons": {
+		"128": "icon.png"
+	}
+}
