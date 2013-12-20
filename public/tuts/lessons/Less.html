@@ -136,7 +136,7 @@
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         -ms-border-radius: 5px;
-        -o-border-radius: 5px
+        -o-border-radius: 5px;
         border-radius: 5px;
         border: solid 1px red;
         padding: 10px;
@@ -147,7 +147,7 @@
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
         -ms-border-radius: 10px;
-        -o-border-radius: 10px
+        -o-border-radius: 10px;
         border-radius: 10px;
         border: solid 1px red;
         padding: 20px;
@@ -196,28 +196,34 @@
         <div class="codeEditor">
             <div class='codeEditor_editor'>
                 <textarea>
-<div id="header">Hello World</div>
-<div id="footer">Welcome to Less!</div>
+<ul>
+    <li>Less</li>
+    <li>is</li>
+    <li>FUN!</li>
+    <li class="target">></li>
+</ul>
 
 <style type="text/less">
-    @border : 1px;
-    @red    : #842210;
-
-    div {
-        margin : 2em;
-        border : solid 10px;
+    @increment: 20;
+    .target {
+        position: absolute;
+        left: 0;
+        top: 0;
+        transition: all .3s linear;
     }
-    #header {
-        border-left-width  : @border;
-        border-right-width : (@border * 10 + 60);
-        width              : (100%/2);
+    li:nth-of-type(2):hover ~ .target {
+        top: @increment*1px
     }
-    #footer {
-        border-color : desaturate(@red, 10%);
+    li:nth-of-type(3):hover ~ .target {
+        top: @increment*2px
+    }
+    li:hover {
+        color: red
     }
 </style>
 
 <script src="../js/lib/less.js"></script>
+
                 </textarea>
             </div>
             <hr />
