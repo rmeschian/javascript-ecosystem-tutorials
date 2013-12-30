@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+    <title>Hadoop</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+<div class="navButtonBar">
+    <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+    <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+    <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+</div>
+
+
+<!-- Begin slides. Just make elements with a class of slide. -->
+
+<section class="slide">
+    <div class='centerMsg'>
+        <h1><span style='color: red'>Hadoop</span></h1>
+    </div>
+</section>
+
+<section class="slide">
+    <ul class='js_fact'>
+        <li>Apache project</li>
+        <li>HDFS</li>
+        <li>Map-Reduce</li>
+    </ul>
+</section>
+
+
+<section class="slide">
+    <div class='centerMsg'>
+        <h1>
+            HDFS - http://www.youtube.com/watch?v=ziqx2hJY8Hg
+        </h1>
+    </div>
+</section>
+
+<section class="slide">
+    Master/Slave Architecture
+    HDFS: Master: NameNode, Slave: DataNode
+    Map-Reduce: Master: JobTracker, Slave: TaskTracker
+
+    SecondaryNameNode - copy NameNode information from RAM to Disk - it is NOT a backup
+    PassiveNameNode - can take over if the Active NameNode failes - in gen 2 hadoop
+    Files stored in 64MB blocks with N copies
+</section>
+
+<section class="slide">
+    <h2>Install Hadoop</h2>
+
+    <ol>
+        <li>Install Java
+            <pre>$ brew install java</pre>
+        </li>
+        <li>Enable SSH
+            <pre>
+$ ssh-keygen -t rsa
+$ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys</pre>
+        </li>
+        <li>Install Hadoop
+            <pre>$ brew install hadoop # Install in /usr/local/Cellar/hadoop/<version></pre>
+        </li>
+        <li>Add this to /libexec/conf/hadoop-env.sh
+            <pre>export HADOOP_OPTS="-Djava.security.krb5.realm=-Djava.security.krb5.kdc="</pre>
+        </li>
+        <li>Format hadoop nodename
+            <pre>$ bin/hadoop namenode -format</pre>
+        </li>
+        <li>Start/Stop
+            <pre>
+$ bin/start-all.sh             # Start hadoop
+$ jps                          # List Java Processes
+$ bin/stop-all.sh              # Stop hadoop</pre>
+        </li>
+    </ol>
+
+    <a href="http://importantfish.com/how-to-install-hadoop-on-mac-os-x/">OSX Installation Tutorial</a>
+</section>
+
+
+<section class="slide">
+    <h2>Web Interfaces</h2>
+    <ul>
+        <li>
+            <a href="http://localhost:50030/">http://localhost:50030/</a> - web UI for MapReduce job tracker(s)
+        </li>
+        <li>
+            <a href="http://localhost:50060/">http://localhost:50060/</a> - web UI for task tracker(s)
+        </li>
+        <li>
+            <a href="http://localhost:50070/">http://localhost:50070/</a> – web UI for HDFS name node(s)
+        </li>
+    </ul>
+    <p>Configured at conf/hadoop-default.xml</p>
+</section>
+
+
+<section class="slide">
+    <h2>Data-binding programmatically</h2>
+        <pre>
+> bin/hadoop fs -ls                             # List files/dirs in HDFS
+> bin/hadoop fs -mkdir                          # Make directory in HDFS
+> bin/hadoop fs -copyFromLocal                  # Copy from local file system to HDFS
+> bin/hadoop fs -copyToLocal                    # Copy from HDFS to local file system
+> bin/hadoop fs -moveToLocal                    # Move from HDFS to local file system
+> bin/hadoop fs -rm                             # Delete file
+> bin/hadoop fs -rmr                            # Delete directory
+> bin/hadoop fs -tail                           # Tail files
+> bin/hadoop fs -chmod                          # Change permissions
+> bin/hadoop fs -setrep -w 4 -R /dir1/s-dir/    # Change replication factor to 4 for all files in the given subdirectory
+        </pre>
+</section>
+
+<section class="slide">
+    <img src="../img/hadoop-writable-class.png" alt=""/>
+</section>
+
+
+
+<section class="slide">
+    <div class='centerMsg'>
+        <h1>Rouben Meschian</h1>
+        <h4>rmeschian@gmail.com</h4>
+    </div>
+</section>
+
+<!-- End slides. -->
+
+
+<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>

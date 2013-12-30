@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+    <title>Javascript Gotchas</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+    <div class="navButtonBar">
+        <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+        <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+        <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+    </div>
+
+
+<!-- Begin slides. Just make elements with a class of slide. -->
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Javascript <span style='color: red'>Gotchas</span></h1>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Function Constructor</h2>
+        <p>Function constructor can be invoked without using ()</p>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script>
+    var Const = function(){
+        this.name = 'Joe';
+    };
+
+    var a = new Const;
+
+    console.log(a.name);
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>instanceof Does not Work On Primitive Values</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script>
+    //instanceof does not work on primtive values
+    console.log("" instanceof String);
+    console.log(3 instanceof Number);
+    console.log(false instanceof Boolean);
+
+    //instanceof works on complex objects
+    console.log(new String() instanceof String);
+    console.log(new Number() instanceof Number);
+    console.log(new Boolean() instanceof Boolean);
+    console.log([] instanceof Array);
+    console.log({} instanceof Object);
+    console.log(/foo/ instanceof RegExp);
+
+    //note
+    console.log([] instanceof Object);
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>The typeof Operator Is Limited and Buggy</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script>
+    console.log(typeof "");
+    console.log(typeof 4);
+    console.log(typeof true);
+    console.log(typeof undefined);
+
+    //But buggy when it comes to null
+    console.log(typeof null);
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Boolean Object Wrappers Are Always true</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script>
+    var b = new Boolean(false);
+    if(b) {
+        console.log("is false");
+    } else {
+        console.log("is true");
+    }
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Boolean can be called as a function to cast a value to a Boolean</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script>
+    //All below return false
+    console.log(Boolean(undefined));
+    console.log(Boolean(null));
+    console.log(Boolean(0));
+    console.log(Boolean(''));
+    console.log(Boolean(NaN));
+
+    //All below return true
+    console.log(Boolean(1));
+    console.log(Boolean('false'));
+    console.log(Boolean([]));
+    console.log(Boolean({}));
+    console.log(Boolean(function(){}));
+    console.log(Boolean(/foo/));
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Calling Primitive Wrapper Constructors Without new Returns Primitive Values</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script>
+   
+    console.log(String('foo') === 'foo');
+    console.log(Number(5) === 5);
+    console.log(Boolean('true') === true);
+
+    // because using new created Object wrapper
+    console.log(new String('foo') === 'foo');
+    console.log(new Number(5) === 5);
+    console.log(new Boolean('true') === true);
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Object() Can Produce Primitive Object Wrappers</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script>
+    console.log(Object(1) instanceof Number);
+    console.log(Object('foo') instanceof String);
+    console.log(Object(true) instanceof Boolean);
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+    <section class="slide">
+        <h2>Accessing Properties On Primitive Values Fails</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script>
+    //create primtives
+    var N = 5;
+    var S = 'foo';
+    var B = true;
+
+    //add properties to primitives, that get destroyed when wrapper is trashed
+    N.test = 'test';
+    S.test = 'test';
+    B.test = 'test';
+
+    //verify that non of these properties remain.
+    console.log(N.test); //logs undefined
+    console.log(S.test); //logs undefined
+    console.log(B.test); //logs undefined
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>delete Won't Delete Inherited Properties</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script>
+    var Person = function(){}; //create Person constructor
+
+    Person.prototype.type = 'person'; //add inherited type property
+
+    var cody = new Person(); //create instance of Person
+
+    delete cody.type //delete type
+
+    console.log(cody.type) //logs person, becuase you can't delete inherited properties
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Array.length Can Be Set, And Has Side Effects</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<script>
+    //add undefined value to array using length property
+    var myArray1 = [];
+    myArray1.length = 3;
+    console.log(myArray1); //logs [undefined, undefined, undefined]
+
+    //remove items from array by changing length property
+    myArray2 = [1,2,3,4,5,6,7,8,9]
+    myArray2.length = 1;
+    console.log(myArray2); //log [1]
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Credits</h2>
+        <ul>
+            <li>Many of the examples taken from:
+                <a href="http://bcreativeweb.blogspot.com/2013/11/javascript-parts-i-struggle-to-remember.html">http://bcreativeweb.blogspot.com</a></li>
+        </ul>
+    </section>
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+<!-- End slides. -->
+
+
+<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>

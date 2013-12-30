@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+    <title>Experiments</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+    <div class="navButtonBar">
+        <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+        <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+        <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+    </div>
+
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+			<h1>Experiments</h1>
+		</div>
+	</section>
+
+
+    <section class="slide">
+        <h2>CSS3 Accordion</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+
+<ul>
+    <li>
+        <h2>Tab 1</h2>
+        <p>This is some content</p>
+    </li>
+    <li>
+        <h2>Tab 2</h2>
+        <p>This is some content</p>
+    </li>
+    <li>
+        <h2>Tab 3</h2>
+        <p>This is some content</p>
+    </li>
+    <li>
+        <h2>Tab 4</h2>
+        <p>This is some content</p>
+    </li>
+</ul>
+
+
+<style type="text/less">
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0
+    }
+    li {
+        margin: .2em;
+        padding: .2em;
+        border: solid 1px gray;
+        height: 40px;
+        transition: all .5s linear;
+        overflow: hidden
+    }
+
+    li:hover {
+        background: lightblue;
+        height: 200px;
+    }
+</style>
+
+<script src="../js/lib/less.js"></script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+	<!-- End slides. -->
+
+
+	<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>
