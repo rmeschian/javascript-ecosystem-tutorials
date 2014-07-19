@@ -14,7 +14,7 @@ db.people.save({name: "Brendan Eich",    age: 32, gender: "male", 	nationality: 
 
 var map = function() {
     emit(this.nationality, this.age);
-}
+};
 
 var reduce = function(key, values) {
     var sum = 0, count = values.length;
@@ -22,7 +22,7 @@ var reduce = function(key, values) {
         sum += val;
     });
     return {nationality: key, avg_age: sum/count};
-}
+};
 
 db.people.mapReduce(map, reduce, { out: "avgAgeCollection" });
 
