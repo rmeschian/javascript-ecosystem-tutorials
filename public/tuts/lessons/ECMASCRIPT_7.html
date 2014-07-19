@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=1024, user-scalable=no">
+        <meta name="author" content="Rouben Meschian">
+
+        <title>ECMASCRIPT 7</title>
+
+
+        <link rel="stylesheet" href="../css/main.css">
+
+        <style type="text/css">
+            .dom-example {
+                font-weight: bold;
+                color: red
+            }
+            .dom-exp {
+
+            }
+        </style>
+    </head>
+    <body class="deck-container">
+
+        <div class="navButtonBar">
+            <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+            <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+            <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+        </div>
+
+        <!-- Begin slides. Just make elements with a class of slide. -->
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1>ECMASCRIPT <span style='color: red'>7</span></h1>
+            </div>
+        </section>
+
+
+
+        <section class="slide">
+            <h2>Object.observe - <a href="http://kangax.github.io/compat-table/es7/#Object.observe" target="_blank">Browser Compatibility</a></h2>
+
+
+            <div class="codeEditor">
+                <div class='codeEditor_editor'>
+                    <textarea>
+<script>
+function log( change ) {
+    // Note that |change.object| is actually a reference to the
+    // target object.
+
+    console.log( "What Changed? ", change.name );
+    console.log( "How did it change? ", change.type );
+    console.log( "What is the present value? ", change.object[ change.name ] );
+}
+
+var o = {};
+
+// Specify |o| as an observable object
+Object.observe(o, function( changes ) {
+    changes.forEach( log );
+});
+
+
+o.who = "Rick";
+
+/*
+What Changed?  who
+How did it change?  new
+What is the present value?  Rick
+*/
+
+o.who = "Rose";
+
+/*
+What Changed?  who
+How did it change?  updated
+What is the present value?  Rose
+*/
+
+delete o.who;
+
+/*
+What Changed?  who
+How did it change?  deleted
+What is the present value?  undefined
+*/
+</script>
+                    </textarea>
+                </div>
+                <hr/>
+                <div class="codeEditor_target"></div>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1>Rouben Meschian</h1>
+                <h4>rmeschian@gmail.com</h4>
+            </div>
+        </section>
+
+        <!-- End slides. -->
+
+
+        <script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+    </body>
+</html>

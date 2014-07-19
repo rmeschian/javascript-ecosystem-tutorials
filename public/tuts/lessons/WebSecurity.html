@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+    <title>Web Security</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+    <div class="navButtonBar">
+        <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+        <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+        <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+    </div>
+
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+			<h1>Web <span style='color: red'>Security</span></h1>
+		</div>
+	</section>
+
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>
+                Security is everyone's business
+            </h1>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Registration Form Example - Part 1</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+
+<form>
+    <fieldset>
+        <legend>Registration Form</legend>
+
+        <div>
+            <input type="text" placeholder="Name" name="name">
+        </div>
+
+        <div>
+            <input type="email" placeholder="Email" name="email">
+        </div>
+
+        <div>
+            <input type="password" placeholder="Password" name="password">
+        </div>
+
+        <button type="submit" class="btn">Submit</button>
+    </fieldset>
+</form>
+
+<script>
+
+    // ==========================================
+    // HACK - force jQuery's AJAX call to call the local function
+
+    $.ajax = function(params) {
+        var userData = params.data;
+        registerUser({body: userData}, {json: function(respData) {
+            if(params.success)
+                params.success(respData);
+        }});
+    };
+
+    // ===========================================
+    // SERVER CODE - to store user data in the DB
+
+    var registerUser = function(req, res) {
+        var userData = req.body;
+        userData.id = Math.random(); // genrate some sort of an id
+
+        // Store the data in your database...say mySQL or MongoDB
+        window.localStorage.setItem('web-sec-data-1', JSON.stringify(userData));
+
+        res.json({message: 'The user data was stored in the DB!', user: userData });
+    };
+
+
+
+    // ===========================================
+    // CLIENT CODE - to submit a form via AJAX
+
+
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url      : "http://example.com",
+            type     : 'post',
+            dataType : 'json',
+            data     : {
+                name     : $('[name=name]').val(),
+                email    : $('[name=email]').val(),
+                password : $('[name=password]').val()
+            },
+            success  : function(data) {
+                console.log('success: ' + JSON.stringify(data));
+            },
+            error    : function(data) {
+                console.log('error: ' + data);
+            }
+        });
+
+    });
+
+</script>
+
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+
+    <section class="slide">
+        <h2>Registration Form Example - Part 2</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+
+<form>
+    <fieldset>
+        <legend>Registration Form</legend>
+
+        <div>
+            <input type="text" placeholder="Name" name="name">
+        </div>
+
+        <div>
+            <input type="email" placeholder="Email" name="email">
+        </div>
+
+        <div>
+            <input type="password" placeholder="Password" name="password">
+        </div>
+
+        <button type="submit" class="btn">Submit</button>
+    </fieldset>
+</form>
+
+<script>
+
+    // ==========================================
+    // HACK - force jQuery's AJAX call to call the local function
+
+    $.ajax = function(params) {
+        var userData = params.data;
+        registerUser({body: userData}, {json: function(respData) {
+            if(params.success)
+                params.success(respData);
+        }});
+    };
+
+    // ===========================================
+    // SERVER CODE - to store user data in the DB
+
+    var registerUser = function(req, res) {
+        var userData = req.body;
+        userData.id = Math.random(); // genrate some sort of an id
+
+        // Store the data in your database...say mySQL or MongoDB
+        window.localStorage.setItem('web-sec-data-1', JSON.stringify(userData));
+
+        res.json({message: 'The user data was stored in the DB!', user: userData });
+    };
+
+
+
+    // ===========================================
+    // CLIENT CODE - to submit a form via AJAX
+
+
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url      : "http://example.com",
+            type     : 'post',
+            dataType : 'json',
+            data     : {
+                name     : $('[name=name]').val(),
+                email    : $('[name=email]').val(),
+                password : $('[name=password]').val()
+            },
+            success  : function(data) {
+                console.log('success: ' + JSON.stringify(data));
+            },
+            error    : function(data) {
+                console.log('error: ' + data);
+            }
+        });
+
+    });
+
+</script>
+
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+    <section class="slide">
+        <h2>Data-binding programmatically</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+
+
+<form>
+    <fieldset>
+        <legend>Registration Form</legend>
+
+        <div>
+            <input type="text" placeholder="Name" name="name">
+        </div>
+
+        <div>
+            <input type="email" placeholder="Email" name="email">
+        </div>
+
+        <div>
+            <input type="password" placeholder="Password" name="password">
+        </div>
+
+        <button type="submit" class="btn">Submit</button>
+    </fieldset>
+</form>
+
+
+<!-- google caja html sanitizer -->
+<script src="../js/lib/html-sanitizer.js"></script>
+
+<script>
+
+    // Sanitize the text with Caja to avoid XSS
+
+    // =========================================
+    // SERVER CODE
+
+    //alert(html_sanitize);
+    //alert(html_sanitize("test<h1>console.log('hi there');</h1>"));
+
+    var myDB = {
+
+    };
+
+    var registerUser = function(userData) {
+
+        //alert(userData.name);
+
+    };
+
+
+    // =========================================
+    // CLIENT CODE
+
+
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+
+        // store the data in my db
+        registerUser($(this).serializeArray());
+    });
+
+</script>
+
+
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+    <section class="slide">
+        <h2>Data-binding programmatically</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+
+
+
+<form>
+    <fieldset>
+        <legend>Registration Form</legend>
+
+        <div>
+            <input type="text" placeholder="Name" name="name">
+        </div>
+
+        <div>
+            <input type="email" placeholder="Email" name="email">
+        </div>
+
+        <div>
+            <input type="password" placeholder="Password" name="password">
+        </div>
+
+        <button type="submit" class="btn">Submit</button>
+    </fieldset>
+</form>
+
+
+<!-- bcrypt - hashing system -->
+<script src="../js/lib/bcrypt.js"></script>
+
+<script>
+
+    // storing passwords
+    var bcrypt = dcodeIO.bcrypt;
+
+    var pepper = 'This is some random text i made up';
+
+    bcrypt.genSalt(10, function(err, salt) {
+
+        bcrypt.hash(pepper+"beacon", salt, function(err, hash) {
+            // Store hash in your password DB.
+
+            alert(hash);
+        });
+    });
+
+    /*
+     console.log('Storing password: '+'bacon');
+     dcodeIO.bcrypt.hash('bacon', 10, function(err, hash) {
+     // Store hash in your password DB.
+     console.log('Saving this to the DB: '+hash);
+
+
+
+     // much later, if user attempts to login:
+
+     dcodeIO.bcrypt.compare('bacon', hash, function(err, res) {
+     // res == true
+     console.log('Correct pwd: '+res);
+     });
+
+
+     });
+
+     */
+
+</script>
+
+
+
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+
+    <!--SQL INJECTION ATTACK-->
+    <!--This will not work if you are using NUMBERs.-->
+
+    <!--"SELECT * FROM data WHERE id = " + a_variable + ";"-->
+    <!--using-->
+
+    <!--1;DROP TABLE users-->
+
+    <!--Gives you-->
+
+    <!--SELECT * FROM DATA WHERE id=1;DROP TABLE users;-->
+
+
+    <!--SELECT fieldlist-->
+    <!--FROM table-->
+    <!--WHERE field = 'anything' OR 'x'='x';-->
+
+    <!--http://www.unixwiz.net/techtips/sql-injection.html-->
+    <!--Use prepared statements-->
+
+    <!--var query = 'SELECT email FROM users WHERE firstName LIKE \'%?%\';';-->
+    <!--connection.query(query, [firstName], function (error, rows, fields){-->
+    <!--//someCodeHere...-->
+    <!--});-->
+
+    <!--Set multipleStatements to false (false by default) to avoid attacks -->
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+	<!-- End slides. -->
+
+
+	<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>

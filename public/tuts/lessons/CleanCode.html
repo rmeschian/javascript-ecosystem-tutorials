@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=1024, user-scalable=no">
+        <meta name="author" content="Rouben Meschian">
+        <title>Principles of clean code</title>
+
+        <link rel="stylesheet" href="../css/main.css">
+    </head>
+    <body class="deck-container">
+
+        <div class="navButtonBar">
+            <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+            <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+            <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+        </div>
+
+        <!-- Begin slides. Just make elements with a class of slide. -->
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1>Principles of <span style='color: red'>Clean</span> Code</h1>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1 class="text-center"><span style='color: red'>Clean</span> code?</h1>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1 class="text-center">Why do we need <span style='color: red'>clean</span> code?</h1>
+                <!--readability + fewer bugs-->
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1 class="text-center">What can we do to have <span style='color: red'>clean</span> code?</h1>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1 class="text-center"><span style='color: red'>Warning:</span> these are my personal opinions :-)</h1>
+            </div>
+        </section>
+
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1 class="text-center">Keep your code simple</h1>
+                <!--write less code-->
+            </div>
+        </section>
+
+        <!--<section class="slide">-->
+            <!--<div class='centerMsg'>-->
+                <!--<img src="../img/devil-pc.gif" alt="evil code" style="height: 300px"/>-->
+                <!--<h1>Code is <span style="color: red">evil</span></h1>-->
+            <!--</div>-->
+        <!--</section>-->
+
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1 class="text-center">Write code that looks familiar</h1>
+                <!--formatting/naming/conventions/design patterns+data-structures-->
+            </div>
+        </section>
+
+        <section class="slide">
+            <h1>Always follow the language conventions</h1>
+
+            <div class="codeEditor">
+                <div class='codeEditor_editor'>
+                    <textarea>
+<script>
+    var func = function()
+    {
+        return
+        {
+            name: 'foo'
+        };
+    }
+
+    // console.log(func());
+</script>
+                    </textarea>
+                </div>
+                <hr/>
+                <div class="codeEditor_target"></div>
+            </div>
+        </section>
+
+
+        <!--<section class="slide">-->
+            <!--<div class='centerMsg'>-->
+                <!--<p class="text-center"><img src="../img/readingComputer.jpg" alt="" /></p>-->
+                <!--<h1 class="text-center">We spend more time reading code than writing it</h1>-->
+            <!--</div>-->
+        <!--</section>-->
+
+        <!--<section class="slide">-->
+            <!--<div class='centerMsg'>-->
+                <!--<img src="../img/yelling.jpg" alt="" style="height: 300px;"/>-->
+                <!--<h1 class="text-center">Write readable code!</h1>-->
+            <!--</div>-->
+        <!--</section>-->
+
+
+
+
+
+        <section class="slide">
+            <h1>Avoid deep-nesting</h1>
+
+            <p>The more levels of nesting, the harder code is to read</p>
+
+    <pre>
+        function myFunc(foo, bar) {
+            if(foo) {
+                if(bar) {
+                   // body of function
+                }
+            }
+        }
+    </pre>
+            <h3>VS</h3>
+    <pre>
+        function myFunc(foo, bar) {
+            if(!foo || !bar)
+                return;
+
+            // body of function
+        }
+    </pre>
+        </section>
+
+        <section class="slide">
+            <div class="centerMsg">
+                <h1>Keep variable names short but descriptive</h1>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="centerMsg">
+                <h1>Don't do too much in a single line</h1>
+            </div>
+        </section>
+
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <img src="../img/puzzle.jpeg" alt="modules"/>
+                <h1>Design systems as a series of modules</h1>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <img src="../img/cohesion.jpeg" alt="cohesion"/>
+                <h1>Maintain high cohesion within modules</h1>
+                <!--Degree to which elements of a whole belong together-->
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <img src="../img/looseCoupling.png" alt="loose coupling"/>
+                <h1>Write loosely coupled code</h1>
+            </div>
+            <!--Seporation of concerns - need as little knowledge as possible to use-->
+            <!--<p>Loosely coupled system is one in which each of its components has, or makes use of, little or no knowledge of the definitions of other separate components.</p>-->
+        </section>
+
+        <section class="slide">
+            <h1>Write functions that required as little to run as possible</h1>
+    <pre>
+        function func(manager) {
+            var id = manager.info.getId();
+            return store.get(id);
+        }
+    </pre>
+            <h3>VS.</h3>
+    <pre>
+        function func(id) {
+            return store.get(id);
+        }
+    </pre>
+        </section>
+
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <img src="../img/evilNerd.jpeg" alt=""/>
+                <h1>Use globals sparingly - they are <span style="color: red">EVIL!</span></h1>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1>Global variables have <span style="color: red">no locality</span></h1>
+            </div>
+            <!--<h1>Source code is easiest to understand when the scope of its individual elements are limited.</h1>-->
+            <!--<h1>Global variables can be read or modified by any part of the program, making it difficult to remember or reason about every possible use.</h1>-->
+            <!--<a href="http://c2.com/cgi/wiki?GlobalVariablesAreBad" target="_blank">Source</a>-->
+        </section>
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1>Global variables have <span style="color: red">no access control</span></h1>
+            </div>
+            <!--A global variable can be get or set by any part of the program, and any rules regarding its use can be easily broken or forgotten. (In other words, get/set accessors are generally preferable over direct data access, and this is even more so for global data.) By extension, the lack of access control greatly hinders achieving security in situations where you may wish to run untrusted code (such as working with 3rd party plugins).-->
+            <!--<a href="http://c2.com/cgi/wiki?GlobalVariablesAreBad" target="_blank">Source</a>-->
+        </section>
+
+        <!--<section class="slide">-->
+            <!--<div class='centerMsg'>-->
+                <!--<h1>Global variables have <span style="color: red">implicit coupling</span></h1>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;A program with many global variables often has tight couplings between some of those variables, and couplings between variables and functions. Grouping coupled items into cohesive units usually leads to better programs.&ndash;&gt;-->
+            <!--&lt;!&ndash;<a href="http://c2.com/cgi/wiki?GlobalVariablesAreBad" target="_blank">Source</a>&ndash;&gt;-->
+        <!--</section>-->
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1>Global variables lead to <span style="color: red">namespace pollution</span></h1>
+            </div>
+            <!--Global names are available everywhere. You may unknowingly end up using a global when you think you are using a local (by misspelling or forgetting to declare the local) or vice versa. Also, if you ever have to link together modules that have the same global variable names, if you are lucky, you will get linking errors. If you are unlucky, the linker will simply treat all uses of the same name as the same object.-->
+            <!--<a href="http://c2.com/cgi/wiki?GlobalVariablesAreBad" target="_blank">Source</a>-->
+        </section>
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <img src="../img/die.jpg" alt="DIE" style="height: 300px"/>
+                <!--Duplication is evil-->
+                <!--<p>Every piece of knowledge must have a single, unambiguous, authoritative representation within a system.</p>-->
+                <!--<a href="http://net.tutsplus.com/tutorials/html-css-techniques/top-15-best-practices-for-writing-super-readable-code/">Source</a>-->
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="centerMsg">
+                <img src="../img/spaghetti.gif" alt=""/>
+                <h1>Avoid spaghetti code</h1>
+            </div>
+            <!--complex and tangled control structure-->
+        </section>
+
+        <section class="slide">
+            <div class="centerMsg">
+                <img src="../img/MVC.png" alt=""/>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <img src="../img/crud4.gif" alt="CRUD" style="height: 300px"/>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <img src="../img/pages.jpg" alt="paging" style="height: 300px"/>
+                <h1>Always page your data</h1>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <img src="../img/test.jpg" alt="test" style="height: 300px"/>
+                <h1>Write specs for your code</h1>
+
+                <!--<li>Validate what you have written</li>-->
+                <!--<li>Validate future changes</li>-->
+            </div>
+        </section>
+
+
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <img src="../img/notepad-97841_640.png" alt="document" style="height: 300px"/>
+                <h1>Comment all public APIs (e.g. javadoc)</h1>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1>/* Code Commenting */</h1>
+
+                <h2>// A comment should explain WHY a piece of code is like it is, not what it does.</h2>
+                <h2>// Don't summarize what a block of code does, <span style="color: red">rewrite it!</span></h2>
+            </div>
+        </section>
+
+
+        <!--<section class="slide">-->
+            <!--<h1>Separation of Code and Data</h1>-->
+        <!--</section>-->
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <img src="../img/shut_up_n_code.jpg" alt="" style="height: 300px"/>
+            </div>
+        </section>
+
+        <!--<section class="slide">-->
+            <!--<div class="centerMsg">-->
+                <!--<h1>Working is better than perfect.</h1>-->
+                <!--<h1>Focus is better than features.</h1>-->
+                <!--<h1>Compatibility is better than purity.</h1>-->
+                <!--<h1 style="color: red">Simplicity is better than anything.</h1>-->
+                <!--<a href="http://blog.izs.me/post/48281998870/unix-philosophy-and-node-js?utm_source=javascriptweekly&utm_medium=email">Source</a>-->
+            <!--</div>-->
+       <!--</section>-->
+
+
+        <section class="slide">
+            <div class="centerMsg">
+                <h1>Iterate quickly</h1>
+                <h1>Refactor ruthlessly</h1>
+                <h1>Rewrite bravely</h1>
+                <a href="http://blog.izs.me/post/48281998870/unix-philosophy-and-node-js?utm_source=javascriptweekly&utm_medium=email">Source</a>
+            </div>
+            <!--Write modules that do one thing well. Write a new module rather than complicate an old one.-->
+            <!--Write modules that encourage composition rather than extension.-->
+            <!--Write modules that handle data Streams, because that is the universal interface.-->
+            <!--Write modules that are agnostic about the source of their input or the destination of their output.-->
+            <!--Write modules that solve a problem you know, so you can learn about the ones you don’t.-->
+            <!--Write modules that are small. Iterate quickly. Refactor ruthlessly. Rewrite bravely.-->
+            <!--Write modules quickly, to meet your needs, with just a few tests for compliance. Avoid extensive specifications. Add a test for each bug you fix.-->
+            <!--Write modules for publication, even if you only use them privately. You will appreciate documentation in the future.-->
+        </section>
+
+
+
+
+        <section class="slide">
+            <div class='centerMsg'>
+                <h1>Rouben Meschian</h1>
+                <h4>rmeschian@gmail.com</h4>
+            </div>
+        </section>
+
+        <!-- End slides. -->
+
+
+        <script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+    </body>
+</html>

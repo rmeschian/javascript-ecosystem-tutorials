@@ -7,7 +7,6 @@
     </head>
     <body style="padding: 1em">
 
-
         <div class="container-narrow">
 
             <header class="masthead">
@@ -17,22 +16,24 @@
             <hr>
 
             <section class="row-fluid marketing">
-                <div data-ng:view></div>
+                <div data-ng-view></div>
             </section>
 
             <hr>
 
             <footer class="footer">
-                <p>&copy; Company 2013</p>
+                <p>&copy; Company 2014</p>
             </footer>
 
         </div>
         <!-- /container -->
 
-        <script type="text/javascript" src="lib/jquery.js"></script>
-        <script type="text/javascript" src="lib/angular.js"></script>
+        <script src="lib/jquery.js"></script>
+        <script src="lib/angular.js"></script>
+        <script src="lib/route.js"></script>
+
         <script>
-            (function () {
+            (function() {
 
                 var data = {
                     numbers : [
@@ -41,42 +42,42 @@
                     ]
                 };
 
-        angular.module('phonecat', [])
-                .controller("PhoneListCtrl", ["$scope", function ($scope) {
+                angular.module('demo', ['ngRoute'])
+                    .controller("PhoneListCtrl", ["$scope", function($scope) {
 
-                    $scope.numbers = data.numbers;
-                    $scope.add = function (newPhone) {
-                        $scope.numbers.push({
-                            id    : $scope.numbers.length.toString(),
-                            value : newPhone.value,
-                            type  : newPhone.type});
-                        newPhone.value = '';
-                        newPhone.type = '';
-                    };
+                        $scope.numbers = data.numbers;
+                        $scope.add = function(newPhone) {
+                            $scope.numbers.push({
+                                id    : $scope.numbers.length.toString(),
+                                value : newPhone.value,
+                                type  : newPhone.type});
+                            newPhone.value = '';
+                            newPhone.type = '';
+                        };
 
-               }]).controller("PhoneDetailCtrl", ["$scope", "$routeParams", function ($scope, $routeParams) {
+                    }]).controller("PhoneDetailCtrl", ["$scope", "$routeParams", function($scope, $routeParams) {
 
-                    $scope.phoneId = $routeParams.phoneId;
+                        $scope.phoneId = $routeParams.phoneId;
 
-                    for (var i = 0; i < data.numbers.length; i++) {
-                        var num = data.numbers[i];
-                        if (num.id === $scope.phoneId) {
-                            $scope.phone = num;
-                            break;
+                        for(var i = 0; i < data.numbers.length; i++) {
+                            var num = data.numbers[i];
+                            if(num.id === $scope.phoneId) {
+                                $scope.phone = num;
+                                break;
+                            }
                         }
-                    }
 
-                }]).config(['$routeProvider', function ($routeProvider) {
+                    }]).config(['$routeProvider', function($routeProvider) {
 
-                    $routeProvider.
+                        $routeProvider.
                             when('/phones', {templateUrl : './partials/phone-list.html', controller : "PhoneListCtrl"}).
                             when('/phones/:phoneId', {templateUrl : './partials/phone-detail.html', controller : "PhoneDetailCtrl"}).
                             otherwise({redirectTo : '/phones'});
 
-                }]);
+                    }]);
 
 
-                angular.bootstrap($('body'), ["phonecat"]);
+                angular.bootstrap($('body'), ["demo"]);
 
             })();
         </script>

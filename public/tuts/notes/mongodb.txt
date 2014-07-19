@@ -1,0 +1,6 @@
+
+
+Trouble Shooting
+$ mongostat
+$ mongotop
+

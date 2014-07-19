@@ -771,9 +771,75 @@
             }
         });
 
+        Demo.directive("helloWorld", function ($rootScope) {
+            return {
+                template : '<fieldset><legend></legend><input type="text" ng-model="name"/></fieldset>', // templateUri
+                // scope: false, // false | true | {  }
+                link     : function (scope, elm, $attrs) {
+
+                    // scopes inherit from each other by default...
+                    // alert(scope.__proto__ === $rootScope);
+
+                    var update = function() {
+                        elm.find('legend').text(scope.name);
+                    };
+                    scope.$watch('name', update);
+                    update();
+                }
+            };
+        });
+        angular.bootstrap($('#main'), ["Demo"]);
+    })();
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Directive - with its own scope</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id='main'>
+    <div data-ng-controller="MyScope">
+        <div data-hello-world></div>
+        <input type="text" data-ng-model="name" />
+        {{revName()}}
+    </div>
+</div>
+<script src="../js/lib/angular.js"></script>
+<script>
+    (function() {
+        var Demo = angular.module( "Demo", [] );
+
+        Demo.value("myValue", 'World');
+
+        Demo.factory('myFactory', function() {
+            return {
+                reverse : function(name) {
+                    return name.split("").reverse().join("");
+                }
+            }
+        });
+
+        Demo.controller("MyScope", function($scope, myValue, myFactory) {
+            $scope.name = myValue;
+            $scope.revName = function() {
+                return myFactory.reverse($scope.name);
+            };
+            $scope.person = {
+                firstName: 'Joe'
+            };
+        });
+
         Demo.directive("helloWorld", function () {
             return {
-                template : "<fieldset><legend></legend></fieldset>", // templateUri
+                template : '<fieldset><legend></legend><input type="text" ng-model="name"/>  <input type="text" ng-model="person.firstName"/></fieldset>', // templateUri
+                scope    : false, // true | false | { ...specific params... }
                 link     : function (scope, elm, $attrs) {
                     var update = function() {
                         elm.find('legend').text(scope.name);

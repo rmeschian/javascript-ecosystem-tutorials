@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+    <title>PEG - Language Parsing</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+    <div class="navButtonBar">
+        <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+        <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+        <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+    </div>
+
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+			<h1>Language Parsing with <span style='color: red'>PEG.js</span></h1>
+            <h3>Based on the tutorial on <a href="http://nathansuniversity.com/pegs.html" target="_blank">Nathan's University</a></h3>
+		</div>
+	</section>
+
+
+
+    <section class="slide">
+        <div class="centerMsg">
+            <h1><a href="http://pegjs.majda.cz/" target="_blank">http://pegjs.majda.cz</a></h1>
+        </div>
+    </section>
+
+	<section class="slide">
+		<div class="centerMsg">
+            <h1>Turning raw text into <span style='color: red'>structured</span> data</h1>
+            <a href="http://esprima.org/demo/parse.html" target="_blank">Example</a>
+		</div>
+	</section>
+
+    <section class="slide">
+        <div class="centerMsg">
+            <h1>Creating a <span style='color: red'>parser</span></h1>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h1>Options for parsing a language</h1>
+        <ul>
+            <li>Write your own function</li>
+            <li>Specify the grammar of your language and hand it over to a parser generator</li>
+        </ul>
+    </section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>
+                PEG Langugae Parser
+            </h1>
+        </div>
+    </section>
+
+
+	<section class="slide">
+		<h2>PEG - Simple example</h2>
+		<div class="codeEditor">
+			<div class='codeEditor_editor'>
+				<textarea>
+<div id="target">
+
+</div>
+
+<button id="runner">Run</button>
+
+<div id="messages"></div>
+
+<script src="../js/lib/peg-0.8.0.js"></script>
+
+<script>
+
+    var containerNode = document.getElementById('target');
+    var messageNode = document.getElementById('messages');
+
+    var textNode = document.createElement('textarea');
+    textNode.style.width = '98%';
+    textNode.style.height = '200px';
+    containerNode.appendChild(textNode);
+
+    var textNode2 = document.createElement('textarea');
+    textNode2.style.width = '98%';
+    textNode2.style.height = '100px';
+    containerNode.appendChild(textNode2);
+
+
+
+    textNode.value = 'start = [a-z]+';
+
+    var compute = function() {
+        messageNode.innerHTML = '';
+        try {
+            var parser = PEG.buildParser(textNode.value);
+            messageNode.innerHTML = JSON.stringify(parser.parse(textNode2.value), null, 4);
+        } catch(e) {
+            messageNode.innerHTML = e;
+        }
+    };
+    var timer;
+    var handler = function() {
+        if(timer)
+            window.clearTimeout(timer);
+        timer = window.setTimeout(function() {
+            window.clearTimeout(timer);
+            timer = null;
+            compute();
+        }, 300);
+    };
+
+    document.getElementById('runner').onclick = handler;
+    textNode2.onkeyup = handler;
+
+</script>
+				</textarea>
+			</div>
+			<hr />
+			<div class="codeEditor_target"></div>
+		</div>
+	</section>
+
+
+    <section class="slide">
+        <h2>PEG.js Sequances</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id="target">
+
+</div>
+
+<button id="runner">Run</button>
+
+<div id="messages"></div>
+
+<script src="../js/lib/peg-0.8.0.js"></script>
+
+<script>
+
+    var containerNode = document.getElementById('target');
+    var messageNode = document.getElementById('messages');
+
+    var textNode = document.createElement('textarea');
+    textNode.style.width = '98%';
+    textNode.style.height = '200px';
+    containerNode.appendChild(textNode);
+
+    var textNode2 = document.createElement('textarea');
+    textNode2.style.width = '98%';
+    textNode2.style.height = '100px';
+    containerNode.appendChild(textNode2);
+
+
+
+    textNode.value = 'start = [1-3] [a-z] [A-Z]';
+
+    var compute = function() {
+        messageNode.innerHTML = '';
+        try {
+            var parser = PEG.buildParser(textNode.value);
+            messageNode.innerHTML = JSON.stringify(parser.parse(textNode2.value), null, 4);
+        } catch(e) {
+            messageNode.innerHTML = e;
+        }
+    };
+    var timer;
+    var handler = function() {
+        if(timer)
+            window.clearTimeout(timer);
+        timer = window.setTimeout(function() {
+            window.clearTimeout(timer);
+            timer = null;
+            compute();
+        }, 300);
+    };
+
+    document.getElementById('runner').onclick = handler;
+    textNode2.onkeyup = handler;
+
+</script>
+
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>PEG.js Parser Actions</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id="target">
+
+</div>
+
+<button id="runner">Run</button>
+
+<div id="messages"></div>
+
+<script src="../js/lib/peg-0.8.0.js"></script>
+
+<script>
+
+    var containerNode = document.getElementById('target');
+    var messageNode = document.getElementById('messages');
+
+    var textNode = document.createElement('textarea');
+    textNode.style.width = '98%';
+    textNode.style.height = '200px';
+    containerNode.appendChild(textNode);
+
+    var textNode2 = document.createElement('textarea');
+    textNode2.style.width = '98%';
+    textNode2.style.height = '100px';
+    containerNode.appendChild(textNode2);
+
+    textNode.value = 'start = exp\n\n'+
+    'number = [0-9]\n\n'+
+    'character = [a-zA-Z]\n\n'+
+    'exp = first:number  second:character  third:character { return  { code: first, name: second + third }; }';
+
+    // can also use 'rest' for the last part of the expression
+
+    var compute = function() {
+        messageNode.innerHTML = '';
+        try {
+            var parser = PEG.buildParser(textNode.value);
+            messageNode.innerHTML = JSON.stringify(parser.parse(textNode2.value), null, 4);
+        } catch(e) {
+            messageNode.innerHTML = e;
+        }
+    };
+    var timer;
+    var handler = function() {
+        if(timer)
+            window.clearTimeout(timer);
+        timer = window.setTimeout(function() {
+            window.clearTimeout(timer);
+            timer = null;
+            compute();
+        }, 300);
+    };
+
+    document.getElementById('runner').onclick = handler;
+    textNode2.onkeyup = handler;
+
+</script>
+
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+    <section class="slide">
+        <h2>PEG.js More complex example</h2>
+        <a href="http://nathansuniversity.com/pegs6.html" target="_blank">Example taken from Nathan's University</a>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id="target">
+
+</div>
+
+<button id="runner">Run</button>
+
+<pre id="messages"></pre>
+
+<script src="../js/lib/peg-0.8.0.js"></script>
+
+<script>
+
+    var containerNode = document.getElementById('target');
+    var messageNode = document.getElementById('messages');
+
+    var textNode = document.createElement('textarea');
+    textNode.style.width = '98%';
+    textNode.style.height = '200px';
+    containerNode.appendChild(textNode);
+
+    var textNode2 = document.createElement('textarea');
+    textNode2.style.width = '98%';
+    textNode2.style.height = '100px';
+    containerNode.appendChild(textNode2);
+
+    textNode.value = ''+
+        '    start = \n ' +
+        '        additive \n ' +
+        ' \n ' +
+        '    additive = \n ' +
+        '        left:multiplicative \'+\' right:additive { return {tag: \'+\', left:left, right:right}; } \n ' +
+        '        / multiplicative \n ' +
+        ' \n ' +
+        '    multiplicative = \n ' +
+        '        left:primary \'*\' right:multiplicative  { return {tag: \'*\', left:left, right:right}; } \n ' +
+        '        / primary \n ' +
+        ' \n ' +
+        '    primary = \n ' +
+        '        integer \n ' +
+        '        / \'(\' additive:additive \')\'  { return additive; } \n ' +
+        ' \n ' +
+        '    integer = \n ' +
+        '        digits:[0-9]+ { return parseInt(digits.join(\'\'), 10); } \n ';
+
+    textNode2.value = '4+5*6';
+    // can also use 'rest' for the last part of the expression
+
+    var compute = function() {
+        messageNode.innerHTML = '';
+        try {
+            var parser = PEG.buildParser(textNode.value);
+            messageNode.innerHTML = JSON.stringify(parser.parse(textNode2.value), null, 4);
+        } catch(e) {
+            messageNode.innerHTML = e;
+        }
+    };
+    var timer;
+    var handler = function() {
+        if(timer)
+            window.clearTimeout(timer);
+        timer = window.setTimeout(function() {
+            window.clearTimeout(timer);
+            timer = null;
+            compute();
+        }, 300);
+    };
+
+    document.getElementById('runner').onclick = handler;
+    textNode2.onkeyup = handler;
+    handler();
+
+</script>
+
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+	<!-- End slides. -->
+
+
+	<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>
