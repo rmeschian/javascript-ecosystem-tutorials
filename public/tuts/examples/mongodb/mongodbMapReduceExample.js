@@ -1,4 +1,4 @@
-// > mongo mongodbMapReduceExample.js
+// $ mongo mongodbMapReduceExample.js
 
 db = db.getSiblingDB("sampleDB"); // select our database
 

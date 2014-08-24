@@ -3,8 +3,6 @@
 var mongodb_db = require('mongodb').Db;
 var mongodb_connection = require('mongodb').Connection;
 var mongodb_server = require('mongodb').Server;
-var mongodb_bson = require('mongodb').BSON;
-var mongodb_objectid = require('mongodb').ObjectID;
 
 var host = 'localhost';
 var port = mongodb_connection.DEFAULT_PORT;

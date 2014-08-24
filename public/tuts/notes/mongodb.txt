@@ -4,3 +4,18 @@ Trouble Shooting
 $ mongostat
 $ mongotop
 
+Google 2004 MapReduce paper -> Hadoop
+
+MongoDB
+> mongod
+> show dbs
+> use DBName
+> db.<collecitonName>.save({...})
+> db.<collectionName>.find()
+> show collections
+> db.<collectionName>.drop();
+
+
+Run demos:
+> mongod
+> mongo db.js

@@ -1,29 +1,29 @@
 {
-    "name"            : "javascript-ecosystem-tutorials",
-    "description"     : "Tutorials of Javascript and related technologies.",
-    "version"         : "0.1.0",
-    "author"          : {
-        "name"  : "Rouben Meschian",
-        "email" : "rmeschian@gmail.com"
-    },
-    "licenses"        : [
-        {
-            "type" : "MIT"
-        }
-    ],
-    "engines"         : {
-        "node" : ">= 0.6.0"
-    },
-    "scripts"         : {
-        "start" : "nodemon --debug --watch ./ --watch lib --watch config app.js"
-    },
-    "devDependencies" : {
-        "grunt"   : "~0.3.17",
-        "nodemon" : "*"
-    },
-    "dependencies"    : {
-        "express" : "*",
-        "ejs"     : "*",
-        "mongodb" : "*"
+  "name": "javascript-ecosystem-tutorials",
+  "description": "Tutorials of Javascript and related technologies.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Rouben Meschian",
+    "email": "rmeschian@gmail.com"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
     }
+  ],
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "start": "nodemon --debug --watch ./ --watch lib --watch config app.js"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.17",
+    "nodemon": "*"
+  },
+  "dependencies": {
+    "ejs": "^1.0.0",
+    "express": "*",
+    "mongodb": "*"
+  }
 }
