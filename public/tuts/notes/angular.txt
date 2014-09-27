@@ -1,0 +1,12 @@
+npm instlal -g yo                   # install yeoman
+npm install -g generator-angular    # install yeoman angular generator
+
+
+
+yo angular 'MyApp'
+
+
+
+bower install jquery -S     # install jquery and save it to bower.json
+bower install               # installs everything in bower.json
+

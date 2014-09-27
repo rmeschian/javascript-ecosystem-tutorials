@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+    <title>WWW Technology Landscape</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+
+    <style type="text/css">
+        .browser-opp {
+            font-weight: bold;
+            color: red
+        }
+        .browser-state {
+            font-weight: bold;
+            color: blue
+        }
+    </style>
+</head>
+<body class="deck-container">
+
+    <div class="navButtonBar">
+        <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+        <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+        <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+    </div>
+
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+			<h1>WWW <span style='color: red'>Technology</span> Landscape</h1>
+            <h2>At a very high level...</h2>
+		</div>
+	</section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>
+                Some background
+            </h1>
+        </div>
+    </section>
+
+    <section class="slide container text-center">
+        <h2>Tim Berners-Lee</h2>
+        <h4>Father of the World Wide Web</h4>
+        <img src="../img/Tim_Berners-Lee_2012.jpg" alt="" style="max-width: 600px" class="img-rounded"/>
+    </section>
+
+    <section class="slide">
+        <h2>Classical Browser Model (Mosaic)</h2>
+
+        <table>
+            <tr>
+                <td class="browser-state">URL</td>
+                <td><i class="icon-arrow-right"></i></td>
+                <td class="browser-opp">Fetch</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><i class="icon-arrow-down"></i></td>
+            </tr>
+            <tr>
+                <td class="browser-opp">Parse</td>
+                <td><i class="icon-arrow-left"></i></td>
+                <td class="browser-state">Cache</td>
+            </tr>
+            <tr>
+                <td><i class="icon-arrow-down"></i></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="browser-state">Tree</td>
+                <td><i class="icon-arrow-right"></i></td>
+                <td class="browser-opp">Flow</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><i class="icon-arrow-down"></i></td>
+            </tr>
+            <tr>
+                <td class="browser-opp">Paint</td>
+                <td><i class="icon-arrow-left"></i></td>
+                <td class="browser-state">Display List</td>
+            </tr>
+            <tr>
+                <td><i class="icon-arrow-down"></i></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="browser-state">Pixles</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+    </section>
+
+    <section class="slide">
+        <h2>Scripted Browser Model (Netscape 2) - 1996</h2>
+        <table>
+            <tr>
+                <td class="browser-opp">Flow</td>
+                <td><i class="icon-arrow-right"></i></td>
+                <td class="browser-opp">Paint</td>
+            </tr>
+            <tr>
+                <td><i class="icon-arrow-up"></i></td>
+                <td></td>
+                <td><i class="icon-arrow-down"></i></td>
+            </tr>
+            <tr>
+                <td class="browser-opp">Script</td>
+                <td><i class="icon-arrow-left"></i></td>
+                <td class="browser-opp">Event</td>
+            </tr>
+        </table>
+    </section>
+
+
+    <section class="slide">
+        <h2>AJAX (Asynchronous Javascript XML)</h2>
+
+        <ul class="unstyled">
+            <li style="margin-bottom: 20px"><img src="../img/ie5.jpeg" style="width: 100px; "/> 1999 Microsoft adds XMLHTTP ActiveX control in Internet Explorer 5, later adopted by other browsers</li>
+            <li style="margin-bottom: 20px"><img src="../img/gmail.png" style="width: 100px; "/> 2004 Google launches Gmail</li>
+            <li style="margin-bottom: 20px"><img src="../img/ajax.png" style="width: 100px; "/> 2005 Jesse James Garrett coined the term "AJAX"</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>
+                Libraries/Frameworks
+            </h1>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>JQuery</h2>
+
+        <div style='margin-top: 1em'>
+            <img src='../img/resig.jpg' class="img-rounded"/>
+        </div>
+        <ul class="unstyled">
+            <li>Created by John Resig in 2006</li>
+            <li>Most popular JavaScript library in use today</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>Javascript Toolkits</h2>
+
+        <ul class="unstyled">
+            <li style="margin-bottom: 20px"><img src="../img/dojo.jpeg" style="width: 100px; "/> 2004</li>
+            <li style="margin-bottom: 20px"><img src="../img/yui.jpg" style="width: 100px; "/> 2005</li>
+            <li style="margin-bottom: 20px"><img src="../img/extjs.jpg" style="width: 100px; "/> 2007</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>MVC</h2>
+        <div class="text-center">
+            <br/>
+
+
+            <ul class="unstyled">
+                <li style="margin-bottom: 20px;"><img src="../img/backbone.png" class="img-rounded" style="width: 200px"/></li>
+                <li style="margin-bottom: 20px;"><img src="../img/knockoutjs2.jpeg" class="img-rounded" style="width: 200px"/></li>
+            </ul>
+
+            <h2>-2010-</h2>
+        </div>
+
+    </section>
+
+    <section class="slide">
+        <h2>Opinionated MVC</h2>
+        <div class="text-center">
+            <img src="../img/emberAngular.jpeg" class="img-rounded"/>
+            <ul class="unstyled">
+                <li>2011 EmberJS</li>
+                <li>2012 AngularJS</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>
+                {{Templating}}
+            </h1>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>One-way data-binding</h2>
+        <img src="../img/One_Way_Data_Binding_-1988261568.png" style="width: 300px"/>
+        <p>
+            <small>Image from <a href="http://geekswithblogs.net/zakariacse/archive/2014/06/04/156765.aspx">here</a></small>
+        </p>
+    </section>
+
+    <section class="slide">
+        <h2>Two-way data-binding</h2>
+        <img src="../img/Two_Way_Data_Binding_484434944.png" style="width: 300px"/>
+        <p>
+            <small>Image from <a href="http://geekswithblogs.net/zakariacse/archive/2014/06/04/156765.aspx">here</a></small>
+        </p>
+    </section>
+
+
+    <section class="slide">
+        <h2>String-based templating</h2>
+        <h4>Example: Underscore.js</h4>
+
+
+            <div class="codeEditor">
+                <div class='codeEditor_editor'>
+                    <textarea>
+<div id='app'></div>
+
+
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/lib/underscore.js"></script>
+<script>
+    var str = '<h1><img src="<%= person.img %>" class="img-circle" /> <%= person.name %></h1>'; // <%- escapes
+    var data = {
+        person: {
+            name: 'Vahagn Poghosyan',
+            img: 'https://media.licdn.com/mpr/mpr/shrink_200_200/p/1/000/0a5/1bd/3f08c37.jpg'
+        }
+    };
+
+    var html = _.template(str, data);
+    $('#app').html(html);
+</script>
+                    </textarea>
+                </div>
+                <hr />
+                <div class="codeEditor_target"></div>
+            </div>
+
+
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Underscore templating - how it works</h2>
+
+
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div id='app'></div>
+
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/lib/underscore.js"></script>
+<script>
+    var data = {
+        person: {
+            name: 'Vahagn Poghosyan',
+            img: 'https://media.licdn.com/mpr/mpr/shrink_200_200/p/1/000/0a5/1bd/3f08c37.jpg'
+        }
+    };
+
+    var func = (function(obj,_) {
+        var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+        with(obj||{}){
+
+            __p += '<h1><img src="' +
+                ((__t=( person.img  ))==null?'':__t) +
+                '" class="img-circle" /> ' +
+                ((__t=( person.name ))==null?'':__t) +
+                '</h1>';
+
+        }
+        return __p;
+    });
+
+    var html = func(data, _);
+    $('#app').html(html);
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+
+    </section>
+
+
+    <section class="slide">
+        <h2>DOM-based templating</h2>
+        <h4>Example: Knockout.js</h4>
+
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<p>First Name: <span data-bind="text: firstName"></span></p>
+<p>First Name: <input data-bind="value: firstName"/></p>
+
+<p>Last Name: <span data-bind="text: lastName"></span></p>
+<p>Last Name: <input data-bind="value: lastName"/></p>
+
+
+<script src="../js/lib/knockout.js"></script>
+<script>
+    var viewModel = {
+        firstName: ko.observable("Serj"),
+        lastName: ko.observable("Tankian")
+    };
+    ko.applyBindings(viewModel);
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+
+    </section>
+
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>
+                Extending DOM functionality
+            </h1>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <ul>
+            <li>DOJO - Widgets</li>
+            <li>YUI - Widgets</li>
+            <li>AngularJS - Directives</li>
+            <li>W3C - Web Components</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>AngularJS Directive Example</h2>
+        <p>Based on the <a href="https://github.com/jonashartmann/webcam-directive" target="_blank">webcam directive</a></p>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<webcam></webcam>
+
+<script src="../js/lib/angular.js"></script>
+<script>
+    (function() {
+
+        // GetUserMedia is not yet supported by all browsers
+        // Until then, we need to handle the vendor prefixes
+        navigator.getMedia = ( navigator.getUserMedia ||
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia ||
+            navigator.msGetUserMedia);
+
+        var Demo = angular.module( "Demo", [] );
+
+        Demo.directive('webcam', function () {
+            return {
+                template:
+                    '<div class="webcam">' +
+                    '<video class="webcam-live"></video>' +
+                    '</div>',
+                restrict: 'EA',
+                replace: true,
+                link: function postLink($scope, element) {
+
+                    // called when camera stream is loaded
+                    var onSuccess = function onSuccess(stream) {
+
+                        // Firefox supports a src object
+                        if (navigator.mozGetUserMedia) {
+                            videoElem.mozSrcObject = stream;
+                        } else {
+                            var vendorURL = window.URL || window.webkitURL;
+                            videoElem.src = vendorURL.createObjectURL(stream);
+                        }
+
+                        /* Start playing the video to show the stream from the webcam*/
+                        videoElem.play();
+                    };
+
+                    // called when any error happens
+                    var onFailure = function onFailure(err) {
+                        alert("uh oh :(");
+                    };
+
+                    // Check the availability of getUserMedia across supported browsers
+                    if (!navigator.getMedia) {
+                        onFailure();
+                        return;
+                    }
+
+                    var videoElem = element.find('video')[0];
+
+                    navigator.getMedia (
+                        {
+                            video: true,  // ask only for video
+                            audio: false
+                        },
+                        onSuccess,
+                        onFailure
+                    );
+                }
+            };
+        });
+        angular.bootstrap($('body'), ["Demo"]);
+    })();
+</script>
+
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>
+                More...
+            </h1>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+	<!-- End slides. -->
+
+
+	<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>

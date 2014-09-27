@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+    <title>Protractor</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+    <div class="navButtonBar">
+        <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+        <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+        <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+    </div>
+
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+            <img src="../img/protractor-logo-450.png">
+		</div>
+	</section>
+
+	<section class="slide">
+        <ol>
+            <li>Install NodeJS</li>
+            <li>npm install protractor -g</li>
+            <li>webdriver-manager update</li>
+        </ol>
+	</section>
+
+    <section class="slide">
+        <h2>Start Selenium Server</h2>
+        <h3>Protractor passes requests to Selenium when then controls browsers</h3>
+        <ol>
+            <li>$ webdriver-manager start    // start selenium</li>
+            <li><a href="http://localhost:4444/wd/hub">Selenium status</a></li>
+        </ol>
+    </section>
+
+
+    <section class="slide">
+        <h2>QUnit</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<!-- Some code we want to test -->
+<script>
+    var Armenia = function() {};
+    Armenia.prototype.rocks = function() {
+        return 'Heck yes it does!!!';
+    };
+    Armenia.prototype.asyncFunc = function(str, cb) {
+        window.setTimeout(function() {
+            cb(str+' is great');
+        }, 100);
+    };
+</script>
+
+
+
+<!-- Test -->
+<link rel="stylesheet" href="../css/qunit.css">
+<script src="../js/lib/qunit.js"></script>
+
+<div id="qunit"></div>
+
+<script>
+    QUnit.test( "rocks: should return something positive", function( assert ) {
+        var armenia = new Armenia();
+        assert.equal(armenia.rocks(), 'Heck yes it does!!!');
+        assert.ok( armenia.rocks() === 'Heck yes it does!!!', "Passed!" );
+    });
+
+    QUnit.asyncTest('asyncFunc: should return the given string with " is great" at the end', function(assert) {
+        var armenia = new Armenia();
+        armenia.asyncFunc('Goris', function(resp) {
+            assert.equal(resp, 'Goris is great');
+            QUnit.start();
+        });
+    });
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Mocha</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<!-- Some code we want to test -->
+<script>
+    var Armenia = function() {};
+    Armenia.prototype.rocks = function() {
+        return 'Heck yes it does!!!';
+    };
+    Armenia.prototype.add = function(a, b) {
+        return a + b;
+    };
+    Armenia.prototype.asyncFunc = function(str, cb) {
+        window.setTimeout(function() {
+            cb(str+' is great');
+        }, 1000);
+    };
+</script>
+
+
+
+<!-- Test -->
+<link rel="stylesheet" href="../css/mocha.css">
+<script src="../js/lib/mocha.js"></script>
+<script src="../js/lib/chai.js"></script>
+
+<div id="mocha"></div>
+
+<script>
+    var assert = chai.assert;
+    mocha.setup('bdd');
+
+    describe('Armenia', function(){
+        describe('#rocks()', function(){
+            it('should return a very positive result', function(){
+                var armenia = new Armenia();
+                assert.equal(armenia.rocks(), 'Heck yes it does!!!');
+            });
+        });
+
+        describe('#add()', function(){
+            it('should return the sum of any two numbers', function(){
+                var armenia = new Armenia();
+                assert.equal(armenia.add(1, 2), 3);
+            });
+        });
+
+        // testing an asynchronous method
+        describe('#asyncFunc()', function(){
+            it('should return the given string with " is great" at the end', function(done){
+                var armenia = new Armenia();
+                armenia.asyncFunc('Goris', function(resp) {
+                    assert.equal(resp, 'Goris is great');
+                    done();
+                });
+            });
+        });
+    });
+
+    mocha.run();
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Jasmine</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<!-- Some code we want to test -->
+<script>
+    var Armenia = function() {};
+    Armenia.prototype.rocks = function() {
+        return 'Heck yes it does!!!';
+    };
+    Armenia.prototype.add = function(a, b) {
+        return a + b;
+    };
+    Armenia.prototype.asyncFunc = function(str, cb) {
+        window.setTimeout(function() {
+            cb(str+' is great');
+        }, 1000);
+    };
+</script>
+
+
+
+<!-- Test -->
+<link rel="shortcut icon" type="image/png" href="../js/lib/jasmine/jasmine_favicon.png">
+<link rel="stylesheet" type="text/css" href="../js/lib/jasmine/jasmine.css">
+
+<script type="text/javascript" src="../js/lib/jasmine/jasmine.js"></script>
+<script type="text/javascript" src="../js/lib/jasmine/jasmine-html.js"></script>
+<script type="text/javascript" src="../js/lib/jasmine/boot.js"></script>
+
+
+
+<div id="jasmine"></div>
+
+<script>
+    describe('Armenia', function(){
+        describe('#rocks()', function(){
+            it('should return a very positive result', function(){
+                var armenia = new Armenia();
+                expect(armenia.rocks()).toBe('Heck yes it does!!!');
+            });
+        });
+
+        describe('#add()', function(){
+            it('should return the sum of any two numbers', function(){
+                var armenia = new Armenia();
+                expect(armenia.add(1, 2)).toBe(3);
+            });
+        });
+
+        // testing an asynchronous method
+        describe('#asyncFunc()', function(){
+            it('should return the given string with " is great" at the end', function(done){
+                var armenia = new Armenia();
+                armenia.asyncFunc('Goris', function(resp) {
+                    expect(resp).toBe('Goris is great');
+                    done();
+                });
+            });
+        });
+    });
+
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+	<!-- End slides. -->
+
+
+	<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>
