@@ -159,6 +159,79 @@
     </section>
 
 
+    <section class="slide">
+        <h2>Simple example of using <span style='color: red'>Angular</span></h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div ng-app="sampleApp">
+    <div ng-controller="SampleCtrl" >
+        <input type="text" ng-model="data.value"/>
+        <h1 ng-bind="data.value"></h1>
+    </div>
+</div>
+
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module('sampleApp', []);
+    app.controller('SampleCtrl', ['$scope',
+        function($scope) {
+            $scope.data = {
+                value: 'Hello Yerevan!'
+            };
+        }
+    ]);
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Simple example of using <span style='color: red'>Angular</span>Fire</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div ng-app="sampleApp">
+    <a href="https://torid-inferno-7130.firebaseio.com" target="_blank">Link to my firebase url</a>
+    <div ng-controller="SampleCtrl" >
+        <input type="text" ng-model="data.value"/>
+        <h1 ng-bind="data.value"></h1>
+    </div>
+</div>
+
+<script src="../js/lib/angular.js"></script>
+<script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
+<script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
+<script>
+    var app = angular.module("sampleApp", ["firebase"]);
+    app.controller("SampleCtrl", ["$scope", "$firebase",
+        function($scope, $firebase) {
+            var ref = new Firebase('https://torid-inferno-7130.firebaseio.com/value');
+
+            // create an AngularFire reference to the data
+            var sync = $firebase(ref);
+
+            // create a synchronized object, all server changes are downloaded in realtime
+            var dataObj = sync.$asObject();
+
+                    // set up 3-way data-binding
+            dataObj.$bindTo($scope, "data");
+
+        }
+    ]);
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
 
     <section class="slide">
         <h2>Message board with <span style='color: red'>Angular</span>Fire</h2>
