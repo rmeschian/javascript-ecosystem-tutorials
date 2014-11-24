@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta name="author" content="Rouben Meschian">
+    <title>Firebase</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="deck-container">
+
+    <div class="navButtonBar">
+        <a href="javascript:void(0)" class="backBtn btn-small btn-primary" title="Back"><i class="icon-arrow-left icon-white"></i></a>
+        <a href="javascript:void(0)" class="forwardBtn btn-small btn-primary" title="Forward"><i class="icon-arrow-right icon-white"></i></a>
+        <a href="../index.html" title="Home" class=" btn-small btn-primary"><i class="icon-home icon-white"></i></a>
+    </div>
+
+
+	<!-- Begin slides. Just make elements with a class of slide. -->
+
+	<section class="slide">
+		<div class='centerMsg'>
+			<h1 style='color: red'>Firebase</h1>
+            <h3>Store and sync data instantly...</h3>
+		</div>
+	</section>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Data Center > Amazon > Heroku > <span style='color: red'>Firebase</span></h1>
+        </div>
+    </section>
+
+	<section class="slide">
+		<ul class='js_fact'>
+			<li>Store & Sync Data Instantly</li>
+            <li>Service, not an open-source project</li>
+
+            <li>CRUD</li>
+            <li>Authentication</li>
+            <li>Security</li>
+		</ul>
+	</section>
+
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>
+                Create an account at <a href="http://firebase.com">firebase.com</a>
+            </h1>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Simple example</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<a href="https://torid-inferno-7130.firebaseio.com" target="_blank">Link to my firebase url</a>
+
+<form>
+    <input type='text' id='nameInput' placeholder='Name'>
+    <input type="text" id='messageInput' placeholder='Message'/>
+    <button class="btn">Submit</button>
+</form>
+
+<script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
+<script>
+    // firebase url (can add path to specify path in json structure)
+    var myDataRef = new Firebase('https://torid-inferno-7130.firebaseio.com');
+
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+        var name = $('#nameInput').val();
+        var text = $('#messageInput').val();
+        myDataRef.push({name: name, text: text});
+        $('#messageInput').val('');
+    });
+
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+    <section class="slide">
+        <h2>Simple message board</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<a href="https://torid-inferno-7130.firebaseio.com" target="_blank">Link to my firebase url</a>
+
+<ol id="list"></ol>
+
+<form>
+    <input type='text' id='nameInput' placeholder='Name'>
+    <input type="text" id='messageInput' placeholder='Message'/>
+    <button class="btn">Submit</button>
+</form>
+
+<script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
+<script>
+    var messagesRef = new Firebase('https://torid-inferno-7130.firebaseio.com/messages');
+
+
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+        var name = $('#nameInput').val();
+        var text = $('#messageInput').val();
+        messagesRef.push({name: name, text: text});
+        $('#messageInput').val('');
+    });
+
+    var $messageList = $('#list');
+
+
+    var messageQueryRef = messagesRef.limitToLast(10);
+    // query: .orderByChild('name').equalTo('rouben').limitToLast(10)
+
+    // Add a callback that is triggered for each chat message.
+    messageQueryRef.on('child_added', function (snapshot) {
+
+        //GET DATA
+        var data = snapshot.val();
+        var username = data.name || "anonymous";
+        var message = data.text;
+        var id = snapshot.key();
+
+        // DISPLAY MESSAGE
+        $('<li data-key="'+ id +'">' + username + ': ' + message + '</li>').appendTo($messageList);
+    });
+
+    messageQueryRef.on('child_removed', function(snapshot) {
+        var id = snapshot.key();
+        $('[data-key="' + id + '"]').remove();
+    });
+
+    messageQueryRef.on("child_changed", function(snapshot) {
+        //GET DATA
+        var data = snapshot.val();
+        var username = data.name || "anonymous";
+        var message = data.text;
+        var id = snapshot.key();
+        $('[data-key="' + id + '"]').html(username + ': ' + message);
+    });
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <section class="slide">
+        <h2>Message board with <span style='color: red'>Angular</span>Fire</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<div ng-app="sampleApp">
+    <a href="https://torid-inferno-7130.firebaseio.com" target="_blank">Link to my firebase url</a>
+    <div ng-controller="SampleCtrl" >
+        <ul>
+            <li ng-repeat="message in messages">
+                {{ message.name }}: {{ message.text }}
+            </li>
+        </ul>
+
+        <form ng-submit="add(newItem)">
+            <input type='text' ng-model="newItem.name" placeholder='Name'>
+            <input type="text" ng-model="newItem.text" placeholder='Message'/>
+            <button class="btn">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script src="../js/lib/angular.js"></script>
+<script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
+<script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
+<script>
+    var app = angular.module("sampleApp", ["firebase"]);
+    app.controller("SampleCtrl", ["$scope", "$firebase",
+        function($scope, $firebase) {
+            var ref = new Firebase('https://torid-inferno-7130.firebaseio.com/messages').limitToLast(10);
+
+            // create an AngularFire reference to the data
+            var sync = $firebase(ref);
+
+            // $scope.data = sync.$asObject();
+            $scope.messages = sync.$asArray();
+
+            $scope.add = function(obj) {
+                $scope.messages.$add(obj);
+                $scope.newItem.text = '';
+            };
+        }
+    ]);
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
+    <div class="slide">
+        <div class='centerMsg'>
+            <h1>Remember that Firebase is a service, not an open-source project</h1>
+        </div>
+    </div>
+
+    <section class="slide">
+        <div class='centerMsg'>
+            <h1>Rouben Meschian</h1>
+            <h4>rmeschian@gmail.com</h4>
+        </div>
+    </section>
+
+	<!-- End slides. -->
+
+
+	<script data-main="../js/main" src="../js/lib/require/require.js"></script>
+
+</body>
+</html>
