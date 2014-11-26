@@ -286,6 +286,93 @@
 
 
 
+
+
+
+    <section class="slide">
+        <h2>Tic Tac Toe <span style='color: red'>Angular</span>Fire</h2>
+        <div class="codeEditor">
+            <div class='codeEditor_editor'>
+                <textarea>
+<style>
+    .main {
+        padding: 20px;
+        width: 430px;
+    }
+    .cell {
+        width       : 100px;
+        height      : 100px;
+        padding     : 2px;
+        margin      : 2px;
+        outline     : 1px solid #bbb;
+        float       : left;
+        font-size   : 50px;
+        line-height : 1;
+        overflow    : hidden;
+    }
+</style>
+
+<div ng-app="sampleApp" class="main">
+    <a href="https://torid-inferno-7130.firebaseio.com" target="_blank">Link to my firebase url</a>
+    <div ng-controller="SampleCtrl" >
+
+        <input type="url" ng-model="userImage" placeholder="your image url"/>
+
+        <div ng-repeat="cell in game.board">
+            <div class="cell" ng-click="cellClicked(cell)">
+                <img ng-src="{{cell.image}}">
+            </div>
+        </div>
+
+        <button ng-click="restart()">Restart</button>
+
+    </div>
+</div>
+
+<script src="../js/lib/angular.js"></script>
+<script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
+<script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
+<script>
+    var app = angular.module("sampleApp", ["firebase"]);
+    app.controller("SampleCtrl", ["$scope", "$firebase",
+        function($scope, $firebase) {
+            var ref = new Firebase('https://torid-inferno-7130.firebaseio.com/game');
+
+            // create an AngularFire reference to the data
+            var sync = $firebase(ref);
+
+            // create a synchronized object, all server changes are downloaded in realtime
+            var dataObj = sync.$asObject();
+
+            // set up 3-way data-binding
+            dataObj.$bindTo($scope, "game");
+
+            $scope.restart = function() {
+                $scope.game.board = [{id: 0}, {id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}, {id: 7}, {id: 8}];
+            };
+
+            $scope.userImage = 'http://images5.fanpop.com/image/photos/28600000/puppy-wallpaper-dancing-little-animals-28654684-500-400.jpg';
+
+            dataObj.$loaded().then(function() {
+                if(!$scope.game.board)
+                    $scope.restart();
+            });
+
+            $scope.cellClicked = function(cell) {
+                cell.image = $scope.userImage;
+            };
+        }
+    ]);
+</script>
+                </textarea>
+            </div>
+            <hr />
+            <div class="codeEditor_target"></div>
+        </div>
+    </section>
+
+
+
     <div class="slide">
         <div class='centerMsg'>
             <h1>Remember that Firebase is a service, not an open-source project</h1>
